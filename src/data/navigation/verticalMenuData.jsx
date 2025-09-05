@@ -33,6 +33,11 @@ const verticalMenuData = dictionary => [
         label: dictionary['navigation'].logistics,
         icon: 'tabler-circle',
         href: '/dashboards/logistics'
+      },
+      {
+        label: dictionary['navigation'].marketing,
+        icon: 'tabler-truck',
+        href: '/dashboards/marketing'
       }
     ]
   },

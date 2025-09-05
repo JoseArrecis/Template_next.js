@@ -29,6 +29,11 @@ const horizontalMenuData = dictionary => [
         label: dictionary['navigation'].logistics,
         icon: 'tabler-truck',
         href: '/dashboards/logistics'
+      },
+      {
+        label: dictionary['navigation'].marketing,
+        icon: 'tabler-truck',
+        href: '/dashboards/marketing'
       }
     ]
   },
