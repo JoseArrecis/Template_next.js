@@ -12,7 +12,6 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Missing required fields' })
     }
 
-    // Aquí puedes agregar la lógica de usuario existente
     const existingUser = false
     if (existingUser) {
       return res.status(400).json({ error: 'Email already registered' })
