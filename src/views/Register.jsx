@@ -75,7 +75,7 @@ const Register = ({ mode }) => {
     setErrorState(null)
 
     try {
-      const res = await fetch('/api/signup', {
+      const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password })
