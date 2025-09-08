@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+
 // Next Imports
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
@@ -9,6 +11,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { styled, useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
+import Alert from '@mui/material/Alert'
 
 // Third-party Imports
 import classnames from 'classnames'
@@ -64,19 +67,50 @@ const ForgotPassword = ({ mode }) => {
   const authBackground = useImageVariant(mode, lightImg, darkImg)
   const characterIllustration = useImageVariant(mode, lightIllustration, darkIllustration)
 
+  // State
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState(null)
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
+
+  // Handler
+  const handleSubmit = async e => {
+    e.preventDefault()
+    setLoading(true)
+    setError(null)
+    setMessage(null)
+
+    try {
+      const res = await fetch('/api/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) throw new Error(data.error || 'Something went wrong')
+
+      setMessage('✅ Reset link sent to your email!')
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className='flex bs-full justify-center'>
       <div
         className={classnames(
           'flex bs-full items-center justify-center flex-1 min-bs-[100dvh] relative p-6 max-md:hidden',
-          {
-            'border-ie': settings.skin === 'bordered'
-          }
+          { 'border-ie': settings.skin === 'bordered' }
         )}
       >
         <ForgotPasswordIllustration src={characterIllustration} alt='character-illustration' />
         {!hidden && <MaskImg alt='mask' src={authBackground} />}
       </div>
+
       <div className='flex justify-center items-center bs-full bg-backgroundPaper !min-is-full p-6 md:!min-is-[unset] md:p-12 md:is-[480px]'>
         <Link
           href={getLocalizedUrl('/login', locale)}
@@ -84,16 +118,30 @@ const ForgotPassword = ({ mode }) => {
         >
           <Logo />
         </Link>
+
         <div className='flex flex-col gap-6 is-full sm:is-auto md:is-full sm:max-is-[400px] md:max-is-[unset] mbs-8 sm:mbs-11 md:mbs-0'>
           <div className='flex flex-col gap-1'>
             <Typography variant='h4'>Forgot Password 🔒</Typography>
             <Typography>Enter your email and we&#39;ll send you instructions to reset your password</Typography>
           </div>
-          <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()} className='flex flex-col gap-6'>
-            <CustomTextField autoFocus fullWidth label='Email' placeholder='Enter your email' />
-            <Button fullWidth variant='contained' type='submit'>
-              Send Reset Link
+
+          <form noValidate autoComplete='off' onSubmit={handleSubmit} className='flex flex-col gap-6'>
+            <CustomTextField
+              autoFocus
+              fullWidth
+              label='Email'
+              placeholder='Enter your email'
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+            />
+
+            <Button fullWidth variant='contained' type='submit' disabled={loading}>
+              {loading ? 'Sending...' : 'Send Reset Link'}
             </Button>
+
+            {message && <Alert severity="success">{message}</Alert>}
+            {error && <Alert severity="error">{error}</Alert>}
+
             <Typography className='flex justify-center items-center' color='primary.main'>
               <Link href={getLocalizedUrl('/login', locale)} className='flex items-center gap-1.5'>
                 <DirectionalIcon
