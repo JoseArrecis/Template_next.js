@@ -74,30 +74,31 @@ const ForgotPassword = ({ mode }) => {
   const [loading, setLoading] = useState(false)
 
   // Handler
-  const handleSubmit = async e => {
-    e.preventDefault()
-    setLoading(true)
-    setError(null)
-    setMessage(null)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
+    setMessage(null);
+
+    if (!email) {
+      setError('Please enter your email');
+      return;
+    }
 
     try {
-      const res = await fetch('/api/reset-password', {
+      const res = await fetch('/api/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
-      })
+      });
 
-      const data = await res.json()
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Something went wrong');
 
-      if (!res.ok) throw new Error(data.error || 'Something went wrong')
-
-      setMessage('✅ Reset link sent to your email!')
+      setMessage(`✅ Reset link sent! Token: ${data.token}`);
     } catch (err) {
-      setError(err.message)
-    } finally {
-      setLoading(false)
+      setError(err.message);
     }
-  }
+  };
 
   return (
     <div className='flex bs-full justify-center'>
