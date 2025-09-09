@@ -3,8 +3,9 @@ import bcrypt from 'bcryptjs'
 
 const SECRET_KEY = process.env.JWT_SECRET || 'supersecretkey'
 
+// Ejemplo de base de datos temporal
 let users = [
-  { email: 'andre.arrecisvargas@gmail.com', password: 'client' }
+  { email: 'jose@test.com', password: '$2a$10$xxxxxxxxxx' }
 ]
 
 export async function POST(req) {
@@ -22,12 +23,13 @@ export async function POST(req) {
       return new Response(JSON.stringify({ error: 'User not found' }), { status: 404 })
     }
 
+    // Hash de la nueva contraseña
     const hashedPassword = await bcrypt.hash(password, 10)
     user.password = hashedPassword
 
     return new Response(JSON.stringify({ message: '✅ Password reset successful' }), { status: 200 })
-  } catch (error) {
-    console.error('ResetPassword error:', error)
+  } catch (err) {
+    console.error('ResetPassword error:', err)
     return new Response(JSON.stringify({ error: 'Invalid or expired token' }), { status: 400 })
   }
 }
