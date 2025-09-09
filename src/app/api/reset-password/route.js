@@ -1,35 +1,33 @@
-import jwt from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
 
-const SECRET_KEY = process.env.JWT_SECRET || 'supersecretkey';
+const SECRET_KEY = process.env.JWT_SECRET || 'supersecretkey'
+
+let users = [
+  { email: 'andre.arrecisvargas@gmail.com', password: 'client' }
+]
 
 export async function POST(req) {
-  const { email } = await req.json();
+  try {
+    const { token, password } = await req.json()
 
-  if (!email) {
-    return new Response(JSON.stringify({ error: 'Email required' }), { status: 400 });
+    if (!token || !password) {
+      return new Response(JSON.stringify({ error: 'Token and password required' }), { status: 400 })
+    }
+
+    const decoded = jwt.verify(token, SECRET_KEY)
+    const user = users.find(u => u.email === decoded.email)
+
+    if (!user) {
+      return new Response(JSON.stringify({ error: 'User not found' }), { status: 404 })
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10)
+    user.password = hashedPassword
+
+    return new Response(JSON.stringify({ message: '✅ Password reset successful' }), { status: 200 })
+  } catch (error) {
+    console.error('ResetPassword error:', error)
+    return new Response(JSON.stringify({ error: 'Invalid or expired token' }), { status: 400 })
   }
-
-  // Generar token temporal
-  const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: '1h' });
-
-  // URL para reset password v2
-  const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/pages/auth/reset-password-v2?token=${token}`;
-
-  // Configurar transporte de correo
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: 587,
-    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
-  });
-
-  // Enviar correo
-  await transporter.sendMail({
-    from: `"MyApp" <${process.env.SMTP_USER}>`,
-    to: email,
-    subject: "Reset your password",
-    html: `<p>Click <a href="${resetUrl}">here</a> to reset your password</p>`,
-  });
-
-  return new Response(JSON.stringify({ message: 'Reset link sent ✅' }), { status: 200 });
 }
