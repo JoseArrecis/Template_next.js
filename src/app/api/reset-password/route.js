@@ -18,7 +18,7 @@ export async function POST(req) {
 
     const userLang = lang || 'en';
 
-    const resetLink = `${process.env.NEXT_PUBLIC_BASE_URL}/${userLang}/pages/auth/change-password-v2?token=${token}`;
+    const resetLink = `${process.env.NEXT_PUBLIC_BASE_URL}/${userLang}/pages/auth/reset-password-v2?token=${token}`;
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
