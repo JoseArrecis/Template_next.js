@@ -89,8 +89,8 @@ const ResetPasswordV2 = ({ mode }) => {
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Something went wrong')
-      setMessage('✅ Password changed successfully!')
-      setTimeout(() => router.push(getLocalizedUrl('/pages/auth/login-v2', locale)), 2000)
+  setMessage('✅ Password changed successfully!')
+  setTimeout(() => router.push(getLocalizedUrl('/login', locale)), 2000)
     } catch (err) {
       setError(err.message)
     } finally {
@@ -183,7 +183,7 @@ const ResetPasswordV2 = ({ mode }) => {
             {message && <Alert severity='success'>{message}</Alert>}
 
             <Typography className='flex justify-center items-center' color='primary.main'>
-              <Link href={getLocalizedUrl('/pages/auth/login-v2', locale)} className='flex items-center gap-1.5'>
+              <Link href={getLocalizedUrl('/login', locale)} className='flex items-center gap-1.5'>
                 <DirectionalIcon ltrIconClass='tabler-chevron-left' rtlIconClass='tabler-chevron-right' className='text-xl' />
                 <span>Back to login</span>
               </Link>

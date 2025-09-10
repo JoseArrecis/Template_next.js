@@ -56,9 +56,10 @@ const ForgotPassword = ({ mode }) => {
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async e => {
-    e.preventDefault()
-    setError('')
-    setMessage('')
+  console.log('submit')
+  e.preventDefault()
+  setError('')
+  setMessage('')
 
     if (!email) return setError('Please enter your email')
     setLoading(true)
