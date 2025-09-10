@@ -82,7 +82,7 @@ const ResetPasswordV2 = ({ mode }) => {
 
     setLoading(true)
     try {
-      const res = await fetch('/api/reset-password-v2', {
+  const res = await fetch(`${window.location.origin}/api/reset-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token, password }),
