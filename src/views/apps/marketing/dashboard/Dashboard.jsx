@@ -17,7 +17,6 @@ ChartJS.register(
 )
 
 const Dashboard = () => {
-  // Datos para Performance Semanal
   const weeklyData = {
     labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
     datasets: [
@@ -42,14 +41,13 @@ const Dashboard = () => {
     }
   }
 
-  // Datos para Leads por Canal
   const leadsData = {
     labels: ['Email', 'Social Media', 'Ads', 'Referral'],
     datasets: [
       {
         label: 'Leads',
         data: [400, 300, 200, 100],
-        backgroundColor: ['#5048e5', '#0984e3', '#5a564e', '#00b894']
+        backgroundColor: ['#5048e5', '#0984e3', '#5a564e', '#dae6e3ff']
       }
     ]
   }

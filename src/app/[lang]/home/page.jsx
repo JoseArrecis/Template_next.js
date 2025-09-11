@@ -50,6 +50,6 @@ export default function HomePage() {
       }}>
         Iniciar sesión
       </a>
-    </div>
+    </div>  
   );
 }
