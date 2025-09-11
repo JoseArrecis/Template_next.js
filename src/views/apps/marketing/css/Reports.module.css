@@ -13,12 +13,6 @@
   margin-bottom: 1rem;
 }
 
-.subtitle {
-  font-size: 1.125rem;
-  color: #b0b0c3;
-  margin-bottom: 2rem;
-}
-
 .cardsContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -43,7 +37,6 @@
   font-weight: 700;
 }
 
-/* Colores de las métricas */
 .cardPrimary { background: #5048e5; }
 .cardSuccess { background: #ffffff; color: black;}
 .cardInfo { background: #5a564e; }

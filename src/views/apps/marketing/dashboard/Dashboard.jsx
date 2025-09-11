@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Line, Doughnut } from 'react-chartjs-2'
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js'
 import styles from '../css/Dashboard.module.css'
@@ -16,7 +16,9 @@ ChartJS.register(
   ArcElement
 )
 
-const Dashboard = () => {
+export default function Dashboard() {
+  const [roiFlipped, setRoiFlipped] = useState(false)
+
   const weeklyData = {
     labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
     datasets: [
@@ -32,9 +34,7 @@ const Dashboard = () => {
 
   const weeklyOptions = {
     responsive: true,
-    plugins: {
-      legend: { labels: { color: '#fff' } },
-    },
+    plugins: { legend: { labels: { color: '#fff' } } },
     scales: {
       x: { ticks: { color: '#fff' }, grid: { color: 'rgba(255,255,255,0.1)' } },
       y: { ticks: { color: '#fff' }, grid: { color: 'rgba(255,255,255,0.1)' } }
@@ -54,9 +54,7 @@ const Dashboard = () => {
 
   const leadsOptions = {
     responsive: true,
-    plugins: {
-      legend: { labels: { color: '#fff' } },
-    }
+    plugins: { legend: { labels: { color: '#fff' } } }
   }
 
   return (
@@ -80,10 +78,20 @@ const Dashboard = () => {
           <p className={styles.cardValue}>342</p>
         </div>
 
-        <div className={`${styles.card} ${styles.cardWarning}`}>
-          <i className="tabler-currency-dollar" style={{ fontSize: '36px', marginBottom: '8px' }} />
-          <h2 className={styles.cardTitle}>ROI</h2>
-          <p className={styles.cardValue}>58%</p>
+        {/* ROI con flip */}
+        <div
+          className={`${styles.card} ${styles.cardWarning} ${roiFlipped ? styles.flipped : ''}`}
+          onClick={() => setRoiFlipped(!roiFlipped)}
+        >
+          <div className={styles.cardFront}>
+            <i className="tabler-currency-dollar" style={{ fontSize: '36px', marginBottom: '8px' }} />
+            <h2 className={styles.cardTitle}>ROI</h2>
+            <p className={styles.cardValue}>58%</p>
+          </div>
+          <div className={styles.cardBack}>
+            ROI = (Ganancia Neta / Inversión) × 100 <br />
+            Ejemplo: inversión $500, ingreso $790 → ROI = 58%
+          </div>
         </div>
       </div>
 
@@ -101,5 +109,3 @@ const Dashboard = () => {
     </div>
   )
 }
-
-export default Dashboard
