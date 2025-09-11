@@ -89,8 +89,8 @@ export default function Dashboard() {
             <p className={styles.cardValue}>58%</p>
           </div>
           <div className={styles.cardBack}>
-            ROI = (Ganancia Neta / Inversión) × 100 <br />
-            Ejemplo: inversión $500, ingreso $790 → ROI = 58%
+            ROI = (Ingresos de la Inversión - Costo de la Inversión) / Costo de la Inversión × 100 <br />
+            Ejemplo: ((3000-1000)/1000) × 1000 → ROI = 58%
           </div>
         </div>
       </div>
