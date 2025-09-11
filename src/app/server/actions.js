@@ -15,6 +15,7 @@ import { db as profileData } from '@/fake-db/pages/userProfile'
 import { db as faqData } from '@/fake-db/pages/faq'
 import { db as pricingData } from '@/fake-db/pages/pricing'
 import { db as statisticsData } from '@/fake-db/pages/widgetExamples'
+import { marketingData } from '@/fake-db/apps/marketing'
 
 export const getEcommerceData = async () => {
   return eCommerceData
@@ -26,6 +27,10 @@ export const getAcademyData = async () => {
 
 export const getLogisticsData = async () => {
   return vehicleData
+}
+
+export const getMarketingData = async () => {
+  return marketingData
 }
 
 export const getInvoiceData = async () => {

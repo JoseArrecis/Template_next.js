@@ -1,20 +1,29 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Marketing from './views/marketing/Marketing'
-import Dashboard from './views/marketing/Dashboard'
-import Reports from './views/marketing/Reports'
-import Settings from './views/marketing/Settings'
+// MUI Imports
+import Grid from '@mui/material/Grid2'
 
-function App() {
+// Component Imports
+import Dashboard from './Dashboard'
+import Reports from './Reports'
+import Settings from './Settings'
+
+const MarketingDashboard = async () => {
+  // Vars
+  const data = await getStatisticsData()      
+  const marketingData = await getMarketingData() 
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/marketing" element={<Marketing />} />
-        <Route path="/marketing/dashboard" element={<Dashboard />} />
-        <Route path="/marketing/reports" element={<Reports />} />
-        <Route path="/marketing/settings" element={<Settings />} />
-      </Routes>
-    </Router>
+    <Grid container spacing={6}>
+      <Grid size={{ xs: 12 }}>
+        <Dashboard data={data} />
+      </Grid>
+      <Grid size={{ xs: 12, md: 6 }}>
+        <Reports data={marketingData} />
+      </Grid>
+      <Grid size={{ xs: 12, md: 6 }}>
+        <Settings />
+      </Grid>
+    </Grid>
   )
 }
 
-export default App
+export default MarketingDashboard

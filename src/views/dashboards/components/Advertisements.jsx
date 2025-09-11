@@ -1,10 +1,32 @@
-import React from 'react'
+// MUI Imports
+import Grid from '@mui/material/Grid2'
 
-export default function MarketingDashboard() {
+// Component Imports
+import Dashboard from '@/views/apps/marketing/dashboard/Dashboard'
+import Reports from '@/views/apps/marketing/dashboard/Reports'
+import Settings from '@/views/apps/marketing/dashboard/Setting'
+
+// Data Imports (si los tienes)
+import { getMarketingData, getStatisticsData } from '@/app/server/actions'
+
+const MarketingDashboard = async () => {
+  // Traemos los datos
+  const data = await getStatisticsData()
+  const marketingData = await getMarketingData()
+
   return (
-    <div>
-      <h1 style={{ color: '#7367f0' }}>Marketing Dashboard</h1>
-      <p>Bienvenido al dashboard de Marketing. Aquí podrás visualizar campañas, métricas y herramientas para potenciar tu negocio.</p>
-    </div>
+    <Grid container spacing={6} style={{ minHeight: '100vh', padding: '2rem' }}>
+      <Grid size={{ xs: 12 }}>
+        <Dashboard data={data} />
+      </Grid>
+      <Grid size={{ xs: 12, md: 6 }}>
+        <Reports data={marketingData} />
+      </Grid>
+      <Grid size={{ xs: 12, md: 6 }}>
+        <Settings />
+      </Grid>
+    </Grid>
   )
 }
+
+export default MarketingDashboard
