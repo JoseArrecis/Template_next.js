@@ -89,6 +89,9 @@ const HorizontalMenu = ({ dictionary }) => {
           <MenuItem href={`/${locale}/dashboards/logistics`} icon={<i className='tabler-truck' />}>
             {dictionary['navigation'].logistics}
           </MenuItem>
+          <MenuItem href={`/${locale}/dashboards/marketing`} icon={<i className='tabler-bullhorn' />}>
+            {dictionary['navigation'].marketing}
+          </MenuItem>
         </SubMenu>
         <SubMenu label={dictionary['navigation'].apps} icon={<i className='tabler-mail' />}>
           <SubMenu label={dictionary['navigation'].eCommerce} icon={<i className='tabler-shopping-cart' />}>
@@ -136,6 +139,9 @@ const HorizontalMenu = ({ dictionary }) => {
           <SubMenu label={dictionary['navigation'].logistics} icon={<i className='tabler-truck' />}>
             <MenuItem href={`/${locale}/apps/logistics/dashboard`}>{dictionary['navigation'].dashboard}</MenuItem>
             <MenuItem href={`/${locale}/apps/logistics/fleet`}>{dictionary['navigation'].fleet}</MenuItem>
+          </SubMenu>
+          <SubMenu label={dictionary['navigation'].marketing} icon={<i className='tabler-bullhorn' />}>
+            <MenuItem href={`/${locale}/apps/marketing`}>{dictionary['navigation'].marketing}</MenuItem>
           </SubMenu>
           <MenuItem
             href={`/${locale}/apps/email`}
