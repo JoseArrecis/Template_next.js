@@ -1,0 +1,48 @@
+.container {
+  min-height: 25vh;
+  padding: 2rem;
+  background: #2c2f3e;
+  font-family: Inter, sans-serif;
+  color: #e0e0e0;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.cardValue {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.cardPrimary { background: #5048e5; }
+.cardSuccess { background: #f2f5f3; color: #000000; }
+.cardInfo { background: #0984e3; }
