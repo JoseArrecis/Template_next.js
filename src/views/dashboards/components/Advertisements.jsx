@@ -4,7 +4,7 @@ export default function MarketingDashboard() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#23243c',
+      background: '#373955',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -12,7 +12,7 @@ export default function MarketingDashboard() {
       fontFamily: 'Inter, sans-serif',
     }}>
       <div style={{
-        background: '#373955',
+        background: '#282a42',
         borderRadius: '18px',
         padding: '0.5em 1.5em',
         marginBottom: '1.5rem',
@@ -56,3 +56,4 @@ export default function MarketingDashboard() {
     </div>
   );
 }
+
