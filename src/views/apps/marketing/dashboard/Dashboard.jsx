@@ -1,13 +1,68 @@
+'use client'
+
 import React from 'react'
+import { Line, Doughnut } from 'react-chartjs-2'
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js'
 import styles from './Dashboard.module.css'
 
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement
+)
+
 const Dashboard = () => {
+  // Datos para Performance Semanal
+  const weeklyData = {
+    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+    datasets: [
+      {
+        label: 'Conversiones',
+        data: [50, 75, 60, 80, 90, 70, 100],
+        borderColor: '#fff',
+        backgroundColor: 'rgba(255,255,255,0.2)',
+        tension: 0.4
+      }
+    ]
+  }
+
+  const weeklyOptions = {
+    responsive: true,
+    plugins: {
+      legend: { labels: { color: '#fff' } },
+    },
+    scales: {
+      x: { ticks: { color: '#fff' }, grid: { color: 'rgba(255,255,255,0.1)' } },
+      y: { ticks: { color: '#fff' }, grid: { color: 'rgba(255,255,255,0.1)' } }
+    }
+  }
+
+  // Datos para Leads por Canal
+  const leadsData = {
+    labels: ['Email', 'Social Media', 'Ads', 'Referral'],
+    datasets: [
+      {
+        label: 'Leads',
+        data: [400, 300, 200, 100],
+        backgroundColor: ['#5048e5', '#0984e3', '#5a564e', '#00b894']
+      }
+    ]
+  }
+
+  const leadsOptions = {
+    responsive: true,
+    plugins: {
+      legend: { labels: { color: '#fff' } },
+    }
+  }
+
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>Marketing</h1>
-      </header>
-
       <div className={styles.cardsContainer}>
         <div className={`${styles.card} ${styles.cardPrimary}`}>
           <i className="tabler-bullhorn" style={{ fontSize: '36px', marginBottom: '8px' }} />
@@ -37,12 +92,12 @@ const Dashboard = () => {
       <section className={styles.charts}>
         <div className={styles.chartCard}>
           <h3>Performance Semanal</h3>
-          <div className={styles.chartPlaceholder}>[Gráfico aquí]</div>
+          <Line data={weeklyData} options={weeklyOptions} />
         </div>
 
         <div className={styles.chartCard}>
           <h3>Leads por Canal</h3>
-          <div className={styles.chartPlaceholder}>[Gráfico aquí]</div>
+          <Doughnut data={leadsData} options={leadsOptions} />
         </div>
       </section>
     </div>
