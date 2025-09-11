@@ -11,6 +11,9 @@ export async function POST(req) {
       return new Response(JSON.stringify({ error: 'Token and password required' }), { status: 400 });
     }
     const decoded = jwt.verify(token, SECRET_KEY);
+    if (!decoded.email) {
+      return new Response(JSON.stringify({ error: 'Token does not contain a valid email' }), { status: 400 });
+    }
     const user = await prisma.user.findUnique({ where: { email: decoded.email } });
     if (!user) {
       return new Response(JSON.stringify({ error: 'User not found' }), { status: 404 });
