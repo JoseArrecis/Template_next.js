@@ -1,3 +1,4 @@
+
 const Advertisements = () => {
     return (
         <div>
@@ -5,3 +6,5 @@ const Advertisements = () => {
         </div>
     )
 }
+
+export default Advertisements;

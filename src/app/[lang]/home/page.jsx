@@ -36,7 +36,7 @@ export default function HomePage() {
         textAlign: 'center',
         marginBottom: '2rem',
       }}>
-        Presiona el button "Iniciar sesión" para acceder a la plantilla.
+        Presiona el boton de "Iniciar sesión" para acceder a la plantilla.
       </p>
       <a href="/login" style={{
         padding: '0.75rem 2rem',
