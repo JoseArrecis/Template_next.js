@@ -1,109 +1,50 @@
-import { Grid } from '@mui/material'
 import React from 'react'
-
-const StatCard = ({ title, value, icon }) => (
-  <div style={{
-    background: '#282a42',
-    borderRadius: 12,
-    padding: '1rem',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: '1rem'
-  }}>
-    <div>
-      <p style={{ margin: 0, fontSize: '0.9rem', color: '#bfc9d4' }}>{title}</p>
-      <h2 style={{ margin: 0, fontSize: '1.4rem', color: '#7367f0' }}>{value}</h2>
-    </div>
-    <span style={{ fontSize: '2rem' }}>{icon}</span>
-  </div>
-)
-
-const CampaignCard = ({ name, leads, performance }) => (
-  <div style={{
-    background: '#282a42',
-    borderRadius: 12,
-    padding: '0.8rem',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.3rem'
-  }}>
-    <h3 style={{ margin: 0, color: '#7367f0', fontSize: '1rem' }}>{name}</h3>
-    <p style={{ margin: 0, fontSize: '0.85rem', color: '#bfc9d4' }}>
-      Leads: {leads} | Performance: {performance}
-    </p>
-  </div>
-)
-
-const ReportCard = ({ title, clicks, conversions }) => (
-  <div style={{
-    background: '#282a42',
-    borderRadius: 12,
-    padding: '0.8rem',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.3rem'
-  }}>
-    <h3 style={{ margin: 0, color: '#7367f0', fontSize: '1rem' }}>{title}</h3>
-    <p style={{ margin: 0, fontSize: '0.85rem', color: '#bfc9d4' }}>
-      Clicks: {clicks} | Conversions: {conversions}
-    </p>
-  </div>
-)
-
-// Datos mock
-const statsData = [
-  { title: 'Campañas activas', value: 5, icon: '📊' },
-  { title: 'Leads generados', value: 345, icon: '📈' },
-  { title: 'Conversiones', value: 78, icon: '💰' }
-]
-
-const campaignsData = [
-  { name: 'Campaña verano', leads: 120, performance: 'Alta' },
-  { name: 'Campaña invierno', leads: 85, performance: 'Media' },
-]
-
-const reportsData = [
-  { title: 'Reporte mensual', clicks: 500, conversions: 40 },
-  { title: 'Reporte trimestral', clicks: 1200, conversions: 90 },
-]
+import styles from './Dashboard.module.css'
 
 const Dashboard = () => {
- return (
-    <div style={{ minHeight: '30vh', background: '#373955', padding: '1.5rem', fontFamily: 'Inter, sans-serif' }}>
-      <h1 style={{ color: '#7367f0', marginBottom: '1.5rem', fontSize: '2rem' }}>Marketing Dashboard</h1>
+  return (
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <h1 className={styles.title}>Marketing</h1>
+      </header>
 
-      {/* Estadísticas */}
-      <Grid container spacing={3} marginBottom={3}>
-        {statsData.map((stat, i) => (
-          <Grid key={i} xs={12} md={4}>
-            <StatCard {...stat} />
-          </Grid>
-        ))}
-      </Grid>
+      <div className={styles.cardsContainer}>
+        <div className={`${styles.card} ${styles.cardPrimary}`}>
+          <i className="tabler-bullhorn" style={{ fontSize: '36px', marginBottom: '8px' }} />
+          <h2 className={styles.cardTitle}>Campañas Activas</h2>
+          <p className={styles.cardValue}>12</p>
+        </div>
 
-      {/* Campañas */}
-      <h2 style={{ color: '#bfc9d4', marginBottom: '1rem', fontSize: '1.2rem' }}>Campañas</h2>
-      <Grid container spacing={2} marginBottom={3}>
-        {campaignsData.map((c, i) => (
-          <Grid key={i} xs={12} md={6}>
-            <CampaignCard {...c} />
-          </Grid>
-        ))}
-      </Grid>
+        <div className={`${styles.card} ${styles.cardSuccess}`}>
+          <i className="tabler-users" style={{ fontSize: '36px', marginBottom: '8px' }} />
+          <h2 className={styles.cardTitle}>Leads Generados</h2>
+          <p className={styles.cardValue}>1,245</p>
+        </div>
 
-      {/* Reportes */}
-      <h2 style={{ color: '#bfc9d4', marginBottom: '1rem', fontSize: '1.2rem' }}>Reportes</h2>
-      <Grid container spacing={2}>
-        {reportsData.map((r, i) => (
-          <Grid key={i} xs={12} md={6}>
-            <ReportCard {...r} />
-          </Grid>
-        ))}
-      </Grid>
+        <div className={`${styles.card} ${styles.cardInfo}`}>
+          <i className="tabler-chart-bar" style={{ fontSize: '36px', marginBottom: '8px' }} />
+          <h2 className={styles.cardTitle}>Conversiones</h2>
+          <p className={styles.cardValue}>342</p>
+        </div>
+
+        <div className={`${styles.card} ${styles.cardWarning}`}>
+          <i className="tabler-currency-dollar" style={{ fontSize: '36px', marginBottom: '8px' }} />
+          <h2 className={styles.cardTitle}>ROI</h2>
+          <p className={styles.cardValue}>58%</p>
+        </div>
+      </div>
+
+      <section className={styles.charts}>
+        <div className={styles.chartCard}>
+          <h3>Performance Semanal</h3>
+          <div className={styles.chartPlaceholder}>[Gráfico aquí]</div>
+        </div>
+
+        <div className={styles.chartCard}>
+          <h3>Leads por Canal</h3>
+          <div className={styles.chartPlaceholder}>[Gráfico aquí]</div>
+        </div>
+      </section>
     </div>
   )
 }

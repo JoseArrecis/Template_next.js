@@ -1,0 +1,90 @@
+.container {
+  min-height: 100vh;
+  padding: 2rem;
+  background: #2c2f3e; /* Dark background */
+  font-family: Inter, sans-serif;
+  color: #e0e0e0;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #b0b0c3;
+}
+
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.cardValue {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* Colores Vuexy Dark combinados */
+.cardPrimary { background: #5048e5; }
+.cardSuccess { background: #ffffff; color: black}
+.cardInfo { background: #0984e3; }
+.cardWarning { background: #5a564e; color: #fff; }
+
+.charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.chartCard {
+  background: #3a3d55;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.chartPlaceholder {
+  height: 200px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  color: #fff;
+}
