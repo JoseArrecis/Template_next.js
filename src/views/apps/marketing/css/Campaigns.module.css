@@ -55,7 +55,7 @@
 .cardWarning { background: #5a564e; color: #fff; }
 .cardDanger { background: #ff6b6b; color: #fff; }
 
-.cardDanger {
+.cardDanger, .cardWarning {
   perspective: 1000px; 
   cursor: pointer;
   position: relative;

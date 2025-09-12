@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import styles from '../css/Campaigns.module.css'
 
 export default function Campaigns() {
-  // Creamos un estado por tarjeta que necesite girar
   const [flippedCards, setFlippedCards] = useState({
     seo: false,
     conversiones: false
@@ -32,7 +31,7 @@ export default function Campaigns() {
 
         <div className={`${styles.card} ${styles.cardInfo}`}>
           <h2 className={styles.cardTitle}>Publicidad (Ads)</h2>
-          <p className={styles.cardValue}>5 campañas activas</p>
+          <p className={styles.cardValue}>12 campañas activas</p>
         </div>
 
         <div
@@ -45,9 +44,9 @@ export default function Campaigns() {
           </div>
           <div className={styles.cardBack}>
             <h3>Proyectos en curso</h3>
-            <p>- Optimización de Contenido en Blog</p>
-            <p>- Campaña de Backlinks</p>
-            <p>- SEO Técnico en la Web</p>
+            <li>Optimización de Contenido en Blog</li>
+            <li>Campaña de Backlinks</li>
+            <li>SEO Técnico en la Web</li>
           </div>
         </div>
 
