@@ -1,5 +1,5 @@
 .container {
-  min-height: 25vh;
+  min-height: 32vh;
   padding: 2rem;
   background: #2c2f3e;
   font-family: Inter, sans-serif;
@@ -10,6 +10,12 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #b0b0c3;
+  margin-bottom: 2rem;
 }
 
 .cardsContainer {
