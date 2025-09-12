@@ -78,7 +78,6 @@ export default function Dashboard() {
           <p className={styles.cardValue}>342</p>
         </div>
 
-        {/* ROI con flip */}
         <div
           className={`${styles.card} ${styles.cardWarning} ${roiFlipped ? styles.flipped : ''}`}
           onClick={() => setRoiFlipped(!roiFlipped)}

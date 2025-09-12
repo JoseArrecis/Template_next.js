@@ -1,5 +1,5 @@
 .container {
-  min-height: 32vh;
+  min-height: 50vh;
   padding: 2rem;
   background: #2c2f3e;
   font-family: Inter, sans-serif;
@@ -50,5 +50,48 @@
 }
 
 .cardPrimary { background: #5048e5; }
-.cardSuccess { background: #f2f5f3; color: #000000; }
-.cardInfo { background: #0984e3; }
+.cardSuccess { background: #0984e3; }
+.cardInfo { background: #f2f5f3; color: #000000; }
+.cardWarning { background: #5a564e; color: #fff; }
+.cardDanger { background: #ff6b6b; color: #fff; }
+
+.cardDanger {
+  perspective: 1000px; 
+  cursor: pointer;
+  position: relative;
+  padding: 3rem;         
+  font-size: 1.2rem;
+}
+
+.cardFront, .cardBack {
+  backface-visibility: hidden;
+  transition: transform 0.6s;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.cardBack {
+  transform: rotateY(180deg);
+  background: #ff6b6b;
+  color: #fff;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  text-align: center;
+  min-height: 150px;
+}
+
+.flipped .cardFront {
+  transform: rotateY(180deg);
+}
+
+.flipped .cardBack {
+  transform: rotateY(0deg);
+}
