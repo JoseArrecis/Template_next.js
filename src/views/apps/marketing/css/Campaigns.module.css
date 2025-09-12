@@ -80,7 +80,6 @@
 
 .cardBack {
   transform: rotateY(180deg);
-  background: #ff6b6b;
   color: #fff;
   padding: 0.5rem;
   font-size: 0.85rem;

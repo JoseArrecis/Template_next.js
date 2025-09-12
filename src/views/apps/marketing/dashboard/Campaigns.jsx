@@ -35,7 +35,6 @@ export default function Campaigns() {
           <p className={styles.cardValue}>5 campañas activas</p>
         </div>
 
-        {/* Tarjeta SEO girable */}
         <div
           className={`${styles.card} ${styles.cardWarning} ${flippedCards.seo ? styles.flipped : ''}`}
           onClick={() => toggleFlip('seo')}
@@ -52,7 +51,6 @@ export default function Campaigns() {
           </div>
         </div>
 
-        {/* Tarjeta Conversiones girable */}
         <div
           className={`${styles.card} ${styles.cardDanger} ${flippedCards.conversiones ? styles.flipped : ''}`}
           onClick={() => toggleFlip('conversiones')}
