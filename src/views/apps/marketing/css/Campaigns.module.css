@@ -51,7 +51,7 @@
 
 .cardPrimary { background: #5048e5; }
 .cardSuccess { background: #0984e3; }
-.cardInfo { background: #f2f5f3; color: #000000; }
+.cardInfo { background: #ffffff; color: #000000; }
 .cardWarning { background: #5a564e; color: #fff; }
 .cardDanger { background: #ff6b6b; color: #fff; }
 
@@ -88,10 +88,11 @@
   min-height: 150px;
 }
 
-.flipped .cardFront {
-  transform: rotateY(180deg);
-}
+.flipped .cardFront { transform: rotateY(180deg); }
+.flipped .cardBack { transform: rotateY(0deg); }
 
-.flipped .cardBack {
-  transform: rotateY(0deg);
-}
+.cardWarning .cardFront { background: #5a564e; color: #fff; }
+.cardWarning .cardBack { background: #7c6f5e; color: #fff; }
+
+.cardDanger .cardFront { background: #ff6b6b; color: #fff; }
+.cardDanger .cardBack { background: #e63946; color: #fff; }
