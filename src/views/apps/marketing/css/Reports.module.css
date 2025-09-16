@@ -1,6 +1,6 @@
 .container {
-  min-height: 80vh;
-  padding: 1rem;
+  min-height: 100vh;
+  padding: 0.5rem;
   background: #2c2f3e;
   font-family: Inter, sans-serif;
   color: #e0e0e0;

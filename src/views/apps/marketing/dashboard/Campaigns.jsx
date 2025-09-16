@@ -2,8 +2,67 @@
 
 import React, { useState } from 'react'
 import styles from '../css/Campaigns.module.css'
+import { 
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js'
+import { Bar } from 'react-chartjs-2'
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+)
 
 export default function Campaigns() {
+  const proyectsCourse = {
+    labels: ['Optimización de Contenido', 'Campaña de Backlinks', 'SEO Técnico'],
+    datasets: [
+      {
+        label: "Proyectos en curso",
+        data: [75, 25, 50], // NUMÉRICOS
+        borderColor: '#fff',
+        backgroundColor: ['#5048e5', '#0984e3', '#5a564e'],
+        borderWidth: 1
+      }
+    ]
+  }
+
+  const chartOptions = {
+    plugins: {
+      legend: {
+        labels: { color: '#fff' }
+      },
+      tooltip: {
+        titleColor: '#fff',
+        bodyColor: '#fff'
+      }
+    },
+    scales: {
+      x: {
+        ticks: { color: '#fff' },
+        grid: { color: 'rgba(255,255,255,0.2)' }
+      },
+      y: {
+        ticks: {
+          color: '#fff',
+          callback: (value) => `${value}%`
+        },
+        grid: { color: 'rgba(255,255,255,0.2)' }
+      }
+    }
+  }
+
   const [flippedCards, setFlippedCards] = useState({
     seo: false,
     conversiones: false
@@ -33,21 +92,16 @@ export default function Campaigns() {
           <p className={styles.cardValue}>12 campañas activas</p>
         </div>
 
-        <div
-          className={`${styles.card} ${styles.cardWarning} ${flippedCards.seo ? styles.flipped : ''}`}
-          onClick={() => toggleFlip('seo')}
-        >
+        <div className={styles.chart}>
           <div className={styles.cardFront}>
             <h3 className={styles.cardTitle}>SEO</h3>
             <p className={styles.cardValue}>3 proyectos en curso</p>
           </div>
           <div className={styles.cardBack}>
             <h4>Proyectos en curso</h4>
-            <ul>
-              <li>Optimización de Contenido</li>
-              <li>Campaña de Backlinks</li>
-              <li>SEO Técnico</li>
-            </ul>
+            <div style={{ width: "100%", height: "200px" }}>
+              <Bar data={proyectsCourse} options={chartOptions} />
+            </div>
           </div>
         </div>
 
