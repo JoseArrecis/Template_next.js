@@ -67,7 +67,7 @@
 
 .kpiCard span {
   font-size: 0.85rem;
-  color: #b0b0c3;
+  color: #ffffff;
 }
 
 .charts {
@@ -78,7 +78,7 @@
 }
 
 .chartCard {
-  background: #3a3d55;
+  background: #ffffff;
   padding: 1rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);

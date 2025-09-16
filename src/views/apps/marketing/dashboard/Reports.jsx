@@ -64,6 +64,41 @@ export default function Reports() {
     ]
   }
 
+  const chartOptions = {
+    plugins: {
+      legend: {
+        labels: {
+          color: "#ffffff" 
+        }
+      },
+      title: {
+        color: "#ffffff"
+      },
+      tooltip: {
+        bodyColor: "#ffffff",
+        titleColor: "#ffffff"
+      }
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: "#ffffff"
+        },
+        grid: {
+          color: "rgba(255,255,255,0.2)"
+        }
+      },
+      y: {
+        ticks: {
+          color: "#ffffff"
+        },
+        grid: {
+          color: "rgba(255,255,255,0.2)"
+        }
+      }
+    }
+  }
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Reports</h2>
@@ -83,15 +118,15 @@ export default function Reports() {
       <div className={styles.charts}>
         <div className={styles.chartBox}>
           <h3>Conversiones</h3>
-          <Line data={conversionesData} />
+          <Line data={conversionesData} options={chartOptions} />
         </div>
         <div className={styles.chartBox}>
           <h3>ROI</h3>
-          <Bar data={roiData} />
+          <Bar data={roiData} options={chartOptions} />
         </div>
         <div className={styles.chartBox}>
           <h3>Distribución de Campañas</h3>
-          <Doughnut data={campaignsData} />
+          <Doughnut data={campaignsData} options={chartOptions} />
         </div>
       </div>
 
