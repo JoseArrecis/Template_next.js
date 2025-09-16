@@ -1,4 +1,5 @@
 .container {
+  min-height: 80vh;
   padding: 2rem;
   background: #2c2f3e;
   font-family: Inter, sans-serif;
@@ -8,68 +9,88 @@
 .title {
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: #fff;
+  margin-bottom: 1rem;
 }
 
-.cards {
+.filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.filterBtn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #3a3d55;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.filterBtn:hover {
+  background: #5048e5;
+}
+
+.active {
+  background: #5048e5;
+}
+
+.kpiContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
-.card {
-  perspective: 1000px;
-  cursor: pointer;
-  height: 150px;
-}
-
-.cardInner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-.cardFront, .cardBack {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  backface-visibility: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  color: #fff;
-}
-
-.cardFront {
-  background: var(--card-color, #7367f0);
-}
-
-.cardBack {
-  background: #1f1f2e;
-  transform: rotateY(180deg);
+.kpiCard {
+  background: #3a3d55;
   padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
   text-align: center;
 }
 
-.flipped .cardInner {
-  transform: rotateY(180deg);
+.kpiCard h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.kpiCard p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.kpiCard span {
+  font-size: 0.85rem;
+  color: #b0b0c3;
 }
 
 .charts {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
+  margin-bottom: 2rem;
 }
 
-.chartBox {
-  background: #1f2235;
-  padding: 1.5rem;
+.chartCard {
+  background: #3a3d55;
+  padding: 1rem;
   border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.summary {
+  background: #3a3d55;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.summary h3 {
+  margin-bottom: 0.5rem;
 }

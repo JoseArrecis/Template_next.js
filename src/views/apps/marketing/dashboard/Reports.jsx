@@ -1,100 +1,108 @@
 "use client"
-
-import React, { useState } from "react"
+import React from "react"
+import { Line, Bar, Doughnut } from "react-chartjs-2"
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  PieChart, Pie, Cell
-} from "recharts"
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+} from "chart.js"
 import styles from "../css/Reports.module.css"
 
+// 👇 Registrar todo lo que uses
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+)
+
 export default function Reports() {
-  const [flipped, setFlipped] = useState(null)
+  const conversionesData = {
+    labels: ["Semana 1", "Semana 2", "Semana 3", "Semana 4"],
+    datasets: [
+      {
+        label: "Conversiones",
+        data: [90, 160, 120, 200],
+        borderColor: "#4f46e5",
+        backgroundColor: "rgba(79,70,229,0.2)",
+        tension: 0.4,
+        fill: true
+      }
+    ]
+  }
 
-  const projects = [
-    { id: 1, title: 'ROI', value: '58%', detail: 'ROI = (Ganancia neta / Inversión) × 100', color: '#787594ff' },
-    { id: 2, title: 'Conversiones', value: '1,245', detail: 'Conversiones = Visitantes que completaron una acción', color: '#579071ff' },
-    { id: 3, title: 'Campañas Activas', value: '12', detail: 'Cantidad de campañas actualmente en ejecución', color: '#2055beff' }
-  ]
+  const roiData = {
+    labels: ["Semana 1", "Semana 2", "Semana 3", "Semana 4"],
+    datasets: [
+      {
+        label: "ROI (%)",
+        data: [45, 60, 50, 70],
+        backgroundColor: "#22c55e"
+      }
+    ]
+  }
 
-  const lineData = [
-    { month: "Ene", conversiones: 400 },
-    { month: "Feb", conversiones: 300 },
-    { month: "Mar", conversiones: 500 },
-    { month: "Abr", conversiones: 700 },
-    { month: "May", conversiones: 600 },
-    { month: "Jun", conversiones: 800 }
-  ]
-
-  const pieData = [
-    { name: "Facebook Ads", value: 50 },
-    { name: "Google Ads", value: 30 },
-    { name: "Email", value: 20 },
-    { name: "Otros", value: 10 }
-  ]
-
-  const COLORS = ["#00668E", "#17BECF", "#5a564aff", "#f3f3f3ff"]
+  const campaignsData = {
+    labels: ["Email", "Social Media", "Ads", "SEO"],
+    datasets: [
+      {
+        label: "Campañas activas",
+        data: [8, 15, 12, 3],
+        backgroundColor: ["#6366f1", "#3b82f6", "#f59e0b", "#6b7280"]
+      }
+    ]
+  }
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Reports</h2>
 
-      <div className={styles.cards}>
-        {projects.map((project) => (
-          <div
-            key={project.id}
-            className={`${styles.card} ${flipped === project.id ? styles.flipped : ""}`}
-            style={{ "--card-color": project.color }}
-            onClick={() => setFlipped(flipped === project.id ? null : project.id)}
-          >
-            <div className={styles.cardInner}>
-              <div className={styles.cardFront}>
-                <h3>{project.title}</h3>
-                <p>{project.value}</p>
-              </div>
-              <div className={styles.cardBack}>
-                <p>{project.detail}</p>
-              </div>
-            </div>
-          </div>
-        ))}
+      <div className={styles.filters}>
+        <button className={styles.filterActive}>Mes</button>
+        <button className={styles.filter}>Semana</button>
+        <button className={styles.filter}>Año</button>
+      </div>
+
+      <div className={styles.cardsContainer}>
+        <div className={styles.card}>ROI: <span className={styles.value}>72%</span></div>
+        <div className={styles.card}>CTR: <span className={styles.value}>4.5%</span></div>
+        <div className={styles.card}>Leads: <span className={styles.value}>320</span></div>
       </div>
 
       <div className={styles.charts}>
         <div className={styles.chartBox}>
-          <h3>Evolución de Conversiones</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={lineData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" stroke="#aaa" />
-              <YAxis stroke="#aaa" />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="conversiones" stroke="#ffffffff" strokeWidth={2} />
-            </LineChart>
-          </ResponsiveContainer>  
+          <h3>Conversiones</h3>
+          <Line data={conversionesData} />
         </div>
-
         <div className={styles.chartBox}>
-          <h3>Distribución de Canales</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={pieData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                outerRadius={80}
-                dataKey="value"
-                label
-              >
-                {pieData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
+          <h3>ROI</h3>
+          <Bar data={roiData} />
         </div>
+        <div className={styles.chartBox}>
+          <h3>Distribución de Campañas</h3>
+          <Doughnut data={campaignsData} />
+        </div>
+      </div>
+
+      <div className={styles.summary}>
+        <h3>Resumen Ejecutivo</h3>
+        <p>
+          Este mes las campañas han mostrado un aumento constante en conversiones
+          y un ROI en crecimiento. Se recomienda invertir en redes sociales y 
+          mejorar las creatividades en Ads para optimizar el CTR.
+        </p>
       </div>
     </div>
   )
