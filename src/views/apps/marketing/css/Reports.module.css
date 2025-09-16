@@ -61,7 +61,6 @@
   transform: rotateY(180deg);
 }
 
-/* Charts */
 .charts {
   display: grid;
   grid-template-columns: 1fr 1fr;

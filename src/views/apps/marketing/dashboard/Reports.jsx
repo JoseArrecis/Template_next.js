@@ -26,7 +26,7 @@ export default function Reports() {
   ]
 
   const pieData = [
-    { name: "Facebook Ads", value: 40 },
+    { name: "Facebook Ads", value: 50 },
     { name: "Google Ads", value: 30 },
     { name: "Email", value: 20 },
     { name: "Otros", value: 10 }
@@ -38,7 +38,6 @@ export default function Reports() {
     <div className={styles.container}>
       <h2 className={styles.title}>Reports</h2>
 
-      {/* Tarjetas giratorias */}
       <div className={styles.cards}>
         {projects.map((project) => (
           <div
@@ -60,7 +59,6 @@ export default function Reports() {
         ))}
       </div>
 
-      {/* Gráficas */}
       <div className={styles.charts}>
         <div className={styles.chartBox}>
           <h3>Evolución de Conversiones</h3>
@@ -71,7 +69,7 @@ export default function Reports() {
               <YAxis stroke="#aaa" />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="conversiones" stroke="#ffffffff" strokeWidth={3} />
+              <Line type="monotone" dataKey="conversiones" stroke="#ffffffff" strokeWidth={2} />
             </LineChart>
           </ResponsiveContainer>  
         </div>
@@ -85,7 +83,7 @@ export default function Reports() {
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                outerRadius={100}
+                outerRadius={80}
                 dataKey="value"
                 label
               >
