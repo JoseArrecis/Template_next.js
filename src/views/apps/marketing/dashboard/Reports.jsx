@@ -15,7 +15,6 @@ import {
 } from "chart.js"
 import styles from "../css/Reports.module.css"
 
-// 👇 Registrar todo lo que uses
 ChartJS.register(
   CategoryScale,
   LinearScale,
