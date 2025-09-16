@@ -30,7 +30,7 @@ export default function Campaigns() {
     datasets: [
       {
         label: "Proyectos en curso",
-        data: [75, 25, 50], // NUMÉRICOS
+        data: [75, 25, 50],
         borderColor: '#fff',
         backgroundColor: ['#5048e5', '#0984e3', '#5a564e'],
         borderWidth: 1
@@ -64,7 +64,6 @@ export default function Campaigns() {
   }
 
   const [flippedCards, setFlippedCards] = useState({
-    seo: false,
     conversiones: false
   })
 
@@ -92,19 +91,6 @@ export default function Campaigns() {
           <p className={styles.cardValue}>12 campañas activas</p>
         </div>
 
-        <div className={styles.chart}>
-          <div className={styles.cardFront}>
-            <h3 className={styles.cardTitle}>SEO</h3>
-            <p className={styles.cardValue}>3 proyectos en curso</p>
-          </div>
-          <div className={styles.cardBack}>
-            <h4>Proyectos en curso</h4>
-            <div style={{ width: "100%", height: "200px" }}>
-              <Bar data={proyectsCourse} options={chartOptions} />
-            </div>
-          </div>
-        </div>
-
         <div
           className={`${styles.card} ${styles.cardDanger} ${flippedCards.conversiones ? styles.flipped : ''}`}
           onClick={() => toggleFlip('conversiones')}
@@ -119,6 +105,13 @@ export default function Campaigns() {
             <p>Objetivos alcanzados: 120</p>
             <p>Valor total: $15,300</p>
           </div>
+        </div>
+      </div>
+
+      <div style={{ marginTop: "2rem" }}>
+        <h3 className={styles.cardTitle}>SEO - Proyectos en curso</h3>
+        <div style={{ width: "100%", maxWidth: "600px", height: "300px" }}>
+          <Bar data={proyectsCourse} options={chartOptions} />
         </div>
       </div>
     </div>
