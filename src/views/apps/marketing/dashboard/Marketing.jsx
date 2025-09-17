@@ -18,18 +18,18 @@ export const Marketing = () => {
       {open && (
         <ul className="submenu">
           <li>
-            <Link to="/marketing/dashboard">
+            <Link to="/dashboard/dashboard">
               <i className="tabler-chart-line"></i> Dashboard
             </Link>
           </li>
           <li>
-            <Link to="/marketing/reports">
+            <Link to="/dashboard/reports">
               <i className="tabler-report"></i> Reports
             </Link>
           </li>
           <li>
-            <Link to="/marketing/settings">
-              <i className="tabler-settings"></i> Settings
+            <Link to="/dashboard/campaigns">
+              <i className="tabler-campaigns"></i> Campaigns
             </Link>
           </li>
         </ul>

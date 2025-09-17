@@ -27,13 +27,13 @@ const Details = ({ data }) => {
     <Card>
       <CardContent className='flex flex-wrap items-center justify-between gap-4'>
         <div>
-          <Typography variant='h5'>UI/UX Basic Fundamentals</Typography>
+          <Typography variant='h5'>Tutorial Next.js facil para Principiantes</Typography>
           <Typography>
-            Prof. <span className='font-medium text-textPrimary'>Devonne Wallbridge</span>
+            Prof. <span className='font-medium text-textPrimary'>Miguel Ángel Durán</span>
           </Typography>
         </div>
         <div className='flex items-center gap-4'>
-          <Chip label='UI/UX' variant='tonal' size='small' color='error' />
+          <Chip label='Next.js' variant='tonal' size='small' color='error' />
           <i className='tabler-share cursor-pointer' />
           <i className='tabler-bookmarks cursor-pointer' />
         </div>
@@ -44,7 +44,7 @@ const Details = ({ data }) => {
             <ReactPlayer
               playing
               controls
-              url='https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4'
+              url='https://www.youtube.com/watch?v=jMy4pVZMyLM'
               height={smallScreen ? 280 : 440}
               className='bg-black !is-full'
               light={

@@ -152,8 +152,8 @@ const monthlyData = {
   August: {
     categories: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 Aug', '8 Aug', '9 Aug', '10 Aug'],
     series: [
-      { name: 'Shipment', type: 'column', data: [65, 68, 70, 72, 75, 73, 71, 69, 67, 66] },
-      { name: 'Delivery', type: 'line', data: [45, 47, 49, 51, 53, 52, 50, 48, 46, 44] }
+      { name: 'Shipment', type: 'column', data: [65, 68, 70, 72, 75, 73, 71, 69, 91, 66] },
+      { name: 'Delivery', type: 'line', data: [45, 47, 49, 51, 53, 52, 50, 48, 65, 44] }
     ]
   },
   September: {
