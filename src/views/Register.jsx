@@ -67,6 +67,7 @@ const Register = ({ mode }) => {
   const [password, setPassword] = useState('')
   const [isPasswordShown, setIsPasswordShown] = useState(false)
   const [errorState, setErrorState] = useState(null)
+  const [acceptTerms, setAcceptTerms] = useState(false) 
 
   const handleClickShowPassword = () => setIsPasswordShown(show => !show)
 
@@ -74,13 +75,18 @@ const Register = ({ mode }) => {
     e.preventDefault()
     setErrorState(null)
 
+    if (!acceptTerms) {
+      setErrorState({ message: ['You must accept the privacy policy & terms.'] })
+      return
+    }
+
     try {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password })
       })
-      
+
       const data = await res.json()
 
       if (res.ok) {
@@ -95,16 +101,21 @@ const Register = ({ mode }) => {
 
   return (
     <div className='flex bs-full justify-center'>
-      <div className={classnames(
-        'flex bs-full items-center justify-center flex-1 min-bs-[100dvh] relative p-6 max-md:hidden',
-        { 'border-ie': settings.skin === 'bordered' }
-      )}>
+      <div
+        className={classnames(
+          'flex bs-full items-center justify-center flex-1 min-bs-[100dvh] relative p-6 max-md:hidden',
+          { 'border-ie': settings.skin === 'bordered' }
+        )}
+      >
         <RegisterIllustration src={characterIllustration} alt='character-illustration' />
         {!hidden && <MaskImg alt='mask' src={authBackground} />}
       </div>
 
       <div className='flex justify-center items-center bs-full bg-backgroundPaper !min-is-full p-6 md:!min-is-[unset] md:p-12 md:is-[480px]'>
-        <Link href={getLocalizedUrl('/login', locale)} className='absolute block-start-5 sm:block-start-[33px] inline-start-6 sm:inline-start-[38px]'>
+        <Link
+          href={getLocalizedUrl('/login', locale)}
+          className='absolute block-start-5 sm:block-start-[33px] inline-start-6 sm:inline-start-[38px]'
+        >
           <Logo />
         </Link>
 
@@ -141,7 +152,11 @@ const Register = ({ mode }) => {
                 input: {
                   endAdornment: (
                     <InputAdornment position='end'>
-                      <IconButton edge='end' onClick={handleClickShowPassword} onMouseDown={e => e.preventDefault()}>
+                      <IconButton
+                        edge='end'
+                        onClick={handleClickShowPassword}
+                        onMouseDown={e => e.preventDefault()}
+                      >
                         <i className={isPasswordShown ? 'tabler-eye-off' : 'tabler-eye'} />
                       </IconButton>
                     </InputAdornment>
@@ -151,11 +166,18 @@ const Register = ({ mode }) => {
             />
 
             <FormControlLabel
-              control={<Checkbox />}
+              control={
+                <Checkbox
+                  checked={acceptTerms}
+                  onChange={e => setAcceptTerms(e.target.checked)}
+                />
+              }
               label={
                 <>
                   <span>I agree to </span>
-                  <Link className='text-primary' href='/' onClick={e => e.preventDefault()}>privacy policy & terms</Link>
+                  <Typography className='text-primary' component={Link} href={getLocalizedUrl('/pages/auth/privacy-police', locale)} target='_blank'>
+                    Privacy Policy & Terms
+                  </Typography>
                 </>
               }
             />
@@ -174,6 +196,20 @@ const Register = ({ mode }) => {
             </div>
 
             <Divider className='gap-2'>or</Divider>
+            <div className='flex justify-center items-center gap-1.5'>
+              <IconButton className='text-facebook' size='small'>
+                <i className='tabler-brand-facebook-filled' />
+              </IconButton>
+              <IconButton className='text-twitter' size='small'>
+                <i className='tabler-brand-twitter-filled' />
+              </IconButton>
+              <IconButton className='text-textPrimary' size='small'>
+                <i className='tabler-brand-github-filled' />
+              </IconButton>
+              <IconButton className='text-error' size='small'>
+                <i className='tabler-brand-google-filled' />
+              </IconButton>
+            </div>
           </form>
         </div>
       </div>
