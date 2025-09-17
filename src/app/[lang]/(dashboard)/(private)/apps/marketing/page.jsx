@@ -1,10 +1,11 @@
 // MUI Imports
+import { getMarketingData, getStatisticsData } from '@/app/server/actions'
+import Dashboard from '@/views/apps/marketing/dashboard/Dashboard'
+import Reports from '@/views/apps/marketing/dashboard/Reports'
 import Grid from '@mui/material/Grid2'
+import { Settings } from 'lucide-react'
 
 // Component Imports
-import Dashboard from './Dashboard'
-import Reports from './Reports'
-import Settings from './Settings'
 
 const MarketingDashboard = async () => {
   // Vars
