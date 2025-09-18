@@ -1,6 +1,5 @@
 'use client'
 
-// MUI Imports
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Chip from '@mui/material/Chip'
@@ -11,15 +10,14 @@ import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 
-// Third-party Imports
+// Third-party
 import ReactPlayer from '@/libs/ReactPlayer'
 
-// Components Imports
+// Components
 import CustomAvatar from '@core/components/mui/Avatar'
 import CustomIconButton from '@core/components/mui/IconButton'
 
 const Details = ({ data }) => {
-  // Hooks
   const theme = useTheme()
   const smallScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
@@ -27,24 +25,25 @@ const Details = ({ data }) => {
     <Card>
       <CardContent className='flex flex-wrap items-center justify-between gap-4'>
         <div>
-          <Typography variant='h5'>Tutorial Next.js facil para Principiantes</Typography>
+          <Typography variant='h5'>{data?.courseTitle}</Typography>
           <Typography>
-            Prof. <span className='font-medium text-textPrimary'>Miguel Ángel Durán</span>
+            Prof. <span className='font-medium text-textPrimary'>{data?.instructor}</span>
           </Typography>
         </div>
         <div className='flex items-center gap-4'>
-          <Chip label='Next.js' variant='tonal' size='small' color='error' />
+          {data?.tags && <Chip label={data.tags} variant='tonal' size='small' color='error' />}
           <i className='tabler-share cursor-pointer' />
           <i className='tabler-bookmarks cursor-pointer' />
         </div>
       </CardContent>
+
       <CardContent>
         <div className='border rounded'>
           <div className='mli-2 mbs-2 overflow-hidden rounded'>
             <ReactPlayer
               playing
               controls
-              url='https://www.youtube.com/watch?v=jMy4pVZMyLM'
+              url={data?.videoUrl}
               height={smallScreen ? 280 : 440}
               className='bg-black !is-full'
               light={
@@ -61,53 +60,63 @@ const Details = ({ data }) => {
               }
             />
           </div>
+
           <div className='flex flex-col gap-6 p-5'>
+            {/* About */}
             <div className='flex flex-col gap-4'>
               <Typography variant='h5'>About this course</Typography>
               <Typography>{data?.about}</Typography>
             </div>
+
             <Divider />
+
+            {/* By the numbers */}
             <div className='flex flex-col gap-4'>
               <Typography variant='h5'>By the numbers</Typography>
               <div className='flex flex-wrap gap-x-12 gap-y-2'>
                 <List role='list' component='div' className='flex flex-col gap-2 plb-0'>
-                  <ListItem role='listitem' className='flex items-center gap-2 p-0'>
+                  <ListItem className='flex items-center gap-2 p-0'>
                     <i className='tabler-check text-xl text-textSecondary' />
                     <Typography>Skill level: {data?.skillLevel}</Typography>
                   </ListItem>
-                  <ListItem role='listitem' className='flex items-center gap-2 p-0'>
+                  <ListItem className='flex items-center gap-2 p-0'>
                     <i className='tabler-users text-xl text-textSecondary' />
-                    <Typography>Students: {data?.totalStudents.toLocaleString()}</Typography>
+                    <Typography>Students: {(data?.totalStudents || 0).toLocaleString()}</Typography>
                   </ListItem>
-                  <ListItem role='listitem' className='flex items-center gap-2 p-0'>
+                  <ListItem className='flex items-center gap-2 p-0'>
                     <i className='tabler-world text-xl text-textSecondary' />
                     <Typography>Languages: {data?.language}</Typography>
                   </ListItem>
-                  <ListItem role='listitem' className='flex items-center gap-2 p-0'>
+                  <ListItem className='flex items-center gap-2 p-0'>
                     <i className='tabler-file text-xl text-textSecondary' />
                     <Typography>Captions: {data?.isCaptions ? 'Yes' : 'No'}</Typography>
                   </ListItem>
                 </List>
+
                 <List role='list' component='div' className='flex flex-col gap-2 plb-0'>
-                  <ListItem role='listitem' className='flex items-center gap-2 p-0'>
+                  <ListItem className='flex items-center gap-2 p-0'>
                     <i className='tabler-video text-xl text-textSecondary' />
                     <Typography>Lectures: {data?.totalLectures}</Typography>
                   </ListItem>
-                  <ListItem role='listitem' className='flex items-center gap-2 p-0'>
+                  <ListItem className='flex items-center gap-2 p-0'>
                     <i className='tabler-clock text-xl text-textSecondary' />
                     <Typography>Video: {data?.length}</Typography>
                   </ListItem>
                 </List>
               </div>
             </div>
+
             <Divider />
+
             <div className='flex flex-col gap-4'>
               <Typography variant='h5'>Description</Typography>
-              {data?.description.map((value, index) => (
+              {data?.description?.map((value, index) => (
                 <Typography key={index}>{value}</Typography>
               ))}
             </div>
+
             <Divider />
+
             <div className='flex flex-col gap-4'>
               <Typography variant='h5'>Instructor</Typography>
               <div className='flex items-center gap-4'>
