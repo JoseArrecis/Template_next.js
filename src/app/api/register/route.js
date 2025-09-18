@@ -1,33 +1,30 @@
-
+// src/app/api/signup/route.js
 import { hash } from 'bcryptjs';
-import { NextResponse } from 'next/server';
-import prisma from '../../../prisma/prismaClient';
+import prisma from '@/prisma/prismaClient'; // si usas prisma
 
 export async function POST(req) {
   try {
-    const { username, email, password } = await req.json()
+    const { username, email, password } = await req.json();
 
     if (!username || !email || !password) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+      return new Response(JSON.stringify({ error: 'Missing fields' }), { status: 400 });
     }
 
-    // Verificar si el usuario ya existe
+    // Aquí verificas si el usuario ya existe, usando prisma u otra base
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
-      return NextResponse.json({ error: 'Email already registered' }, { status: 400 });
+      return new Response(JSON.stringify({ error: 'Email already registered' }), { status: 400 });
     }
 
     const hashedPassword = await hash(password, 12);
+
     const user = await prisma.user.create({
-      data: {
-        name: username,
-        email,
-        password: hashedPassword
-      }
+      data: { username, email, password: hashedPassword },
     });
 
-    return NextResponse.json({ user: { id: user.id, username: user.name, email: user.email } }, { status: 201 });
-  } catch (error) {
-    return NextResponse.json({ error: error.message || 'Internal server error' }, { status: 500 })
+    return new Response(JSON.stringify({ user: { id: user.id, username, email } }), { status: 201 });
+  } catch (err) {
+    console.error('Signup error:', err);
+    return new Response(JSON.stringify({ error: 'Internal server error' }), { status: 500 });
   }
 }
