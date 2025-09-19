@@ -3,13 +3,16 @@
 import Grid from '@mui/material/Grid2'
 import Details from '@views/apps/academy/course-details/Details'
 import Sidebar from '@views/apps/academy/course-details/Sidebar'
-import { useParams } from 'next/navigation'
+import Image from 'next/image'
+import { useParams, useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 // Mock Data con IDs consistentes
 const mockCourses = [
   {
     id: 1,
-    about: 'Aprende los fundamentos de Next.js desde cero.',
+    about: 'Aprende los fundamentos de Next.js desde cero.', 
+    image: '/images/courses/nextjs.png',
     skillLevel: 'Beginner',
     totalStudents: 1240,
     language: 'Español',
@@ -23,7 +26,6 @@ const mockCourses = [
     instructor: 'Miguel Ángel Durán',
     videoUrl: 'https://www.youtube.com/watch?v=jMy4pVZMyLM',
     instructorPosition: 'Frontend Engineer',
-    instructorAvatar: '/images/avatars/1.png',
     content: [
       {
         title: 'Introducción',
@@ -44,6 +46,7 @@ const mockCourses = [
   {
     id: 2,
     about: 'Curso avanzado de React con hooks y context.',
+    tutorImg: '/images/courses/nextjs.png',
     skillLevel: 'Intermediate',
     totalStudents: 860,
     language: 'Español',
@@ -54,10 +57,9 @@ const mockCourses = [
       'Aprende a dominar hooks y el contexto global en React.',
       'Implementaremos un proyecto práctico paso a paso.'
     ],
-    instructor: 'Juan Pérez',
+    instructor: 'Miguel Ángel Durán',
     instructorPosition: 'Senior React Developer',
     videoUrl: 'https://www.youtube.com/watch?v=x-LcbVw99o8',
-    instructorAvatar: '/images/avatars/2.png',
     content: [
       {
         title: 'Repaso Rápido',
@@ -88,10 +90,9 @@ const mockCourses = [
       'Aprende a crear páginas web atractivas y responsivas.',
       'Cubriendo desde lo básico de HTML hasta técnicas avanzadas de CSS.'
     ],
-    instructor: 'Ana Gómez',
+    instructor: 'Traversy Media',
     instructorPosition: 'Web Designer',
     videoUrl: 'https://www.youtube.com/watch?v=UB1O30fR-EE',
-    instructorAvatar: '/images/avatars/3.png',
     content: [
       {
         title: 'HTML Básico',
@@ -122,10 +123,9 @@ const mockCourses = [
       'Aprende a construir aplicaiciones web completas con frontend y backend.',
       'Usando tecnologías modernas como React, Node.js y bases de datos NoSQL.'
     ],
-    instructor: 'Laura Martínez',
+    instructor: 'Free Coud Camp',
     instructorPosition: 'Full-stack Developer',
     videoUrl: 'https://www.youtube.com/watch?v=Z1RJmh_OqeA',
-    instructorAvatar: '/images/avatars/4.png',
     content: [
       {
         title: 'Frontend',
@@ -149,10 +149,9 @@ const mockCourses = [
       'Descubre los conceptos básicos de la inteligencia artificial.',
       'y cómo aplicar algoritmos de machine learning en proyectos reales.'
     ],
-    instructor: 'Carlos Ruiz',
+    instructor: 'Josh Starmer',
     instructorPosition: 'Data Scientist',
     videoUrl: 'https://www.youtube.com/watch?v=Gv9_4yMHFhI',
-    instructorAvatar: '/images/avatars/5.png',
     content: [
       {
         title: 'Introducción',
@@ -176,10 +175,9 @@ const mockCourses = [
       'Aprender las estrategias clave del marketing digital.',
       'Incluyendo SEO, SEM, email marketing y redes sociales.'
     ],
-    instructor: 'Sofía López',
+    instructor: 'Felipe Vergara',
     instructorPosition: 'Digital Marketing Specialist',
     videoUrl: 'https://www.youtube.com/watch?v=Tdm5tMY2-7I',
-    instructorAvatar: '/images/avatars/6.png',
     content: [
       {
         title: 'Fundamentos',
@@ -203,10 +201,9 @@ const mockCourses = [
       'Aprende los conceptos basicos de la ciberseguridad.',
       'y como proteger sistemas y datos contra amanazas comunes.'
     ],
-    instructor: 'Miguel Torres',
+    instructor: 'Hixec',
     instructorPosition: 'Cybersecurity Analyst',
     videoUrl: 'https://www.youtube.com/watch?v=gzES0MuWqHE',
-    instructorAvatar: '/images/avatars/7.png',
     content: [
       {
         title: 'Conceptos Básicos',
@@ -233,7 +230,6 @@ const mockCourses = [
     instructor: 'Miguel Ángel Durán',
     instructorPosition: 'Cloud Engineer',
     videoUrl: 'https://www.youtube.com/watch?v=zQyrhjEAqLs',
-    instructorAvatar: '/images/avatars/8.png',
     content: [
       {
         title: 'Introducción a la Nube',
@@ -257,10 +253,9 @@ const mockCourses = [
       'Aprende a construir aplicaciones móviles multiplataforma con React Native.',
       'Cubriendo desde la configuración del entorno hasta la publicación en tiendas de apps.'
     ],
-    instructor: 'Lucía Fernández',
+    instructor: 'Traversy Media',
     instructorPosition: 'Mobile Developer',
     videoUrl: 'https://www.youtube.com/watch?v=Hf4MJH0jDb4',
-    instructorAvatar: '/images/avatars/9.png',
     content: [
       {
         title: 'Configuración Inicial',
@@ -284,10 +279,9 @@ const mockCourses = [
       'Aprende los principios básicos del diseño UX/UI.',
       'y cómo crear interfaces atractivas y funcionales.'
     ],
-    instructor: 'Elena Ramírez',
+    instructor: 'Dalto',
     instructorPosition: 'UX/UI Designer',
     videoUrl: 'https://www.youtube.com/watch?v=ABggYX2jOsM',
-    instructorAvatar: '/images/avatars/10.png',
     content: [
       {
         title: 'Fundamentos de UX/UI',
@@ -311,10 +305,9 @@ const mockCourses = [
       'Aprende los conceptos básicos de la programación usando Python.',
       'Cubriendo desde variables y tipos de datos hasta estructuras de control y funciones.'
     ],
-    instructor: 'Javier Sánchez',
+    instructor: 'Free Code Camp',
     instructorPosition: 'Software Developer',
     videoUrl: 'https://www.youtube.com/watch?v=rfscVS0vtbw',
-    instructorAvatar: '/images/avatars/11.png',
     content: [
       {
         title: 'Conceptos Básicos de Python',
@@ -338,10 +331,9 @@ const mockCourses = [
       'Aprende a analizar datos de manera efectiva usando Microsoft Excel.',
       'Cubriendo desde funciones básicas hasta técnicas avanzadas de análisis.'
     ],
-    instructor: 'María Torres',
+    instructor: 'Jon',
     instructorPosition: 'Data Analyst',
     videoUrl: 'https://www.youtube.com/watch?v=9NUjHBNWe9M',
-    instructorAvatar: '/images/avatars/12.png',
     content: [
       {
         title: 'Fundamentos de Excel',
@@ -365,10 +357,9 @@ const mockCourses = [
       'Aprende los principios y practicas de la gestión de proyectos Agile.',
       'Incluyendo Scrum, Kanban y herramientas populares.'
     ],
-    instructor: 'David López',
+    instructor: 'Mark Shead',
     instructorPosition: 'Project Manager',
     videoUrl: 'https://www.youtube.com/watch?v=Z9QbYZh1YXY',
-    instructorAvatar: '/images/avatars/13.png',
     content: [
       {
         title: 'Introducción a Agile',
@@ -392,10 +383,9 @@ const mockCourses = [
       'Aprende los conceptos basicos de blockchain y como funcionan las criptomonedas.',
       'Incluyendo Bitcoin, Ethereum y aplicaciones descestralizadas.'
     ],
-    instructor: 'Sergio Ramírez',
+    instructor: 'Simply Explained',
     instructorPosition: 'Blockchain Developer',
     videoUrl: 'https://www.youtube.com/watch?v=SSo_EIwHSd4',
-    instructorAvatar: '/images/avatars/14.png',
     content: [
       {
         title: 'Conceptos Básicos',
@@ -419,10 +409,9 @@ const mockCourses = [
       'Aprende los conceptos básicos de la realidad aumentada (AR) y la realidad virtual (VR).',
       'y cómo desarrollar aplicaciones inmersivas.'
     ],
-    instructor: 'Natalia Vargas',
+    instructor: 'Felipe Vergara',
     instructorPosition: 'AR/VR Developer',
-    videoUrl: 'https://www.youtube.com/watch?v=IzAuGa7YKeU',
-    instructorAvatar: '/images/avatars/15.png',
+    videoUrl: 'https://www.youtube.com/watch?v=Tdm5tMY2-7I&t=1s',
     content: [
       {
         title: 'Introducción a AR/VR',
@@ -446,10 +435,9 @@ const mockCourses = [
       'Aprende los principios y prácticas de DevOps.',
       'Incluyendo integración continua (CI) y entrega continua (CD).'
     ],
-    instructor: 'Fernando Castillo',
+    instructor: 'Fazt Code',
     instructorPosition: 'DevOps Engineer',
     videoUrl: 'https://www.youtube.com/watch?v=xm1psJEFFIY',
-    instructorAvatar: '/images/avatars/16.png',
     content: [
       {
         title: 'Fundamentos de DevOps',
@@ -473,10 +461,9 @@ const mockCourses = [
       'Aprende los conceptos basicos de la automatización robótica de procecos (RPA).',
       'y como implementar soluciones RPA.'
     ],
-    instructor: 'Isabel Moreno',
+    instructor: 'edureka!',
     instructorPosition: 'RPA Developer',
     videoUrl: 'https://www.youtube.com/watch?v=MBl-3Yb30FA',
-    instructorAvatar: '/images/avatars/17.png',
     content: [
       {
         title: 'Introducción a RPA',
@@ -500,10 +487,9 @@ const mockCourses = [
       'Aprende los conceptos basicos de Internet de las cosas (IoT).',
       'y como desarrollar soluciones IoT.'
     ],
-    instructor: 'Andrés Jimenez',
+    instructor: 'Freddy Vega',
     instructorPosition: 'IoT Developer',
     videoUrl: 'https://www.youtube.com/watch?v=x6cTpJozRd0',
-    instructorAvatar: '/images/avatars/18.png',
     content: [
       {
         title: 'Conceptos Básicos de IoT',
@@ -527,10 +513,9 @@ const mockCourses = [
       'Aprende a crear y gestionar máquinas virtuales usando VirtualBox.',
       'Cubriendo desde la instalación hasta la configuración avanzada.'
     ],
-    instructor: 'Marta Ruiz',
+    instructor: 'Hixec',
     instructorPosition: 'System Administrator',
     videoUrl: 'https://www.youtube.com/watch?v=CLdHQPyHeN0',
-    instructorAvatar: '/images/avatars/19.png',
     content: [
       {
         title: 'Introducción a VirtualBox',
@@ -554,10 +539,9 @@ const mockCourses = [
       'Aprende los conceptos basicos de la programación usando JavaScript.',
       'Cubriendo desde variables y tipos de datos hasta funciones y eventos.'
     ],
-    instructor: 'Luis Hernández',
+    instructor: 'Mosh Hamedani',
     instructorPosition: 'Frontend Developer',
     videoUrl: 'https://www.youtube.com/watch?v=W6NZfCO5SIk',
-    instructorAvatar: '/images/avatars/20.png',
     content: [
       {
         title: 'Conceptos Básicos de JavaScript',
@@ -581,10 +565,9 @@ const mockCourses = [
       'Aprende los conceptos básicos de la programación usando Ruby.',
       'Cubriendo desde variables y tipos de datos hasta estructuras de control y métodos.'
     ],
-    instructor: 'Santiago Vega',
+    instructor: 'Free Code Camp',
     instructorPosition: 'Backend Developer',
     videoUrl: 'https://www.youtube.com/watch?v=t_ispmWmdjY',
-    instructorAvatar: '/images/avatars/21.png',
     content: [
       {
         title: 'Conceptos Básicos de Ruby',
@@ -608,10 +591,9 @@ const mockCourses = [
       'Aprende los conceptos basicos y avanzados de la programación usando Angular.',
       'Cubriendo desde componentes y servicios hasta routing y formularios.'
     ],
-    instructor: 'Diego Fernández',
+    instructor: 'Miguel Ángel Durán',
     instructorPosition: 'Frontend Developer',
     videoUrl: 'https://www.youtube.com/watch?v=f7unUpshmpA',
-    instructorAvatar: '/images/avatars/22.png',
     content: [
       {
         title: 'Conceptos Básicos de Angular',
@@ -635,10 +617,9 @@ const mockCourses = [
       'Aprende los conceptos basicos y avanzados de la programación usando Go.',
       'Cubriendo desde componentes y servicios hasta routing y formularios.'
     ],
-    instructor: 'Jorge Campos',
+    instructor: 'Oscar Turquet',
     instructorPosition: 'Frontend Developer',
     videoUrl: 'https://www.youtube.com/watch?v=UHvpi0IB1Yk',
-    instructorAvatar: '/images/avatars/23.png',
     content: [
       {
         title: 'Conceptos básicos de Go.',
@@ -662,10 +643,9 @@ const mockCourses = [
       'Aprende los conceptos desde el mas basico al mas avanzado utilizando MongoDB',
       'Cubriendo desde documentos hasta agregaciones'
     ],
-    instructor: 'Leonal Andrés Messi',
+    instructor: 'Web Dev Simplified',
     instructorPosition: 'BakcEnd Developer',
     videoUrl: 'https://www.youtube.com/watch?v=ofme2o29ngU',
-    instructorAvatar: '/images/avatars/24.png',
     content: [
       {
         title: 'Conceptos básicos de MongoBD',
@@ -679,12 +659,19 @@ const mockCourses = [
 ]
 
 export default function CourseDetailsPage() {
+  const router = useRouter()
   const params = useParams()
   const idNum = parseInt(params.id, 10)
   const course = mockCourses.find(c => c.id === idNum)
 
+  const [isClicking, setIsClicking] = useState()
+
   if (!course) {
     return <p className="text-center text-red-500">Curso no encontrado</p>
+  }
+
+  const handleGoToCourses = () => {
+    router.push('/apps/academy/my-courses')
   }
 
   return (
@@ -695,6 +682,19 @@ export default function CourseDetailsPage() {
       <Grid size={{ xs: 12, md: 4 }}>
         <Sidebar content={course.content} />
       </Grid>
+
+      {/* Boton para regresar a mis cursos */}
+      <div>
+        <button
+          onClick={handleGoToCourses}
+          onMouseDown={() => setIsClicking(true)}
+          onMouseUp={() => setIsClicking(false)}
+          className={`bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 
+          ${isClicking ? 'cursor-grabbing' : 'cursor-pointer'}`}
+        >
+          My courses
+        </button>
+      </div>
     </Grid>
   )
 }

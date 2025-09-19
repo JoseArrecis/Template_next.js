@@ -21,6 +21,7 @@ import Typography from '@mui/material/Typography'
 // Util Imports
 import { getLocalizedUrl } from '@/utils/i18n'
 import { useParams } from 'next/navigation'
+import Image from 'next/image'
 
 const chipColor = {
   Web: { color: 'primary' },
@@ -98,13 +99,21 @@ const Courses = ({ courseData, searchValue }) => {
         {data.length > 0 ? (
           <Grid container spacing={6}>
             {data.slice(activePage * 6, activePage * 6 + 6).map((item, index) => {
-              const courseNumber = activePage * 6 + index + 1 // Conteo basado en posición
+              const courseNumber = activePage * 6 + index + 1
               return (
                 <Grid size={{ xs: 12, sm: 6, md: 4 }} key={courseNumber}>
                   <div className='border rounded bs-full'>
                     <div className='pli-2 pbs-2'>
-                      <Link href={getLocalizedUrl(`/apps/academy/course-details/${courseNumber}`, locale)} className='flex'>
-                        <img src={item.tutorImg} alt={item.courseTitle} className='is-full' />
+                      <Link href={`/apps/academy/course-details/${item.id}`} legacyBehavior>
+                        <a>
+                          <Image
+                            src={item.image} 
+                            alt={item.courseTitle}
+                            width={400}
+                            height={250}
+                            className="rounded"
+                          />
+                        </a>
                       </Link>
                     </div>
                     <div className='flex flex-col gap-4 p-5'>
@@ -137,7 +146,6 @@ const Courses = ({ courseData, searchValue }) => {
           <Typography className='text-center'>No courses found</Typography>
         )}
 
-        {/* Pagination */}
         <div className='flex justify-center'>
           <Pagination
             count={Math.ceil(data.length / 6)}

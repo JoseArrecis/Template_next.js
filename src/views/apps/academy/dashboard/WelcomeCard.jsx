@@ -12,6 +12,7 @@ import { lighten, darken, useTheme } from '@mui/material/styles'
 
 // Component Imports
 import CustomAvatar from '@core/components/mui/Avatar'
+import { useSession } from 'next-auth/react'
 
 // Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
@@ -82,7 +83,11 @@ const data = [
   }
 ]
 
-const WelcomeCard = () => {
+const WelcomeCard = ({ user }) => {
+  // useSession
+  const { data: session } = useSession() 
+  const userName = session?.user?.name || 'User'
+
   // Hooks
   const theme = useTheme()
   const belowMdScreen = useMediaQuery(theme.breakpoints.down('md'))
@@ -155,7 +160,7 @@ const WelcomeCard = () => {
       <div className='md:is-8/12'>
         <div className='flex items-baseline gap-1 mbe-2'>
           <Typography variant='h5'>Welcome back,</Typography>
-          <Typography variant='h4'>Felecia 👋🏻</Typography>
+          <Typography variant='h4'>{userName}</Typography>
         </div>
         <div className='mbe-4'>
           <Typography>Your progress this week is Awesome. let&apos;s keep it up</Typography>

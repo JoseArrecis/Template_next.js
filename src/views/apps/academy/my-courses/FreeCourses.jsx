@@ -39,9 +39,6 @@ const FreeCourses = () => {
                   url='https://www.youtube.com/watch?v=MJkdaVFHrto'
                   height={200}
                   className='bg-black !is-full'
-                  light={
-                    <img src='/images/apps/academy/7.png' alt='Thumbnail' className='is-full bs-full object-cover' />
-                  }
                   playIcon={
                     <CustomIconButton variant='contained' color='error' className='absolute rounded-full'>
                       <i className='tabler-player-play' />
@@ -66,9 +63,6 @@ const FreeCourses = () => {
                   url='https://www.youtube.com/watch?v=wZniZEbPAzk'
                   height={200}
                   className='bg-black !is-full'
-                  light={
-                    <img src='/images/apps/academy/8.png' alt='Thumbnail' className='is-full bs-full object-cover' />
-                  }
                   playIcon={
                     <CustomIconButton variant='contained' color='error' className='absolute rounded-full'>
                       <i className='tabler-player-play' />

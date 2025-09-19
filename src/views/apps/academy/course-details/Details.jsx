@@ -46,13 +46,6 @@ const Details = ({ data }) => {
               url={data?.videoUrl}
               height={smallScreen ? 280 : 440}
               className='bg-black !is-full'
-              light={
-                <img
-                  src='/images/apps/academy/4.png'
-                  alt='Thumbnail'
-                  className='is-full bs-full object-cover bg-backgroundPaper'
-                />
-              }
               playIcon={
                 <CustomIconButton variant='contained' color='error' className='absolute rounded-full'>
                   <i className='tabler-player-play text-2xl' />
