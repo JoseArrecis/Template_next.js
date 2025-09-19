@@ -128,11 +128,87 @@ const VerticalMenu = ({ dictionary, scrollMenu }) => {
             <MenuItem href={`/${locale}/apps/ecommerce/settings`}>{dictionary['navigation'].settings}</MenuItem>
           </SubMenu>
           <SubMenu label={dictionary['navigation'].academy} icon={<i className='tabler-school' />}>
-            <MenuItem href={`/${locale}/apps/academy/dashboard`}>{dictionary['navigation'].dashboard}</MenuItem>
-            <MenuItem href={`/${locale}/apps/academy/my-courses`}>{dictionary['navigation'].myCourses}</MenuItem>
-            <MenuItem href={`/${locale}/apps/academy/course-details`}>
-              {dictionary['navigation'].courseDetails}
+            <MenuItem href={`/${locale}/apps/academy/dashboard`}>
+              {dictionary['navigation'].dashboard}
             </MenuItem>
+            <MenuItem href={`/${locale}/apps/academy/my-courses`}>
+              {dictionary['navigation'].myCourses}
+            </MenuItem>
+
+            <SubMenu label="Course Details">
+              <MenuItem href={`/${locale}/apps/academy/course-details/1`}>
+                Next.js
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/2`}>
+                React con Hooks y Context
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/3`}>
+                HTML y CSS
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/4`}>
+                D.W. full-stack
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/5`}>
+                IA y machine learning
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/6`}>
+                Marketing Digital
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/7`}>
+                Ciberseguridad
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/8`}>
+                AWS
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/9`}>
+                React Native
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/10`}>
+                Diseño UX/UI
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/11`}>
+                Python
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/12`}>
+                Analitica de datos Excel
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/13`}>
+                Agile
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/14`}>
+                Blockchain y Criptomonedas
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/15`}>
+                RA y virtual
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/16`}>
+                DevOps y CI/CD
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/17`}>
+                Automatización con RPA
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/18`}>
+                Internet de las cosas (IoT)
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/19`}>
+                Virtual Box
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/20`}>
+                JavaScript
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/21`}>
+                Ruby
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/22`}>
+                Angular
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/23`}>
+                Programación con Go
+              </MenuItem>
+              <MenuItem href={`/${locale}/apps/academy/course-details/24`}>
+                MongoDB
+              </MenuItem>
+            </SubMenu>
           </SubMenu>
           <SubMenu label={dictionary['navigation'].logistics} icon={<i className='tabler-truck' />}>
             <MenuItem href={`/${locale}/apps/logistics/dashboard`}>{dictionary['navigation'].dashboard}</MenuItem>

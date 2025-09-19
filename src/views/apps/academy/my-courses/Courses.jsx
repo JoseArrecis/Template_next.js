@@ -18,9 +18,6 @@ import Select from '@mui/material/Select'
 import Switch from '@mui/material/Switch'
 import Typography from '@mui/material/Typography'
 
-// Component Imports
-import DirectionalIcon from '@components/DirectionalIcon'
-
 // Util Imports
 import { getLocalizedUrl } from '@/utils/i18n'
 import { useParams } from 'next/navigation'

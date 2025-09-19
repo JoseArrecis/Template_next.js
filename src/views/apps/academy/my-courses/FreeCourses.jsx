@@ -36,7 +36,7 @@ const FreeCourses = () => {
                 <ReactPlayer
                   playing
                   controls
-                  url='https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4'
+                  url='https://www.youtube.com/watch?v=MJkdaVFHrto'
                   height={200}
                   className='bg-black !is-full'
                   light={
@@ -50,9 +50,9 @@ const FreeCourses = () => {
                 />
               </div>
               <div className='flex flex-col gap-2 p-6'>
-                <Typography variant='h5'>Your First Singing Lesson</Typography>
+                <Typography variant='h5'>HTML</Typography>
                 <Typography>
-                  In the same way as any other artistic domain, singing lends itself perfectly to self-teaching.
+                  HTML es el lenguage de marcado que estructura el contenido de una página web.
                 </Typography>
               </div>
             </div>
@@ -63,7 +63,7 @@ const FreeCourses = () => {
                 <ReactPlayer
                   playing
                   controls
-                  url='https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4'
+                  url='https://www.youtube.com/watch?v=wZniZEbPAzk'
                   height={200}
                   className='bg-black !is-full'
                   light={
@@ -77,10 +77,9 @@ const FreeCourses = () => {
                 />
               </div>
               <div className='flex flex-col gap-2 p-6'>
-                <Typography variant='h5'>Guitar for Beginners</Typography>
+                <Typography variant='h5'>CSS</Typography>
                 <Typography>
-                  The Fender Acoustic Guitar is the best choice for both beginners and professionals offering a great
-                  sound.
+                  CSS sirve para dar estilo a HTML (colores, tamaño, etc.).
                 </Typography>
               </div>
             </div>
