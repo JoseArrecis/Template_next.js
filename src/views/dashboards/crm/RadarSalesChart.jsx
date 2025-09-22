@@ -11,6 +11,9 @@ import { useTheme } from '@mui/material/styles'
 
 // Components Imports
 import OptionMenu from '@core/components/option-menu'
+import { useState } from 'react'
+import { IconButton, Menu, MenuItem } from '@mui/material'
+import { MoreVerticalIcon } from 'lucide-react'
 
 // Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
@@ -76,6 +79,31 @@ const RadarSalesChart = () => {
         }
       }
     ]
+  }
+
+  const PeriodMenu = ({ onChange }) => {
+    const [anchorEl, setAnchorEl] = useState(null)
+    const open = Boolean(anchorEl)
+
+    const handleClick = (event) => setAnchorEl(event.currentTarget)
+    const handleClose = () => setAnchorEl(null)
+    const handleSelect = (period) => {
+      onChange(period)
+      handleClose()
+    }
+
+    return (
+      <>
+        <IconButton onClick={handleClick}>
+          <MoreVerticalIcon />
+        </IconButton>
+        <Menu>
+          <MenuItem onClick={() => handleSelect('lastMonth')}>Last Month</MenuItem>
+          <MenuItem onClick={() => handleSelect('lastMonths')}>Last Month</MenuItem>
+          <MenuItem onClick={() => handleSelect('lastYear')}>Last Month</MenuItem>
+        </Menu>
+      </>
+    )
   }
 
   return (
