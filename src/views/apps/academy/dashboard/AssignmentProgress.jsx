@@ -12,16 +12,39 @@ import DirectionalIcon from '@components/DirectionalIcon'
 
 // Vars
 const data = [
-  { title: 'User Experience Design', tasks: 120, progress: 72, color: 'primary' },
-  { title: 'Basic fundamentals', tasks: 32, progress: 48, color: 'success' },
-  { title: 'React Native components', tasks: 182, progress: 15, color: 'error' },
-  { title: 'Basic of music theory', tasks: 56, progress: 24, color: 'info' }
+  { 
+    title: 'User Experience Design', 
+    tasks: 120, 
+    progress: 72, 
+    color: 'primary' 
+  },
+  { 
+    title: 'Basic fundamentals', 
+    tasks: 32, 
+    progress: 48,
+    color: 'success' 
+  },
+  { 
+    title: 'React Native components', 
+    tasks: 182, 
+    progress: 15, 
+    color: 'error' 
+  },
+  { 
+    title: 'Basic of music theory', 
+    tasks: 56, 
+    progress: 24, 
+    color: 'info' 
+  }
 ]
 
 const AssignmentProgress = () => {
   return (
     <Card>
-      <CardHeader title='Assignment Progress' action={<OptionMenu options={['Refresh', 'Update', 'Share']} />} />
+      <CardHeader 
+        title='Assignment Progress' 
+        action={<OptionMenu options={['Refresh', 'Update', 'Share']} />} 
+      />
       <CardContent className='flex flex-col gap-8'>
         {data.map((item, i) => (
           <div key={i} className='flex items-center gap-4'>
