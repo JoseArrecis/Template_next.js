@@ -3,7 +3,6 @@
 import Grid from '@mui/material/Grid2'
 import Details from '@views/apps/academy/course-details/Details'
 import Sidebar from '@views/apps/academy/course-details/Sidebar'
-import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -46,7 +45,7 @@ const mockCourses = [
   {
     id: 2,
     about: 'Curso avanzado de React con hooks y context.',
-    tutorImg: '/images/courses/nextjs.png',
+    image: '/images/courses/react.png',
     skillLevel: 'Intermediate',
     totalStudents: 860,
     language: 'Español',
@@ -80,6 +79,7 @@ const mockCourses = [
   {
     id: 3,
     about: 'Fundamentos de diseño web con HTML y CSS.',
+    image: '/images/courses/html-css.png',
     skillLevel: 'Beginner',
     totalStudents: 540,
     language: 'Español',
@@ -113,6 +113,7 @@ const mockCourses = [
   {
     id: 4,
     about: 'Curso completo de desarrollo web full-stack',
+    image: '/images/courses/fullStack.png',
     skillLevel: 'Advanced',
     totalStudents: 320,
     language: 'Ingles',
@@ -139,6 +140,7 @@ const mockCourses = [
   {
     id: 5,
     about: 'Introduccion a la inteligencia artificial y machine learning.',
+    image: '/images/courses/ai-ml.png',
     skillLevel: 'Beginner',
     totalStudents: 300,
     language: 'Español',
@@ -165,13 +167,14 @@ const mockCourses = [
   {
     id: 6,
     about: 'Curso de fundamentos de marketing digital.',
+    image: '/images/courses/marketing.png',
     skillLevel: 'Beginner',
     totalStudents: 150,
     language: 'Español',
     isCaptions: true,
     totalLectures: 6,
     length: '29m 2s',
-    description: [,
+    description: [
       'Aprender las estrategias clave del marketing digital.',
       'Incluyendo SEO, SEM, email marketing y redes sociales.'
     ],
@@ -191,6 +194,7 @@ const mockCourses = [
   {
     id: 7,
     about: 'Curso de introducción a la ciberseguridad.',
+    image: '/images/courses/cybersecurity.png',
     skillLevel: 'Intermediate',
     totalStudents: 80,
     language: 'Español',
@@ -217,6 +221,7 @@ const mockCourses = [
   {
     id: 8,
     about: 'Curso de introducción a la nube con AWS.',
+    image: '/images/courses/aws.png',
     skillLevel: 'Beginner',
     totalStudents: 60,
     language: 'Español',
@@ -243,6 +248,7 @@ const mockCourses = [
   {
     id: 9,
     about: 'Curso de fundamentos de desarrollo móvil con React Native.',
+    image: '/images/courses/react-native.png',
     skillLevel: 'Intermediate',
     totalStudents: 45,
     language: 'Ingles',
@@ -269,6 +275,7 @@ const mockCourses = [
   {
     id: 10,
     about: 'Curso de introducción al diseño UX/UI.',
+    image: '/images/courses/ux-ui.png',
     skillLevel: 'Beginner',
     totalStudents: 30,
     language: 'Español',
@@ -295,6 +302,7 @@ const mockCourses = [
   {
     id: 11,
     about: 'Curso de introducción a la programación con Python.',
+    image: '/images/courses/python.png',
     skillLevel: 'Beginner',
     totalStudents: 20,
     language: 'Ingles',
@@ -321,6 +329,7 @@ const mockCourses = [
   {
     id: 12,
     about: 'Curso de introducción a la analitica de datos con Excel.',
+    image: '/images/courses/excel.png',
     skillLevel: 'Beginner',
     totalStudents: 10,
     language: 'Español',
@@ -347,6 +356,7 @@ const mockCourses = [
   {
     id: 13,
     about: 'Curso de introdcción a la gestión de proyectos en Agile.',
+    image: '/images/courses/agile.png',
     skillLevel: 'Intermediate',
     totalStudents: 5,
     language: 'Español',
@@ -373,6 +383,7 @@ const mockCourses = [
   {
     id: 14,
     about: 'Curso de fundamentos de blockchain y criptomonedas.',
+    image: '/images/courses/blockchain.png',
     skillLevel: 'Beginner',
     totalStudents: 25,
     language: 'Español',
@@ -399,6 +410,7 @@ const mockCourses = [
   {
     id: 15,
     about: 'Curso de introducción a la realidad aumentada y virtual.',
+    image: '/images/courses/ar-vr.png',
     skillLevel: 'Intermediate',
     totalStudents: 8,
     language: 'Español',
@@ -425,6 +437,7 @@ const mockCourses = [
   {
     id: 16,
     about: 'Curso de fundamentos de DevOps y CI/CD.',
+    image: '/images/courses/devops.png',
     skillLevel: 'Intermediate',
     totalStudents: 12,
     language: 'Español',
@@ -451,6 +464,7 @@ const mockCourses = [
   {
     id: 17,
     about: 'Curso de introducción a la automatización con RPA.',
+    image: '/images/courses/rpa.png',
     skillLevel: 'Beginner',
     totalStudents: 18, 
     language: 'Ingles',
@@ -477,6 +491,7 @@ const mockCourses = [
   {
     id: 18,
     about: 'Curso de fundamentos de Internet de las Cosas (IoT).',
+    image: '/images/courses/iot.png',
     skillLevel: 'Beginner',
     totalStudents: 68,
     language: '',
@@ -503,6 +518,7 @@ const mockCourses = [
   {
     id: 19,
     about: 'Virtalización en VirtualBox',
+    image: '/images/courses/virtualbox.png',
     skillLevel: 'Beginner',
     totalStudents: 34,
     language: 'Español',
@@ -529,6 +545,7 @@ const mockCourses = [
   {
     id: 20,
     about: 'Curso de la introducción a la programación JavaScript.',
+    image: '/images/courses/javaScript.png',
     skillLevel: 'Beginner',
     totalStudents: 28,
     language: 'Ingles',
@@ -555,6 +572,7 @@ const mockCourses = [
   {
     id: 21,
     about: 'Curso de introducción a la programación con Ruby.',
+    image: '/images/courses/ruby.png',
     skillLevel: 'Beginner',
     totalStudents: 22,
     language: 'Ingles',
@@ -581,6 +599,7 @@ const mockCourses = [
   {
     id: 22,
     about: 'Curso de introducción a la programación con Angular.',
+    image: '/images/courses/angular.png',
     skillLevel: 'Intermediate',
     totalStudents: 176,
     language: 'Español',
@@ -607,6 +626,7 @@ const mockCourses = [
   {
     id: 23,
     about: 'Curso de introducción a la programación con Go.',
+    image: '/images/courses/go.png',
     skillLevel: 'Intermediate',
     totalStudents: 98,
     language: 'Español',
@@ -633,6 +653,7 @@ const mockCourses = [
   {
     id: 24,
     about: 'Curso de MongoDB para desarrolladores',
+    image: '/images/courses/mongodb.png',
     skillLevel: 'Beginner',
     totalStudents: 100,
     language: 'Ingles',
