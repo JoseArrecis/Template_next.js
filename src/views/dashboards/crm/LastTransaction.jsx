@@ -1,64 +1,24 @@
 'use client'
 
-// MUI Imports
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Chip from '@mui/material/Chip'
 import Typography from '@mui/material/Typography'
 import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button'
 import { useColorScheme } from '@mui/material/styles'
-
-// Third-party Imports
 import classnames from 'classnames'
-
-// Components Imports
 import OptionMenu from '@core/components/option-menu'
-
-// Style Imports
 import tableStyles from '@core/styles/table.module.css'
+import jsPDF from 'jspdf'
 
-// Vars
+// Datos de prueba
 const data = [
-  {
-    trend: '+$1,678',
-    status: 'verified',
-    cardType: 'Credit',
-    cardNumber: '*4230',
-    imgName: 'visa',
-    date: `17 Mar ${new Date().getFullYear()}`
-  },
-  {
-    trend: '-$839',
-    status: 'rejected',
-    cardType: 'Credit',
-    cardNumber: '*5578',
-    imgName: 'mastercard',
-    date: `12 Feb ${new Date().getFullYear()}`
-  },
-  {
-    trend: '+$435',
-    cardType: 'ATM',
-    status: 'verified',
-    cardNumber: '*4567',
-    imgName: 'american-express',
-    date: `28 Feb ${new Date().getFullYear()}`
-  },
-  {
-    trend: '+$2,345',
-    status: 'pending',
-    cardType: 'Credit',
-    cardNumber: '*5699',
-    imgName: 'visa',
-    date: `08 Jan ${new Date().getFullYear()}`
-  },
-  {
-    trend: '+$1,758',
-    status: 'rejected',
-    cardType: 'Credit',
-    cardNumber: '*2451',
-    imgName: 'visa',
-    date: `19 Oct ${new Date().getFullYear()}`
-  }
+  { trend: '+$1,678', status: 'verified', cardType: 'Credit', cardNumber: '*4230', imgName: 'visa', date: `17 Mar ${new Date().getFullYear()}` },
+  { trend: '-$839', status: 'rejected', cardType: 'Credit', cardNumber: '*5578', imgName: 'mastercard', date: `12 Feb ${new Date().getFullYear()}` },
+  { trend: '+$435', cardType: 'ATM', status: 'verified', cardNumber: '*4567', imgName: 'american-express', date: `28 Feb ${new Date().getFullYear()}` },
+  { trend: '+$2,345', status: 'pending', cardType: 'Credit', cardNumber: '*5699', imgName: 'visa', date: `08 Jan ${new Date().getFullYear()}` },
+  { trend: '+$1,758', status: 'rejected', cardType: 'Credit', cardNumber: '*2451', imgName: 'visa', date: `19 Oct ${new Date().getFullYear()}` }
 ]
 
 const statusObj = {
@@ -69,18 +29,37 @@ const statusObj = {
 }
 
 const LastTransaction = ({ serverMode }) => {
-  // Hooks
   const { mode } = useColorScheme()
-
-  // Vars
   const _mode = (mode === 'system' ? serverMode : mode) || serverMode
+
+  // Función para descargar PDF automáticamente
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF()
+    doc.setFontSize(16)
+    doc.text('Reporte de Transacciones', 20, 20)
+
+    let y = 40
+    data.forEach((row, i) => {
+      doc.setFontSize(12)
+      doc.text(
+        `${i + 1}. ${row.cardType} ${row.cardNumber} | ${row.date} | ${statusObj[row.status].text} | ${row.trend}`,
+        20,
+        y
+      )
+      y += 10
+    })
+
+    // descarga directa a carpeta "Descargas"
+    doc.save('transacciones.pdf')
+  }
 
   return (
     <Card>
       <CardHeader
         title='Last Transaction'
-        action={<OptionMenu options={['Show all entries', 'Refresh', 'Download']} />}
+        action={<OptionMenu options={['Show all entries', 'Refresh']} />}
       />
+
       <div className='overflow-x-auto'>
         <table className={tableStyles.table}>
           <thead className='uppercase'>
@@ -136,6 +115,13 @@ const LastTransaction = ({ serverMode }) => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Botón para descargar PDF */}
+      <div className='flex justify-end p-4'>
+        <Button variant='contained' color='primary' onClick={handleDownloadPDF}>
+          Descargar PDF
+        </Button>
       </div>
     </Card>
   )

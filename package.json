@@ -61,6 +61,7 @@
     "fs-extra": "11.2.0",
     "input-otp": "1.4.1",
     "jsonwebtoken": "^9.0.2",
+    "jspdf": "^3.0.3",
     "keen-slider": "6.8.6",
     "lucide-react": "^0.544.0",
     "mapbox-gl": "3.9.0",
