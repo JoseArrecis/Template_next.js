@@ -17,13 +17,13 @@ import classnames from 'classnames'
 
 // Components Imports
 import CustomAvatar from '@core/components/mui/Avatar'
-import { MoreVerticalIcon } from 'lucide-react'
+import { MoreVertical as MoreVerticalIcon } from 'lucide-react'
 import { useState } from 'react'
 
 // Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
 
-// Datos por periodo
+// ====================== DATOS ======================
 const periodData = {
   lastWeek: {
     series: [{ data: [37, 76, 65, 41, 99, 53, 70] }],
@@ -34,7 +34,7 @@ const periodData = {
     ]
   },
   lastMonth: {
-    series: [{ data: [50, 65, 80, 70, 90, 60, 75] }],
+    series: [{ data: [50, 65, 80, 90, 70, 60, 75] }],
     data: [
       { title: 'Earnings', progress: 70, stats: '$1,256', progressColor: 'primary', avatarColor: 'primary', avatarIcon: 'tabler-currency-dollar', chip: '+8.4%', chipColor: 'success' },
       { title: 'Profit', progress: 62, stats: '$876', progressColor: 'info', avatarColor: 'info', avatarIcon: 'tabler-chart-pie-2', chip: '+3.5%', chipColor: 'success' },
@@ -51,38 +51,17 @@ const periodData = {
   }
 }
 
-// Menú funcional
-const PeriodMenu = ({ onChange }) => {
-  const [anchorEl, setAnchorEl] = useState(null)
-  const open = Boolean(anchorEl)
 
-  const handleClick = (event) => setAnchorEl(event.currentTarget)
-  const handleClose = () => setAnchorEl(null)
-  const handleSelect = (period) => {
-    onChange(period)
-    handleClose()
-  }
-
-  return (
-    <>
-      <IconButton onClick={handleClick}>
-        <MoreVerticalIcon />
-      </IconButton>
-      <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        <MenuItem onClick={() => handleSelect('lastWeek')}>Last Week</MenuItem>
-        <MenuItem onClick={() => handleSelect('lastMonth')}>Last Month</MenuItem>
-        <MenuItem onClick={() => handleSelect('lastYear')}>Last Year</MenuItem>
-      </Menu>
-    </>
-  )
-}
-
-// Componente principal
+// ====================== COMPONENTE PRINCIPAL ======================
 const EarningReports = () => {
-  const [period, setPeriod] = useState('lastWeek')
+  const [period, setPeriod] = useState('lastMonth')
   const { series, data } = periodData[period]
-
-  const primaryColorWithOpacity = 'var(--mui-palette-primary-lightOpacity)'
+  
+  // calcular la barra más alta
+  const maxValue = Math.max(...series[0].data)
+  const colors = series[0].data.map(v =>
+    v === maxValue ? 'var(--mui-palette-primary-main)' : 'var(--mui-palette-primary-lightOpacity)'
+  )
 
   const options = {
     chart: { parentHeightOffset: 0, toolbar: { show: false } },
@@ -91,17 +70,49 @@ const EarningReports = () => {
     plotOptions: { bar: { borderRadius: 4, distributed: true, columnWidth: '42%' } },
     legend: { show: false },
     dataLabels: { enabled: false },
-    colors: [primaryColorWithOpacity, primaryColorWithOpacity, primaryColorWithOpacity, primaryColorWithOpacity, 'var(--mui-palette-primary-main)', primaryColorWithOpacity, primaryColorWithOpacity],
+    colors,
     states: { hover: { filter: { type: 'none' } }, active: { filter: { type: 'none' } } },
-    xaxis: { categories: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'], axisTicks: { show: false }, axisBorder: { show: false }, labels: { style: { fontSize: '13px', colors: 'var(--mui-palette-text-disabled)' } } },
+    xaxis: {
+      categories: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+      axisTicks: { show: false },
+      axisBorder: { show: false },
+      labels: { style: { fontSize: '13px', colors: 'var(--mui-palette-text-disabled)' } }
+    },
     yaxis: { show: false }
   }
-
+  // ====================== MENÚ ======================
+  const PeriodMenu = ({ onChange }) => {
+    const [anchorEl, setAnchorEl] = useState(null)
+    const open = Boolean(anchorEl)
+  
+    const handleClick = (event) => setAnchorEl(event.currentTarget)
+    const handleClose = () => setAnchorEl(null)
+    const handleSelect = (period) => {
+      onChange(period)
+      handleClose()
+    }
+  
+    return (
+      <>
+        <IconButton onClick={handleClick}>
+          <MoreVerticalIcon />
+        </IconButton>
+        <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+          <MenuItem onClick={() => handleSelect('lastWeek')}>Last Week</MenuItem>
+          <MenuItem onClick={() => handleSelect('lastMonth')}>Last Month</MenuItem>
+          <MenuItem onClick={() => handleSelect('lastYear')}>Last Year</MenuItem>
+        </Menu>
+      </>
+    )
+  }
+  
   return (
     <Card>
       <CardHeader
         title='Earning Reports'
-        subheader='Earnings Overview'
+        subheader={
+          period === 'lastWeek' ? 'Last Week' : period === 'lastMonth' ? 'Last Month' : 'Last Year'
+        }
         action={<PeriodMenu onChange={setPeriod} />}
         className='pbe-0'
       />
@@ -130,7 +141,12 @@ const EarningReports = () => {
                 </Typography>
               </div>
               <Typography variant='h4'>{item.stats}</Typography>
-              <LinearProgress value={item.progress} variant='determinate' color={item.progressColor} className='max-bs-1' />
+              <LinearProgress
+                value={item.progress}
+                variant='determinate'
+                color={item.progressColor}
+                className='max-bs-1'
+              />
             </div>
           ))}
         </div>
