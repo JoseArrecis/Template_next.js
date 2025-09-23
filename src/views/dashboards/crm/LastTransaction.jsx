@@ -14,11 +14,46 @@ import jsPDF from 'jspdf'
 
 // Datos de prueba
 const data = [
-  { trend: '+$1,678', status: 'verified', cardType: 'Credit', cardNumber: '*4230', imgName: 'visa', date: `17 Mar ${new Date().getFullYear()}` },
-  { trend: '-$839', status: 'rejected', cardType: 'Credit', cardNumber: '*5578', imgName: 'mastercard', date: `12 Feb ${new Date().getFullYear()}` },
-  { trend: '+$435', cardType: 'ATM', status: 'verified', cardNumber: '*4567', imgName: 'american-express', date: `28 Feb ${new Date().getFullYear()}` },
-  { trend: '+$2,345', status: 'pending', cardType: 'Credit', cardNumber: '*5699', imgName: 'visa', date: `08 Jan ${new Date().getFullYear()}` },
-  { trend: '+$1,758', status: 'rejected', cardType: 'Credit', cardNumber: '*2451', imgName: 'visa', date: `19 Oct ${new Date().getFullYear()}` }
+  { 
+    trend: '+$1,678', 
+    status: 'verified', 
+    cardType: 'Credit', 
+    cardNumber: '*4230', 
+    imgName: 'visa', 
+    date: `17 Mar ${new Date().getFullYear()}` 
+  },
+  { 
+    trend: '-$839', 
+    status: 'rejected', 
+    cardType: 'Credit', 
+    cardNumber: '*5578', 
+    imgName: 'mastercard', 
+    date: `12 Feb ${new Date().getFullYear()}` 
+  },
+  { 
+    trend: '+$435', 
+    cardType: 'ATM', 
+    status: 'verified', 
+    cardNumber: '*4567', 
+    imgName: 'american-express', 
+    date: `28 Feb ${new Date().getFullYear()}` 
+  },
+  { 
+    trend: '+$2,345', 
+    status: 'pending', 
+    cardType: 'Credit', 
+    cardNumber: '*5699', 
+    imgName: 'visa', 
+    date: `08 Jan ${new Date().getFullYear()}` 
+  },
+  { 
+    trend: '+$1,758', 
+    status: 'rejected', 
+    cardType: 'Credit', 
+    cardNumber: '*2451', 
+    imgName: 'visa', 
+    date: `19 Oct ${new Date().getFullYear()}` 
+  }
 ]
 
 const statusObj = {
