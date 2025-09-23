@@ -1,7 +1,7 @@
 'use client'
 
 // React Imports
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // Next Imports
 import dynamic from 'next/dynamic'
@@ -20,28 +20,69 @@ import { useTheme } from '@mui/material/styles'
 // Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
 
-// Vars
-const yearOptions = [new Date().getFullYear() - 1, new Date().getFullYear() - 2, new Date().getFullYear() - 3]
+// Opciones de años disponibles
+const yearOptions = [2022, 2023, 2024]
 
-const barSeries = [
-  { name: 'Earning', data: [252, 203, 152, 173, 235, 299, 235, 252, 106] },
-  { name: 'Expense', data: [-128, -157, -190, -163, -89, -51, -89, -136, -190] }
-]
-
-const lineSeries = [
-  { name: 'Last Month', data: [20, 10, 30, 16, 24, 5, 30, 23, 28, 5, 30] },
-  { name: 'This Month', data: [50, 40, 60, 46, 54, 35, 70, 53, 58, 35, 60] }
-]
+// Datos de ejemplo por año
+const yearData = {
+  2022: {
+    barSeries: [
+      { name: 'Earning', data: [120, 150, 180, 200, 220, 250, 230, 210, 190] },
+      { name: 'Expense', data: [-80, -100, -120, -110, -90, -70, -60, -100, -120] }
+    ],
+    lineSeries: [
+      { name: 'Last Month', data: [15, 20, 18, 22, 25, 19, 30, 27, 23, 20, 18] },
+      { name: 'This Month', data: [30, 35, 33, 40, 38, 42, 45, 50, 47, 44, 39] }
+    ],
+    total: '$18,540',
+    budget: '40,000'
+  },
+  2023: {
+    barSeries: [
+      { name: 'Earning', data: [150, 200, 220, 250, 280, 300, 270, 260, 240] },
+      { name: 'Expense', data: [-90, -110, -130, -120, -100, -80, -70, -110, -130] }
+    ],
+    lineSeries: [
+      { name: 'Last Month', data: [20, 25, 22, 28, 30, 26, 35, 33, 29, 25, 24] },
+      { name: 'This Month', data: [40, 45, 43, 50, 55, 52, 60, 65, 62, 58, 55] }
+    ],
+    total: '$22,350',
+    budget: '50,000'
+  },
+  2024: {
+    barSeries: [
+      { name: 'Earning', data: [200, 230, 260, 280, 310, 340, 320, 300, 280] },
+      { name: 'Expense', data: [-100, -130, -150, -140, -120, -100, -90, -130, -150] }
+    ],
+    lineSeries: [
+      { name: 'Last Month', data: [25, 30, 28, 35, 38, 33, 40, 37, 34, 30, 29] },
+      { name: 'This Month', data: [50, 55, 53, 60, 65, 62, 70, 75, 72, 68, 65] }
+    ],
+    total: '$25,825',
+    budget: '56,800'
+  }
+}
 
 const RevenueReport = () => {
   // States
   const [anchorEl, setAnchorEl] = useState(null)
+  const [selectedYear, setSelectedYear] = useState(2024)
+  const [budget, setBudget] = useState(Number(yearData[selectedYear].budget.replace(/,/g, '')));
+
+  useEffect (() => {
+    setBudget(Number(yearData[selectedYear].budget.replace(/,/g, '')));
+  }, [selectedYear])
+
+  const increaseBudget = () => {
+    setBudget(prev => prev + 1000)
+  }
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget)
   }
 
-  const handleClose = () => {
+  const handleClose = (year) => {
+    if (year) setSelectedYear(year)
     setAnchorEl(null)
   }
 
@@ -84,12 +125,8 @@ const RevenueReport = () => {
       }
     },
     states: {
-      hover: {
-        filter: { type: 'none' }
-      },
-      active: {
-        filter: { type: 'none' }
-      }
+      hover: { filter: { type: 'none' } },
+      active: { filter: { type: 'none' } }
     },
     plotOptions: {
       bar: {
@@ -101,14 +138,8 @@ const RevenueReport = () => {
     },
     grid: {
       borderColor: 'var(--mui-palette-divider)',
-      yaxis: {
-        lines: { show: false }
-      },
-      padding: {
-        left: -6,
-        right: -11,
-        bottom: -11
-      }
+      yaxis: { lines: { show: false } },
+      padding: { left: -6, right: -11, bottom: -11 }
     },
     xaxis: {
       axisTicks: { show: false },
@@ -133,74 +164,14 @@ const RevenueReport = () => {
           fontSize: theme.typography.body2.fontSize
         }
       }
-    },
-    responsive: [
-      {
-        breakpoint: theme.breakpoints.values.xl,
-        options: {
-          plotOptions: {
-            bar: { columnWidth: '48%' }
-          }
-        }
-      },
-      {
-        breakpoint: 1380,
-        options: {
-          plotOptions: {
-            bar: { columnWidth: '55%' }
-          }
-        }
-      },
-      {
-        breakpoint: theme.breakpoints.values.lg,
-        options: {
-          plotOptions: {
-            bar: { borderRadius: 7 }
-          }
-        }
-      },
-      {
-        breakpoint: theme.breakpoints.values.md,
-        options: {
-          plotOptions: {
-            bar: { columnWidth: '50%' }
-          }
-        }
-      },
-      {
-        breakpoint: 680,
-        options: {
-          plotOptions: {
-            bar: { columnWidth: '60%' }
-          }
-        }
-      },
-      {
-        breakpoint: theme.breakpoints.values.sm,
-        options: {
-          plotOptions: {
-            bar: { columnWidth: '55%' }
-          }
-        }
-      },
-      {
-        breakpoint: 450,
-        options: {
-          plotOptions: {
-            bar: { borderRadius: 6, columnWidth: '65%' }
-          }
-        }
-      }
-    ]
+    }
   }
 
   const lineOptions = {
     chart: {
       parentHeightOffset: 0,
       toolbar: { show: false },
-      zoom: {
-        enabled: false
-      }
+      zoom: { enabled: false }
     },
     stroke: {
       width: [1, 2],
@@ -208,28 +179,17 @@ const RevenueReport = () => {
       dashArray: [5, 0]
     },
     colors: ['var(--mui-palette-divider)', 'var(--mui-palette-primary-main)'],
-    legend: {
-      show: false
-    },
+    legend: { show: false },
     grid: {
-      padding: {
-        top: -28,
-        left: -11,
-        right: 0,
-        bottom: -15
-      },
-      yaxis: {
-        lines: { show: false }
-      }
+      padding: { top: -28, left: -11, right: 0, bottom: -15 },
+      yaxis: { lines: { show: false } }
     },
     xaxis: {
       labels: { show: false },
       axisTicks: { show: false },
       axisBorder: { show: false }
     },
-    yaxis: {
-      labels: { show: false }
-    }
+    yaxis: { labels: { show: false } }
   }
 
   return (
@@ -238,7 +198,13 @@ const RevenueReport = () => {
         <Grid size={{ xs: 12, sm: 8 }} className='border-r'>
           <CardHeader title='Revenue Report' />
           <CardContent>
-            <AppReactApexCharts type='bar' height={320} width='100%' series={barSeries} options={barOptions} />
+            <AppReactApexCharts
+              type='bar'
+              height={320}
+              width='100%'
+              series={yearData[selectedYear].barSeries}
+              options={barOptions}
+            />
           </CardContent>
         </Grid>
         <Grid size={{ xs: 12, sm: 4 }}>
@@ -249,30 +215,38 @@ const RevenueReport = () => {
               onClick={handleClick}
               endIcon={<i className='tabler-chevron-down text-xl' />}
             >
-              {new Date().getFullYear()}
+              {selectedYear}
             </Button>
             <Menu
               keepMounted
               anchorEl={anchorEl}
-              onClose={handleClose}
+              onClose={() => handleClose()}
               open={Boolean(anchorEl)}
               anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
               transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             >
               {yearOptions.map(year => (
-                <MenuItem key={year} onClick={handleClose}>
+                <MenuItem key={year} onClick={() => handleClose(year)}>
                   {year}
                 </MenuItem>
               ))}
             </Menu>
             <div className='flex flex-col items-center'>
-              <Typography variant='h3'>$25,825</Typography>
+              <Typography variant='h3'>{yearData[selectedYear].total}</Typography>
               <Typography>
-                <span className='font-medium text-textPrimary'>Budget: </span>56,800
+                <span className='font-medium text-textPrimary'>Budget: </span>
+                {budget.toLocaleString()}
               </Typography>
+              <Button></Button>
             </div>
-            <AppReactApexCharts type='line' height={80} width='100%' series={lineSeries} options={lineOptions} />
-            <Button variant='contained'>Increase Budget</Button>
+            <AppReactApexCharts
+              type='line'
+              height={80}
+              width='100%'
+              series={yearData[selectedYear].lineSeries}
+              options={lineOptions}
+            />
+            <Button variant='contained' onClick={increaseBudget}>Increase Budget</Button>
           </CardContent>
         </Grid>
       </Grid>
