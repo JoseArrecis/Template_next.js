@@ -2,541 +2,661 @@ export const db = {
   courses: [
     {
       id: 1,
-      user: 'Lauretta Coie',
-      image: '/images/avatars/1.png',
-      tutorImg: '/images/apps/academy/1.png',
-      completedTasks: 19,
-      totalTasks: 25,
-      userCount: 18,
-      note: 20,
-      view: 83,
-      time: '17h 34m',
-      logo: 'tabler-brand-angular',
-      color: 'error',
-      courseTitle: 'Basics of Angular',
-      desc: 'Introductory course for Angular and framework basics with TypeScript',
-      tags: 'Web',
-      rating: 4.4,
-      ratingCount: 8
+      about: 'Aprende los fundamentos de Next.js desde cero.',
+      image: '/images/courses/nextjs.png',
+      skillLevel: 'Beginner',
+      totalStudents: 1240,
+      language: 'Español',
+      isCaptions: true,
+      totalLectures: 12,
+      length: '1h 42m 28s',
+      description: [
+        'Este curso cubre los conceptos básicos de Next.js.',
+        'Aprenderás a trabajar con páginas, layouts y data fetching.'
+      ],
+      instructor: 'Miguel Ángel Durán',
+      instructorPosition: 'Frontend Engineer',
+      videoUrl: 'https://www.youtube.com/watch?v=jMy4pVZMyLM',
+      content: [
+        {
+          title: 'Introducción',
+          topics: [
+            { title: 'Bienvenida', time: '2.5', isCompleted: false },
+            { title: '¿Qué es Next.js?', time: '5.2', isCompleted: false }
+          ]
+        },
+        {
+          title: 'Conceptos Básicos',
+          topics: [
+            { title: 'Pages y Routing', time: '7.3', isCompleted: false },
+            { title: 'Layouts y Metadata', time: '6.8', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 2,
-      user: 'Maybelle Zmitrovich',
-      tutorImg: '/images/apps/academy/2.png',
-      image: '/images/avatars/2.png',
-      completedTasks: 48,
-      totalTasks: 52,
-      userCount: 14,
-      note: 48,
-      view: 43,
-      time: '19h 17m',
-      logo: 'tabler-palette',
-      color: 'warning',
-      desc: 'Learn how to design a beautiful & engaging mobile app with Figma',
-      courseTitle: 'UI/UX Design',
-      tags: 'Design',
-      rating: 4.9,
-      ratingCount: 10
+      about: 'Curso avanzado de React con hooks y context.',
+      image: '/images/courses/react.png',
+      skillLevel: 'Intermediate',
+      totalStudents: 860,
+      language: 'Español',
+      isCaptions: false,
+      totalLectures: 15,
+      length: '43m 46s',
+      description: [
+        'Aprende a dominar hooks y el contexto global en React.',
+        'Implementaremos un proyecto práctico paso a paso.'
+      ],
+      instructor: 'Miguel Ángel Durán',
+      instructorPosition: 'Senior React Developer',
+      videoUrl: 'https://www.youtube.com/watch?v=x-LcbVw99o8',
+      content: [
+        {
+          title: 'Repaso Rápido',
+          topics: [
+            { title: 'Componentes y Props', time: '3.2', isCompleted: false },
+            { title: 'Estado y Eventos', time: '6.5', isCompleted: false }
+          ]
+        },
+        {
+          title: 'Avanzado',
+          topics: [
+            { title: 'useContext y useReducer', time: '10.2', isCompleted: false },
+            { title: 'Custom Hooks', time: '8.7', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 3,
-      user: 'Gertie Langwade',
-      image: '/images/avatars/2.png',
-      tutorImg: '/images/apps/academy/3.png',
-      completedTasks: 87,
-      totalTasks: 100,
-      userCount: 19,
-      note: 81,
-      view: 88,
-      time: '16h 16m',
-      logo: 'tabler-brand-react-native',
-      color: 'info',
-      desc: 'Master React.js: Build dynamic web apps with front-end technology',
-      courseTitle: 'React Native',
-      tags: 'Web',
-      rating: 4.8,
-      ratingCount: 9
+      about: 'Fundamentos de diseño web con HTML y CSS.',
+      image: '/images/courses/html-css.png',
+      skillLevel: 'Beginner',
+      totalStudents: 540,
+      language: 'Español',
+      isCaptions: true,
+      totalLectures: 10,
+      length: '1h 00m 42s',
+      description: [
+        'Aprende a crear páginas web atractivas y responsivas.',
+        'Cubriendo desde lo básico de HTML hasta técnicas avanzadas de CSS.'
+      ],
+      instructor: 'Traversy Media',
+      instructorPosition: 'Web Designer',
+      videoUrl: 'https://www.youtube.com/watch?v=UB1O30fR-EE',
+      content: [
+        {
+          title: 'HTML Básico',
+          topics: [
+            { title: 'Estructura HTML', time: '4.0', isCompleted: false },
+            { title: 'Elementos Comunes', time: '5.5', isCompleted: false }
+          ]
+        },
+        {
+          title: 'CSS Básico',
+          topics: [
+            { title: 'Selectores y Propiedades', time: '7.1', isCompleted: false },
+            { title: 'Box Model y Flexbox', time: '6.3', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 4,
-      user: 'Estella Chace',
-      image: '/images/avatars/3.png',
-      completedTasks: 33,
-      tutorImg: '/images/apps/academy/4.png',
-      totalTasks: 50,
-      userCount: 28,
-      note: 21,
-      view: 87,
-      time: '15h 49m',
-      logo: 'tabler-pencil',
-      color: 'success',
-      courseTitle: 'Art & Drawing',
-      desc: 'Easy-to-follow video & guides show you how to draw animals & people.',
-      tags: 'Design',
-      rating: 4.7,
-      ratingCount: 18
+      about: 'Curso completo de desarrollo web full-stack',
+      image: '/images/courses/fullStack.png',
+      skillLevel: 'Advanced',
+      totalStudents: 320,
+      language: 'Español',
+      isCaptions: true,
+      totalLectures: 20,
+      length: '46m 58s',
+      description: [
+        'Aprende a construir aplicaciones web completas con frontend y backend.',
+        'Usando tecnologías modernas como React, Node.js y bases de datos NoSQL.'
+      ],
+      instructor: 'Free Code Camp',
+      instructorPosition: 'Full-stack Developer',
+      videoUrl: 'https://www.youtube.com/watch?v=Z1RJmh_OqeA',
+      content: [
+        {
+          title: 'Frontend',
+          topics: [
+            { title: 'React Native', time: '12.0', isCompleted: false },
+            { title: 'State Management', time: '9.5', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 5,
-      user: 'Euell Bownass',
-      tutorImg: '/images/apps/academy/5.png',
-      image: '/images/avatars/6.png',
-      completedTasks: 100,
-      totalTasks: 100,
-      userCount: 13,
-      note: 19,
-      view: 13,
-      time: '12h 42m',
-      logo: 'tabler-star',
-      color: 'primary',
-      courseTitle: 'Basic Fundamentals',
-      desc: 'Learn the basics of the most popular programming language.',
-      tags: 'Web',
-      rating: 4.6,
-      ratingCount: 11
+      about: 'Introducción a la inteligencia artificial y machine learning.',
+      image: '/images/courses/ai-ml.png',
+      skillLevel: 'Beginner',
+      totalStudents: 300,
+      language: 'Español',
+      isCaptions: false,
+      totalLectures: 8,
+      length: '12m 45s',
+      description: [
+        'Descubre los conceptos básicos de la inteligencia artificial.',
+        'y cómo aplicar algoritmos de machine learning en proyectos reales.'
+      ],
+      instructor: 'Josh Starmer',
+      instructorPosition: 'Data Scientist',
+      videoUrl: 'https://www.youtube.com/watch?v=Gv9_4yMHFhI',
+      content: [
+        {
+          title: 'Introducción',
+          topics: [
+            { title: '¿Qué es IA?', time: '3.8', isCompleted: false },
+            { title: 'Aplicaciones Comunes', time: '4.6', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 6,
-      user: 'Terrye Etches',
-      tutorImg: '/images/apps/academy/6.png',
-      image: '/images/avatars/3.png',
-      completedTasks: 23,
-      totalTasks: 25,
-      userCount: 78,
-      note: 36,
-      view: 36,
-      time: '1h 42m',
-      logo: 'tabler-brand-react-native',
-      color: 'info',
-      courseTitle: 'React for Beginners',
-      desc: 'Learn React in just a couple of afternoons with this immersive course',
-      tags: 'Web',
-      rating: 4.5,
-      ratingCount: 68
+      about: 'Curso de fundamentos de marketing digital.',
+      image: '/images/courses/marketing.png',
+      skillLevel: 'Beginner',
+      totalStudents: 150,
+      language: 'Español',
+      isCaptions: true,
+      totalLectures: 6,
+      length: '29m 2s',
+      description: [
+        'Aprende las estrategias clave del marketing digital.',
+        'Incluyendo SEO, SEM, email marketing y redes sociales.'
+      ],
+      instructor: 'Felipe Vergara',
+      instructorPosition: 'Digital Marketing Specialist',
+      videoUrl: 'https://www.youtube.com/watch?v=Tdm5tMY2-7I',
+      content: [
+        {
+          title: 'Fundamentos',
+          topics: [
+            { title: 'SEO Básico', time: '5.0', isCompleted: false },
+            { title: 'Redes Sociales', time: '4.3', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 7,
-      user: 'Papageno Sloy',
-      tutorImg: '/images/apps/academy/1.png',
-      image: '/images/avatars/6.png',
-      completedTasks: 11,
-      totalTasks: 20,
-      userCount: 74,
-      note: 21,
-      view: 60,
-      time: '4h 59m',
-      logo: 'tabler-star',
-      color: 'primary',
-      courseTitle: 'The Science of Critical Thinking',
-      desc: 'Learn how to improve your arguments & make better decisions',
-      tags: 'Psychology',
-      rating: 4.4,
-      ratingCount: 64
+      about: 'Curso de introducción a la ciberseguridad.',
+      image: '/images/courses/cybersecurity.png',
+      skillLevel: 'Intermediate',
+      totalStudents: 80,
+      language: 'Español',
+      isCaptions: false,
+      totalLectures: 9,
+      length: '1h 3m 36s',
+      description: [
+        'Aprende los conceptos básicos de la ciberseguridad.',
+        'y cómo proteger sistemas y datos contra amenazas comunes.'
+      ],
+      instructor: 'Hixec',
+      instructorPosition: 'Cybersecurity Analyst',
+      videoUrl: 'https://www.youtube.com/watch?v=gzES0MuWqHE',
+      content: [
+        {
+          title: 'Conceptos Básicos',
+          topics: [
+            { title: 'Tipos de Amenazas', time: '6.1', isCompleted: false },
+            { title: 'Buenas Prácticas', time: '5.4', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 8,
-      user: 'Aviva Penvarden',
-      tutorImg: '/images/apps/academy/2.png',
-      image: '/images/avatars/1.png',
-      completedTasks: 6,
-      totalTasks: 25,
-      userCount: 44,
-      note: 28,
-      view: 13,
-      time: '2h 09m',
-      logo: 'tabler-palette',
-      color: 'warning',
-      courseTitle: 'The Complete Figma UI/UX Course',
-      desc: 'Learn how to design a beautiful & engaging mobile app with Figma',
-      tags: 'UI/UX',
-      rating: 4.3,
-      ratingCount: 34
+      about: 'Curso de introducción a la nube con AWS.',
+      image: '/images/courses/aws.png',
+      skillLevel: 'Beginner',
+      totalStudents: 60,
+      language: 'Español',
+      isCaptions: true,
+      totalLectures: 7,
+      length: '2h 7s',
+      description: [
+        'Aprende los conceptos básicos de la computación en la nube.',
+        'y cómo utilizar los servicios principales de AWS.'
+      ],
+      instructor: 'Miguel Ángel Durán',
+      instructorPosition: 'Cloud Engineer',
+      videoUrl: 'https://www.youtube.com/watch?v=zQyrhjEAqLs',
+      content: [
+        {
+          title: 'Introducción a la Nube',
+          topics: [
+            { title: '¿Qué es la Nube?', time: '4.7', isCompleted: false },
+            { title: 'Servicios Clave de AWS', time: '6.0', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 9,
-      user: 'Reggi Tuddenham',
-      tutorImg: '/images/apps/academy/3.png',
-      image: '/images/avatars/8.png',
-      completedTasks: 67,
-      totalTasks: 100,
-      userCount: 95,
-      note: 34,
-      view: 26,
-      time: '22h 21m',
-      logo: 'tabler-star',
-      color: 'primary',
-      courseTitle: 'Advanced Problem Solving Techniques',
-      desc: 'Learn how to solve problems like a professional with this immersive course',
-      tags: 'Psychology',
-      rating: 4.2,
-      ratingCount: 85
+      about: 'Curso de fundamentos de desarrollo móvil con React Native.',
+      image: '/images/courses/react-native.png',
+      skillLevel: 'Intermediate',
+      totalStudents: 45,
+      language: 'Español',
+      isCaptions: false,
+      totalLectures: 11,
+      length: '51m 27s',
+      description: [
+        'Aprende a construir aplicaciones móviles multiplataforma con React Native.',
+        'Cubriendo desde la configuración del entorno hasta la publicación en tiendas de apps.'
+      ],
+      instructor: 'Traversy Media',
+      instructorPosition: 'Mobile Developer',
+      videoUrl: 'https://www.youtube.com/watch?v=Hf4MJH0jDb4',
+      content: [
+        {
+          title: 'Configuración Inicial',
+          topics: [
+            { title: 'Entorno de Desarrollo', time: '5.6', isCompleted: false },
+            { title: 'Primer App con React Native', time: '7.8', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 10,
-      user: 'Aluin Leveritt',
-      image: '/images/avatars/1.png',
-      completedTasks: 49,
-      totalTasks: 50,
-      tutorImg: '/images/apps/academy/4.png',
-      userCount: 98,
-      note: 51,
-      view: 37,
-      time: '22h 22m',
-      logo: 'tabler-brand-react-native',
-      color: 'info',
-      courseTitle: 'Advanced React Native',
-      desc: "Learn how to build the world's most popular mobile OS with this immersive course",
-      tags: 'Web',
-      rating: 4.1,
-      ratingCount: 88
+      about: 'Curso de introducción al diseño UX/UI.',
+      image: '/images/courses/ux-ui.png',
+      skillLevel: 'Beginner',
+      totalStudents: 30,
+      language: 'Español',
+      isCaptions: true,
+      totalLectures: 5,
+      length: '39m 20s',
+      description: [
+        'Aprende los principios básicos del diseño UX/UI.',
+        'y cómo crear interfaces atractivas y funcionales.'
+      ],
+      instructor: 'Dalto',
+      instructorPosition: 'UX/UI Designer',
+      videoUrl: 'https://www.youtube.com/watch?v=ABggYX2jOsM',
+      content: [
+        {
+          title: 'Fundamentos de UX/UI',
+          topics: [
+            { title: 'Principios de Diseño', time: '4.1', isCompleted: false },
+            { title: 'Herramientas Comunes', time: '3.9', isCompleted: false }
+          ]
+        }
+      ]
     },
+    // ================== CURSOS 11 AL 24 ==================
     {
       id: 11,
-      user: 'Ardys Deakin',
-      image: '/images/avatars/1.png',
-      completedTasks: 87,
-      totalTasks: 100,
-      tutorImg: '/images/apps/academy/5.png',
-      userCount: 19,
-      note: 40,
-      view: 32,
-      time: '15h 25m',
-      logo: 'tabler-brand-react-native',
-      color: 'info',
-      courseTitle: 'Building Web Applications with React',
-      desc: 'Learn how to build modern web apps with React and Redux',
-      tags: 'Web',
-      rating: 4.0,
-      ratingCount: 9
+      about: 'Curso de Python para principiantes.',
+      image: '/images/courses/python.png',
+      skillLevel: 'Beginner',
+      totalStudents: 900,
+      language: 'Español',
+      isCaptions: true,
+      totalLectures: 14,
+      length: '2h 10m',
+      description: [
+        'Aprende Python desde cero.',
+        'Cubriendo sintaxis, estructuras de datos y funciones.'
+      ],
+      instructor: 'Juan Pérez',
+      instructorPosition: 'Python Developer',
+      videoUrl: 'https://www.youtube.com/watch?v=rfscVS0vtbw',
+      content: [
+        {
+          title: 'Fundamentos',
+          topics: [
+            { title: 'Variables y Tipos', time: '5.0', isCompleted: false },
+            { title: 'Condicionales', time: '6.0', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 12,
-      user: 'Camel Scown',
-      image: '/images/avatars/1.png',
-      tutorImg: '/images/apps/academy/6.png',
-      completedTasks: 22,
-      totalTasks: 25,
-      userCount: 26,
-      note: 22,
-      view: 77,
-      time: '4h 33m',
-      logo: 'tabler-brand-angular',
-      color: 'error',
-      courseTitle: 'Angular Routing and Navigation',
-      desc: 'Learn how to build single page applications like a pro with this immersive course',
-      tags: 'Web',
-      rating: 3.9,
-      ratingCount: 16
+      about: 'JavaScript moderno y ES6.',
+      image: '/images/courses/javascript.png',
+      skillLevel: 'Intermediate',
+      totalStudents: 1100,
+      language: 'Español',
+      isCaptions: true,
+      totalLectures: 16,
+      length: '3h 5m',
+      description: [
+        'Domina JavaScript moderno.',
+        'Aprende ES6+, promesas, async/await y más.'
+      ],
+      instructor: 'Carlos López',
+      instructorPosition: 'Front-end Developer',
+      videoUrl: 'https://www.youtube.com/watch?v=PkZNo7MFNFg',
+      content: [
+        {
+          title: 'ES6',
+          topics: [
+            { title: 'Let y Const', time: '4.5', isCompleted: false },
+            { title: 'Arrow Functions', time: '5.0', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 13,
-      user: 'Bertina Honnan',
-      image: '/images/avatars/7.png',
-      tutorImg: '/images/apps/academy/1.png',
-      completedTasks: 11,
-      totalTasks: 50,
-      userCount: 78,
-      note: 75,
-      view: 87,
-      time: '16h 38m',
-      logo: 'tabler-star',
-      color: 'primary',
-      courseTitle: 'Creative Problem Solving',
-      desc: 'Learn how to solve problems creatively and effectively with this immersive course',
-      tags: 'Psychology',
-      rating: 3.8,
-      ratingCount: 68
+      about: 'Node.js y Express: Backend para principiantes.',
+      image: '/images/courses/nodejs.png',
+      skillLevel: 'Beginner',
+      totalStudents: 500,
+      language: 'Español',
+      isCaptions: false,
+      totalLectures: 12,
+      length: '2h 15m',
+      description: [
+        'Aprende a crear servidores y APIs con Node.js y Express.'
+      ],
+      instructor: 'Laura Martínez',
+      instructorPosition: 'Backend Developer',
+      videoUrl: 'https://www.youtube.com/watch?v=Oe421EPjeBE',
+      content: [
+        {
+          title: 'Node.js',
+          topics: [
+            { title: 'Instalación', time: '3.0', isCompleted: false },
+            { title: 'Rutas y Middleware', time: '5.5', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 14,
-      user: 'Hillyer Wooster',
-      image: '/images/avatars/2.png',
-      tutorImg: '/images/apps/academy/2.png',
-      completedTasks: 11,
-      totalTasks: 25,
-      userCount: 92,
-      note: 39,
-      view: 60,
-      time: '22h 43m',
-      logo: 'tabler-brand-angular',
-      color: 'error',
-      courseTitle: 'Building Web Applications with Angular',
-      desc: 'Learn how to build modern web apps with Angular and TypeScript',
-      tags: 'Web',
-      rating: 3.7,
-      ratingCount: 82
+      about: 'Bases de datos con MongoDB.',
+      image: '/images/courses/mongodb.png',
+      skillLevel: 'Intermediate',
+      totalStudents: 600,
+      language: 'Español',
+      isCaptions: true,
+      totalLectures: 10,
+      length: '1h 50m',
+      description: [
+        'Aprende MongoDB y cómo integrarlo en aplicaciones web.'
+      ],
+      instructor: 'Ana Gómez',
+      instructorPosition: 'Database Engineer',
+      videoUrl: 'https://www.youtube.com/watch?v=-56x56UppqQ',
+      content: [
+        {
+          title: 'MongoDB',
+          topics: [
+            { title: 'CRUD', time: '5.0', isCompleted: false },
+            { title: 'Consultas Avanzadas', time: '6.0', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 15,
-      user: 'Emerson Hance',
-      image: '/images/avatars/4.png',
-      tutorImg: '/images/apps/academy/3.png',
-      completedTasks: 4,
-      totalTasks: 5,
-      userCount: 14,
-      note: 22,
-      view: 51,
-      time: '2h 29m',
-      logo: 'tabler-brand-angular',
-      color: 'error',
-      courseTitle: 'Advanced Angular',
-      desc: 'Learn how to build modern web apps with Angular and TypeScript',
-      tags: 'Web',
-      rating: 3.6,
-      ratingCount: 12
+      about: 'TypeScript: Tipado fuerte para JavaScript.',
+      image: '/images/courses/typescript.png',
+      skillLevel: 'Intermediate',
+      totalStudents: 400,
+      language: 'Español',
+      isCaptions: true,
+      totalLectures: 8,
+      length: '1h 30m',
+      description: [
+        'Aprende a usar TypeScript para código más seguro y legible.'
+      ],
+      instructor: 'Miguel Torres',
+      instructorPosition: 'Software Engineer',
+      videoUrl: 'https://www.youtube.com/watch?v=BwuLxPH8IDs',
+      content: [
+        {
+          title: 'Fundamentos',
+          topics: [
+            { title: 'Tipos', time: '4.0', isCompleted: false },
+            { title: 'Interfaces', time: '5.0', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 16,
-      user: 'Ginger Cruft',
-      image: '/images/avatars/1.png',
-      tutorImg: '/images/apps/academy/4.png',
-      completedTasks: 22,
-      totalTasks: 25,
-      userCount: 20,
-      note: 12,
-      view: 95,
-      time: '20h 10m',
-      logo: 'tabler-brand-react-native',
-      color: 'info',
-      courseTitle: 'Testing React with Jest and Enzyme',
-      desc: 'Learn how to build modern web apps with React and Redux',
-      tags: 'Web',
-      rating: 3.5,
-      ratingCount: 10
+      about: 'React avanzado con Redux y Context API.',
+      image: '/images/courses/react-redux.png',
+      skillLevel: 'Advanced',
+      totalStudents: 350,
+      language: 'Español',
+      isCaptions: false,
+      totalLectures: 14,
+      length: '2h 40m',
+      description: [
+        'Aprende a manejar estados complejos con Redux y Context API.'
+      ],
+      instructor: 'Carlos Rivera',
+      instructorPosition: 'Senior React Developer',
+      videoUrl: 'https://www.youtube.com/watch?v=CVpUuw9XSjY',
+      content: [
+        {
+          title: 'Redux',
+          topics: [
+            { title: 'Store y Reducers', time: '5.5', isCompleted: false },
+            { title: 'Acciones y Dispatch', time: '6.0', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 17,
-      user: 'Rollie Parsons',
-      image: '/images/avatars/5.png',
-      tutorImg: '/images/apps/academy/5.png',
-      completedTasks: 11,
-      totalTasks: 50,
-      userCount: 29,
-      note: 20,
-      view: 98,
-      time: '16h 15m',
-      logo: 'tabler-palette',
-      color: 'secondary',
-      courseTitle: 'Typography Theory',
-      desc: 'Learn how to build modern web apps with React and Redux',
-      tags: 'Design',
-      rating: 3.4,
-      ratingCount: 19
+      about: 'Docker y contenedores para principiantes.',
+      image: '/images/courses/docker.png',
+      skillLevel: 'Beginner',
+      totalStudents: 220,
+      language: 'Español',
+      isCaptions: true,
+      totalLectures: 9,
+      length: '1h 20m',
+      description: [
+        'Aprende a crear contenedores y manejar aplicaciones en Docker.'
+      ],
+      instructor: 'Laura Fernández',
+      instructorPosition: 'DevOps Engineer',
+      videoUrl: 'https://www.youtube.com/watch?v=fqMOX6JJhGo',
+      content: [
+        {
+          title: 'Docker',
+          topics: [
+            { title: 'Instalación', time: '4.0', isCompleted: false },
+            { title: 'Contenedores Básicos', time: '5.5', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 18,
-      user: 'Randy Foister',
-      image: '/images/avatars/1.png',
-      completedTasks: 23,
-      tutorImg: '/images/apps/academy/6.png',
-      totalTasks: 100,
-      userCount: 20,
-      note: 16,
-      view: 77,
-      time: '4h 31m',
-      logo: 'tabler-brand-angular',
-      color: 'error',
-      courseTitle: 'Angular Testing',
-      desc: 'Learn how to build modern web apps with Angular and TypeScript',
-      tags: 'Web',
-      rating: 4.3,
-      ratingCount: 10
+      about: 'Kubernetes para desarrolladores.',
+      image: '/images/courses/kubernetes.png',
+      skillLevel: 'Advanced',
+      totalStudents: 180,
+      language: 'Español',
+      isCaptions: false,
+      totalLectures: 12,
+      length: '2h 5m',
+      description: [
+        'Aprende a desplegar y escalar aplicaciones con Kubernetes.'
+      ],
+      instructor: 'Diego Ruiz',
+      instructorPosition: 'DevOps Specialist',
+      videoUrl: 'https://www.youtube.com/watch?v=X48VuDVv0do',
+      content: [
+        {
+          title: 'Kubernetes',
+          topics: [
+            { title: 'Pods y Deployments', time: '5.0', isCompleted: false },
+            { title: 'Services y Volumes', time: '6.0', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 19,
-      user: 'Ashleigh Bartkowiak',
-      image: '/images/avatars/8.png',
-      completedTasks: 17,
-      tutorImg: '/images/apps/academy/1.png',
-      totalTasks: 50,
-      userCount: 28,
-      note: 91,
-      view: 31,
-      time: '1h 52m',
-      logo: 'tabler-brand-react-native',
-      color: 'info',
-      courseTitle: 'React for Professional',
-      desc: 'Learn how to build modern web apps with React and Redux',
-      tags: 'Web',
-      rating: 4.2,
-      ratingCount: 18
+      about: 'Introducción a la inteligencia artificial con Python.',
+      image: '/images/courses/ai-python.png',
+      skillLevel: 'Intermediate',
+      totalStudents: 260,
+      language: 'Español',
+      isCaptions: true,
+      totalLectures: 11,
+      length: '1h 50m',
+      description: [
+        'Aprende IA con Python y librerías como TensorFlow y scikit-learn.'
+      ],
+      instructor: 'Sofía Martínez',
+      instructorPosition: 'Data Scientist',
+      videoUrl: 'https://www.youtube.com/watch?v=aircAruvnKk',
+      content: [
+        {
+          title: 'IA con Python',
+          topics: [
+            { title: 'Fundamentos de Machine Learning', time: '5.0', isCompleted: false },
+            { title: 'Redes Neuronales', time: '6.0', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 20,
-      user: 'Bernarr Markie',
-      image: '/images/avatars/4.png',
-      tutorImg: '/images/apps/academy/2.png',
-      completedTasks: 1,
-      totalTasks: 10,
-      userCount: 11,
-      note: 33,
-      view: 53,
-      time: '16h 24m',
-      logo: 'tabler-pencil',
-      color: 'success',
-      courseTitle: 'The Ultimate Drawing Course',
-      desc: 'Learn how to draw like a professional with this immersive course',
-      tags: 'Art',
-      rating: 4.1,
-      ratingCount: 9
+      about: 'Scrum y metodologías ágiles.',
+      image: '/images/courses/scrum.png',
+      skillLevel: 'Beginner',
+      totalStudents: 200,
+      language: 'Español',
+      isCaptions: true,
+      totalLectures: 8,
+      length: '50m',
+      description: [
+        'Aprende los fundamentos de Scrum y gestión ágil de proyectos.'
+      ],
+      instructor: 'Pedro López',
+      instructorPosition: 'Agile Coach',
+      videoUrl: 'https://www.youtube.com/watch?v=9TycLR0TqFA',
+      content: [
+        {
+          title: 'Scrum',
+          topics: [
+            { title: 'Roles', time: '5.0', isCompleted: false },
+            { title: 'Eventos', time: '4.5', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 21,
-      user: 'Merrilee Whitnell',
-      image: '/images/avatars/2.png',
-      completedTasks: 91,
-      totalTasks: 100,
-      tutorImg: '/images/apps/academy/3.png',
-      userCount: 11,
-      note: 17,
-      view: 74,
-      time: '5h 57m',
-      logo: 'tabler-brand-angular',
-      color: 'error',
-      courseTitle: 'Basics of Angular',
-      desc: 'Introductory course for Angular and framework basics with TypeScript',
-      tags: 'Web',
-      rating: 4.0,
-      ratingCount: 7
+      about: 'Fundamentos de SEO.',
+      image: '/images/courses/seo.png',
+      skillLevel: 'Beginner',
+      totalStudents: 150,
+      language: 'Español',
+      isCaptions: true,
+      totalLectures: 6,
+      length: '30m',
+      description: [
+        'Aprende técnicas básicas de SEO para mejorar el posicionamiento web.'
+      ],
+      instructor: 'Laura Pérez',
+      instructorPosition: 'SEO Specialist',
+      videoUrl: 'https://www.youtube.com/watch?v=hF515-0Tduk',
+      content: [
+        {
+          title: 'SEO',
+          topics: [
+            { title: 'SEO On-Page', time: '4.0', isCompleted: false },
+            { title: 'SEO Off-Page', time: '5.0', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 22,
-      user: 'Thekla Dineges',
-      image: '/images/avatars/1.png',
-      tutorImg: '/images/apps/academy/4.png',
-      completedTasks: 49,
-      totalTasks: 50,
-      userCount: 28,
-      note: 30,
-      view: 54,
-      time: '4h 40m',
-      logo: 'tabler-pencil',
-      color: 'success',
-      courseTitle: 'Introduction to Digital Painting',
-      desc: 'Learn how to draw like a professional with this immersive course',
-      tags: 'Art',
-      rating: 3.9,
-      ratingCount: 18
+      about: 'Fundamentos de diseño gráfico con Photoshop.',
+      image: '/images/courses/photoshop.png',
+      skillLevel: 'Beginner',
+      totalStudents: 120,
+      language: 'Español',
+      isCaptions: true,
+      totalLectures: 7,
+      length: '1h 10m',
+      description: [
+        'Aprende a usar Photoshop para diseño gráfico y retoque fotográfico.'
+      ],
+      instructor: 'Juan Martínez',
+      instructorPosition: 'Graphic Designer',
+      videoUrl: 'https://www.youtube.com/watch?v=OjRqZiAgoHo',
+      content: [
+        {
+          title: 'Photoshop',
+          topics: [
+            { title: 'Herramientas Básicas', time: '4.0', isCompleted: false },
+            { title: 'Capas y Ajustes', time: '5.5', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 23,
-      user: 'Freda Garham',
-      image: '/images/avatars/5.png',
-      tutorImg: '/images/apps/academy/5.png',
-      completedTasks: 81,
-      totalTasks: 100,
-      userCount: 79,
-      note: 46,
-      view: 27,
-      time: '8h 44m',
-      logo: 'tabler-star',
-      color: 'primary',
-      courseTitle: 'The Science of Everyday Thinking',
-      desc: 'Learn how to think better, argue better, and choose better',
-      tags: 'Psychology',
-      rating: 3.8,
-      ratingCount: 69
+      about: 'Fundamentos de SQL.',
+      image: '/images/courses/sql.png',
+      skillLevel: 'Beginner',
+      totalStudents: 180,
+      language: 'Español',
+      isCaptions: false,
+      totalLectures: 9,
+      length: '1h 20m',
+      description: [
+        'Aprende a crear y consultar bases de datos relacionales con SQL.'
+      ],
+      instructor: 'Pedro Sánchez',
+      instructorPosition: 'Database Engineer',
+      videoUrl: 'https://www.youtube.com/watch?v=HXV3zeQKqGY',
+      content: [
+        {
+          title: 'SQL',
+          topics: [
+            { title: 'SELECT y JOIN', time: '4.5', isCompleted: false },
+            { title: 'Subconsultas', time: '5.5', isCompleted: false }
+          ]
+        }
+      ]
     },
     {
       id: 24,
-      user: 'Leyla Bourley',
-      image: '/images/avatars/5.png',
-      completedTasks: 6,
-      tutorImg: '/images/apps/academy/6.png',
-      totalTasks: 25,
-      userCount: 28,
-      note: 11,
-      view: 77,
-      time: '22h 36m',
-      logo: 'tabler-pencil',
-      color: 'success',
-      courseTitle: 'Color Theory',
-      desc: 'Learn how to use color like a professional with this immersive course',
-      tags: 'Design',
-      rating: 3.7,
-      ratingCount: 18
-    },
-    {
-      id: 25,
-      user: 'Nevsa Lawey',
-      image: '/images/avatars/6.png',
-      completedTasks: 13,
-      totalTasks: 100,
-      tutorImg: '/images/apps/academy/1.png',
-      userCount: 93,
-      note: 73,
-      view: 67,
-      time: '19h 21m',
-      logo: 'tabler-palette',
-      color: 'warning',
-      courseTitle: 'The Complete Figma Course',
-      desc: 'Learn how to design a beautiful & engaging mobile app with Figma',
-      tags: 'UI/UX',
-      rating: 3.6,
-      ratingCount: 83
+      about: 'Fundamentos de Git y GitHub.',
+      image: '/images/courses/git.png',
+      skillLevel: 'Beginner',
+      totalStudents: 250,
+      language: 'Español',
+      isCaptions: true,
+      totalLectures: 8,
+      length: '50m',
+      description: [
+        'Aprende control de versiones con Git y colaboración en GitHub.'
+      ],
+      instructor: 'Ana Rodríguez',
+      instructorPosition: 'Software Engineer',
+      videoUrl: 'https://www.youtube.com/watch?v=RGOj5yH7evk',
+      content: [
+        {
+          title: 'Git y GitHub',
+          topics: [
+            { title: 'Comandos Básicos', time: '4.0', isCompleted: false },
+            { title: 'Ramas y Merge', time: '5.0', isCompleted: false }
+          ]
+        }
+      ]
     }
-  ],
-  courseDetails: {
-    title: 'UI/UX Basic Fundamentals',
-    about:
-      'Learn web design in 1 hour with 25+ simple-to-use rules and guidelines — tons of amazing web design resources included!',
-    instructor: 'Devonne Wallbridge',
-    instructorAvatar: '/images/avatars/1.png',
-    instructorPosition: 'Web Developer, Designer, and Teacher',
-    skillLevel: 'All Level',
-    totalStudents: 38815,
-    language: 'English',
-    isCaptions: true,
-    length: '1.5 total hours',
-    totalLectures: 19,
-    description: [
-      `The material of this course is also covered in my other course about web design and development with HTML5 & CSS3. Scroll to the bottom of this page to check out that course, too! If you're already taking my other course, you already have all it takes to start designing beautiful websites today!`,
-      `"Best web design course: If you're interested in web design, but want more than just a "how to use WordPress" course, I highly recommend this one." — Florian Giusti`,
-      `"Very helpful to us left-brained people: I am familiar with HTML, CSS, jQuery, and Twitter Bootstrap, but I needed instruction in web design. This course gave me practical, impactful techniques for making websites more beautiful and engaging." — Susan Darlene Cain`
-    ],
-    content: [
-      {
-        title: 'Course Content',
-        id: 'section1',
-        topics: [
-          { title: 'Welcome to this course', time: '2.4 min', isCompleted: true },
-          { title: 'Watch before you start', time: '4.8 min', isCompleted: true },
-          { title: 'Basic Design theory', time: '5.9 min', isCompleted: false },
-          { title: 'Basic Fundamentals', time: '3.6 min', isCompleted: false },
-          { title: 'What is ui/ux', time: '10.6 min', isCompleted: false }
-        ]
-      },
-      {
-        title: 'Web design for Developers',
-        id: 'section2',
-        topics: [
-          { title: 'How to use Pages in Figma', time: '8.31 min', isCompleted: false },
-          { title: 'What is Lo Fi Wireframe', time: '2 min', isCompleted: false },
-          { title: 'How to use color in Figma', time: '5.9 min', isCompleted: false },
-          { title: 'Frames vs Groups in Figma', time: '3.6 min', isCompleted: false }
-        ]
-      },
-      {
-        title: 'Build Beautiful Websites!',
-        id: 'section3',
-        topics: [
-          { title: 'Section & Div Block', time: '3.53 min', isCompleted: false },
-          { title: 'Read-Only Version of Chat App', time: '2.03 min', isCompleted: false },
-          { title: 'Webflow Autosave', time: '8 min', isCompleted: false },
-          { title: 'Canvas Settings', time: '3 min', isCompleted: false },
-          { title: 'HTML Tags', time: '10 min', isCompleted: false },
-          { title: 'Footer (Chat App)', time: '9.10 min', isCompleted: false }
-        ]
-      },
-      {
-        title: 'Final Project',
-        id: 'section4',
-        topics: [
-          { title: 'Responsive Blog Site', time: '10 min', isCompleted: false },
-          { title: 'Responsive Portfolio', time: '13 min', isCompleted: false },
-          { title: 'Basic Design theory', time: '15 min', isCompleted: false }
-        ]
-      }
-    ]
-  }
+  ]
 }
