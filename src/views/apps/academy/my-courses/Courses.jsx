@@ -46,11 +46,12 @@ const courseImages = {
 }
 
 const chipColor = {
-  Web: { color: 'primary' },
-  Art: { color: 'success' },
-  'UI/UX': { color: 'error' },
-  Psychology: { color: 'warning' },
-  Design: { color: 'info' }
+  Web: { color: 'secondary' },
+  Programming: { color: 'primary' },
+  Marketing: { color: 'success' },
+  AI: { color: 'error' },
+  Design: { color: 'info' },
+  DevOps: { color: 'warning' }
 }
 
 export default function Courses({ courseData = [], searchValue = '' }) {
@@ -117,10 +118,11 @@ export default function Courses({ courseData = [], searchValue = '' }) {
               >
                 <MenuItem value='All'>All Courses</MenuItem>
                 <MenuItem value='Web'>Web</MenuItem>
-                <MenuItem value='Art'>Art</MenuItem>
-                <MenuItem value='UI/UX'>UI/UX</MenuItem>
-                <MenuItem value='Psychology'>Psychology</MenuItem>
+                <MenuItem value='Programming'>Programming</MenuItem>
+                <MenuItem value='Marketing'>Marketing</MenuItem>
+                <MenuItem value='AI'>AI</MenuItem>
                 <MenuItem value='Design'>Design</MenuItem>
+                <MenuItem value='DevOps'>DevOps</MenuItem>
               </Select>
             </FormControl>
             <FormControlLabel

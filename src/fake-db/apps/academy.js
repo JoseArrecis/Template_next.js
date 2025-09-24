@@ -2,661 +2,364 @@ export const db = {
   courses: [
     {
       id: 1,
-      about: 'Aprende los fundamentos de Next.js desde cero.',
-      image: '/images/courses/nextjs.png',
-      skillLevel: 'Beginner',
-      totalStudents: 1240,
-      language: 'Español',
-      isCaptions: true,
-      totalLectures: 12,
-      length: '1h 42m 28s',
-      description: [
-        'Este curso cubre los conceptos básicos de Next.js.',
-        'Aprenderás a trabajar con páginas, layouts y data fetching.'
-      ],
-      instructor: 'Miguel Ángel Durán',
-      instructorPosition: 'Frontend Engineer',
-      videoUrl: 'https://www.youtube.com/watch?v=jMy4pVZMyLM',
-      content: [
-        {
-          title: 'Introducción',
-          topics: [
-            { title: 'Bienvenida', time: '2.5', isCompleted: false },
-            { title: '¿Qué es Next.js?', time: '5.2', isCompleted: false }
-          ]
-        },
-        {
-          title: 'Conceptos Básicos',
-          topics: [
-            { title: 'Pages y Routing', time: '7.3', isCompleted: false },
-            { title: 'Layouts y Metadata', time: '6.8', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Miguel Ángel Durán',
+      completedTasks: 20,
+      totalTasks: 35,
+      userCount: 10,
+      note: 35,
+      view: 100,
+      time: '12h 30m',
+      courseTitle: 'Aprende los fundamentos de Next.js desde cero.',
+      desc: 'Este curso cubre los conceptos basicos de Next.js',
+      tags: 'Web',
+      rating: 4.9,
+      ratingCount: 9
     },
     {
       id: 2,
-      about: 'Curso avanzado de React con hooks y context.',
-      image: '/images/courses/react.png',
-      skillLevel: 'Intermediate',
-      totalStudents: 860,
-      language: 'Español',
-      isCaptions: false,
-      totalLectures: 15,
-      length: '43m 46s',
-      description: [
-        'Aprende a dominar hooks y el contexto global en React.',
-        'Implementaremos un proyecto práctico paso a paso.'
-      ],
-      instructor: 'Miguel Ángel Durán',
-      instructorPosition: 'Senior React Developer',
-      videoUrl: 'https://www.youtube.com/watch?v=x-LcbVw99o8',
-      content: [
-        {
-          title: 'Repaso Rápido',
-          topics: [
-            { title: 'Componentes y Props', time: '3.2', isCompleted: false },
-            { title: 'Estado y Eventos', time: '6.5', isCompleted: false }
-          ]
-        },
-        {
-          title: 'Avanzado',
-          topics: [
-            { title: 'useContext y useReducer', time: '10.2', isCompleted: false },
-            { title: 'Custom Hooks', time: '8.7', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Miguel Ángel Durán',
+      completedTasks: 25,
+      totalTasks: 46,
+      userCount: 20,
+      note: 46,
+      view: 1200,
+      time: '10h 15m',
+      courseTitle: 'Curso avanzado de React con Hooks y Context.',
+      desc: 'Aprende a dominar hooks y el contexto global en React',
+      tags: 'Web',
+      rating: 3.5,
+      ratingCount: 5
     },
     {
       id: 3,
-      about: 'Fundamentos de diseño web con HTML y CSS.',
-      image: '/images/courses/html-css.png',
-      skillLevel: 'Beginner',
-      totalStudents: 540,
-      language: 'Español',
-      isCaptions: true,
-      totalLectures: 10,
-      length: '1h 00m 42s',
-      description: [
-        'Aprende a crear páginas web atractivas y responsivas.',
-        'Cubriendo desde lo básico de HTML hasta técnicas avanzadas de CSS.'
-      ],
-      instructor: 'Traversy Media',
-      instructorPosition: 'Web Designer',
-      videoUrl: 'https://www.youtube.com/watch?v=UB1O30fR-EE',
-      content: [
-        {
-          title: 'HTML Básico',
-          topics: [
-            { title: 'Estructura HTML', time: '4.0', isCompleted: false },
-            { title: 'Elementos Comunes', time: '5.5', isCompleted: false }
-          ]
-        },
-        {
-          title: 'CSS Básico',
-          topics: [
-            { title: 'Selectores y Propiedades', time: '7.1', isCompleted: false },
-            { title: 'Box Model y Flexbox', time: '6.3', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Traversy Media',
+      completedTasks: 19,
+      totalTasks: 44,
+      userCount: 12,
+      note: 15,
+      view: 500,
+      time: '48h',
+      courseTitle: 'Fundamentos de diseño web con HTML y CSS.',
+      desc: 'Aprende a crear páginas web atractivas y responsivas.',
+      tags: 'Design',
+      rating: 4.5,
+      ratingCount: 8
     },
     {
       id: 4,
-      about: 'Curso completo de desarrollo web full-stack',
-      image: '/images/courses/fullStack.png',
-      skillLevel: 'Advanced',
-      totalStudents: 320,
-      language: 'Español',
-      isCaptions: true,
-      totalLectures: 20,
-      length: '46m 58s',
-      description: [
-        'Aprende a construir aplicaciones web completas con frontend y backend.',
-        'Usando tecnologías modernas como React, Node.js y bases de datos NoSQL.'
-      ],
-      instructor: 'Free Code Camp',
-      instructorPosition: 'Full-stack Developer',
-      videoUrl: 'https://www.youtube.com/watch?v=Z1RJmh_OqeA',
-      content: [
-        {
-          title: 'Frontend',
-          topics: [
-            { title: 'React Native', time: '12.0', isCompleted: false },
-            { title: 'State Management', time: '9.5', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Free Code Camp',
+      completedTasks: 26,
+      totalTasks: 53,
+      userCount: 15,
+      note: 14,
+      view: 420,
+      time: '76h 20m',
+      courseTitle: 'Curso completo de desarrollo web full-stack.',
+      desc: 'Aprende a construir aplicaciones web completas con frontend y backend',
+      tags: 'Web',
+      rating: 5.0,
+      ratingCount: 15
     },
     {
       id: 5,
-      about: 'Introducción a la inteligencia artificial y machine learning.',
-      image: '/images/courses/ai-ml.png',
-      skillLevel: 'Beginner',
-      totalStudents: 300,
-      language: 'Español',
-      isCaptions: false,
-      totalLectures: 8,
-      length: '12m 45s',
-      description: [
-        'Descubre los conceptos básicos de la inteligencia artificial.',
-        'y cómo aplicar algoritmos de machine learning en proyectos reales.'
-      ],
-      instructor: 'Josh Starmer',
-      instructorPosition: 'Data Scientist',
-      videoUrl: 'https://www.youtube.com/watch?v=Gv9_4yMHFhI',
-      content: [
-        {
-          title: 'Introducción',
-          topics: [
-            { title: '¿Qué es IA?', time: '3.8', isCompleted: false },
-            { title: 'Aplicaciones Comunes', time: '4.6', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Josh Starmer',
+      completedTasks: 15,
+      totalTasks: 24,
+      userCount: 23,
+      note: 35,
+      view: 780,
+      time: '10h 25m',
+      courseTitle: 'Introducción a la inteligencia artificial y machine learning',
+      desc: 'Descubre los conocimientos basicos de la inteligencia artificial.',
+      tags: 'AI',
+      rating: 3.9,
+      ratingCount: 45
     },
     {
       id: 6,
-      about: 'Curso de fundamentos de marketing digital.',
-      image: '/images/courses/marketing.png',
-      skillLevel: 'Beginner',
-      totalStudents: 150,
-      language: 'Español',
-      isCaptions: true,
-      totalLectures: 6,
-      length: '29m 2s',
-      description: [
-        'Aprende las estrategias clave del marketing digital.',
-        'Incluyendo SEO, SEM, email marketing y redes sociales.'
-      ],
-      instructor: 'Felipe Vergara',
-      instructorPosition: 'Digital Marketing Specialist',
-      videoUrl: 'https://www.youtube.com/watch?v=Tdm5tMY2-7I',
-      content: [
-        {
-          title: 'Fundamentos',
-          topics: [
-            { title: 'SEO Básico', time: '5.0', isCompleted: false },
-            { title: 'Redes Sociales', time: '4.3', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Felipe Vergara',
+      completedTasks: 14,
+      totalTasks: 50,
+      userCount: 54,
+      note: 34,
+      view: 245,
+      time: '31h',
+      courseTitle: 'Curso de fundamentos de marketing digital.',
+      desc: 'Aprender las estrategias clave del marketing digital.',
+      tags: 'Marketing',
+      rating: 2.6,
+      ratingCount: 15
     },
     {
       id: 7,
-      about: 'Curso de introducción a la ciberseguridad.',
-      image: '/images/courses/cybersecurity.png',
-      skillLevel: 'Intermediate',
-      totalStudents: 80,
-      language: 'Español',
-      isCaptions: false,
-      totalLectures: 9,
-      length: '1h 3m 36s',
-      description: [
-        'Aprende los conceptos básicos de la ciberseguridad.',
-        'y cómo proteger sistemas y datos contra amenazas comunes.'
-      ],
-      instructor: 'Hixec',
-      instructorPosition: 'Cybersecurity Analyst',
-      videoUrl: 'https://www.youtube.com/watch?v=gzES0MuWqHE',
-      content: [
-        {
-          title: 'Conceptos Básicos',
-          topics: [
-            { title: 'Tipos de Amenazas', time: '6.1', isCompleted: false },
-            { title: 'Buenas Prácticas', time: '5.4', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Hixec',
+      completedTasks: 24,
+      totalTasks: 62,
+      userCount: 42,
+      note: 53,
+      view: 243,
+      time: '21h',
+      courseTitle: 'Curso de introducción a la ciberseguridad.',
+      desc: 'Aprende los conceptos basicos de la ciberseguridad.',
+      tags: 'Web',
+      rating: 4.5,
+      ratingCount: 12
     },
     {
       id: 8,
-      about: 'Curso de introducción a la nube con AWS.',
-      image: '/images/courses/aws.png',
-      skillLevel: 'Beginner',
-      totalStudents: 60,
-      language: 'Español',
-      isCaptions: true,
-      totalLectures: 7,
-      length: '2h 7s',
-      description: [
-        'Aprende los conceptos básicos de la computación en la nube.',
-        'y cómo utilizar los servicios principales de AWS.'
-      ],
-      instructor: 'Miguel Ángel Durán',
-      instructorPosition: 'Cloud Engineer',
-      videoUrl: 'https://www.youtube.com/watch?v=zQyrhjEAqLs',
-      content: [
-        {
-          title: 'Introducción a la Nube',
-          topics: [
-            { title: '¿Qué es la Nube?', time: '4.7', isCompleted: false },
-            { title: 'Servicios Clave de AWS', time: '6.0', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Miguel Ángel Durán',
+      completedTasks: 18,
+      totalTasks: 24,
+      userCount: 30,
+      note: 40,
+      view: 360,
+      time: '15h 30m',
+      courseTitle: 'Curso de introducción a la nube con AWS.',
+      desc: 'Aprende los conceptos básicos de la computación en la nube.',
+      tags: 'Web',
+      rating: 4.0,
+      ratingCount: 10
     },
     {
       id: 9,
-      about: 'Curso de fundamentos de desarrollo móvil con React Native.',
-      image: '/images/courses/react-native.png',
-      skillLevel: 'Intermediate',
-      totalStudents: 45,
-      language: 'Español',
-      isCaptions: false,
-      totalLectures: 11,
-      length: '51m 27s',
-      description: [
-        'Aprende a construir aplicaciones móviles multiplataforma con React Native.',
-        'Cubriendo desde la configuración del entorno hasta la publicación en tiendas de apps.'
-      ],
-      instructor: 'Traversy Media',
-      instructorPosition: 'Mobile Developer',
-      videoUrl: 'https://www.youtube.com/watch?v=Hf4MJH0jDb4',
-      content: [
-        {
-          title: 'Configuración Inicial',
-          topics: [
-            { title: 'Entorno de Desarrollo', time: '5.6', isCompleted: false },
-            { title: 'Primer App con React Native', time: '7.8', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Traversy Media',
+      completedTasks: 22,
+      totalTasks: 65,
+      userCount: 25,
+      note: 42,
+      view: 500,
+      time: '18h',
+      courseTitle: 'Fundamentos de desarrollo móvil con React Native.',
+      desc: 'Aprende a crear aplicaciones móviles multiplataforma.',
+      tags: 'Mobile',
+      rating: 4.3,
+      ratingCount: 14
     },
     {
       id: 10,
-      about: 'Curso de introducción al diseño UX/UI.',
-      image: '/images/courses/ux-ui.png',
-      skillLevel: 'Beginner',
-      totalStudents: 30,
-      language: 'Español',
-      isCaptions: true,
-      totalLectures: 5,
-      length: '39m 20s',
-      description: [
-        'Aprende los principios básicos del diseño UX/UI.',
-        'y cómo crear interfaces atractivas y funcionales.'
-      ],
-      instructor: 'Dalto',
-      instructorPosition: 'UX/UI Designer',
-      videoUrl: 'https://www.youtube.com/watch?v=ABggYX2jOsM',
-      content: [
-        {
-          title: 'Fundamentos de UX/UI',
-          topics: [
-            { title: 'Principios de Diseño', time: '4.1', isCompleted: false },
-            { title: 'Herramientas Comunes', time: '3.9', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Dalto',
+      completedTasks: 12,
+      totalTasks: 14,
+      userCount: 15,
+      note: 30,
+      view: 180,
+      time: '12h',
+      courseTitle: 'Curso de introducción al diseño UX/UI.',
+      desc: 'Aprende los principios básicos del diseño UX/UI.',
+      tags: 'Design',
+      rating: 4.1,
+      ratingCount: 8
     },
-    // ================== CURSOS 11 AL 24 ==================
     {
       id: 11,
-      about: 'Curso de Python para principiantes.',
-      image: '/images/courses/python.png',
-      skillLevel: 'Beginner',
-      totalStudents: 900,
-      language: 'Español',
-      isCaptions: true,
-      totalLectures: 14,
-      length: '2h 10m',
-      description: [
-        'Aprende Python desde cero.',
-        'Cubriendo sintaxis, estructuras de datos y funciones.'
-      ],
-      instructor: 'Juan Pérez',
-      instructorPosition: 'Python Developer',
-      videoUrl: 'https://www.youtube.com/watch?v=rfscVS0vtbw',
-      content: [
-        {
-          title: 'Fundamentos',
-          topics: [
-            { title: 'Variables y Tipos', time: '5.0', isCompleted: false },
-            { title: 'Condicionales', time: '6.0', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Free Code Camp',
+      completedTasks: 20,
+      totalTasks: 56,
+      userCount: 22,
+      note: 38,
+      view: 400,
+      time: '20h 30m',
+      courseTitle: 'Curso de introducción a la programación con Python.',
+      desc: 'Aprende los conceptos básicos de la programación usando Python.',
+      tags: 'Programming',
+      rating: 4.7,
+      ratingCount: 12
     },
     {
       id: 12,
-      about: 'JavaScript moderno y ES6.',
-      image: '/images/courses/javascript.png',
-      skillLevel: 'Intermediate',
-      totalStudents: 1100,
-      language: 'Español',
-      isCaptions: true,
-      totalLectures: 16,
-      length: '3h 5m',
-      description: [
-        'Domina JavaScript moderno.',
-        'Aprende ES6+, promesas, async/await y más.'
-      ],
-      instructor: 'Carlos López',
-      instructorPosition: 'Front-end Developer',
-      videoUrl: 'https://www.youtube.com/watch?v=PkZNo7MFNFg',
-      content: [
-        {
-          title: 'ES6',
-          topics: [
-            { title: 'Let y Const', time: '4.5', isCompleted: false },
-            { title: 'Arrow Functions', time: '5.0', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Jon',
+      completedTasks: 10,
+      totalTasks: 51,
+      userCount: 12,
+      note: 25,
+      view: 150,
+      time: '8h 15m',
+      courseTitle: 'Curso de introducción a la analítica de datos con Excel.',
+      desc: 'Aprende a analizar datos de manera efectiva usando Microsoft Excel.',
+      tags: 'Data',
+      rating: 4.0,
+      ratingCount: 6
     },
     {
       id: 13,
-      about: 'Node.js y Express: Backend para principiantes.',
-      image: '/images/courses/nodejs.png',
-      skillLevel: 'Beginner',
-      totalStudents: 500,
-      language: 'Español',
-      isCaptions: false,
-      totalLectures: 12,
-      length: '2h 15m',
-      description: [
-        'Aprende a crear servidores y APIs con Node.js y Express.'
-      ],
-      instructor: 'Laura Martínez',
-      instructorPosition: 'Backend Developer',
-      videoUrl: 'https://www.youtube.com/watch?v=Oe421EPjeBE',
-      content: [
-        {
-          title: 'Node.js',
-          topics: [
-            { title: 'Instalación', time: '3.0', isCompleted: false },
-            { title: 'Rutas y Middleware', time: '5.5', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Mark Shead',
+      completedTasks: 14,
+      totalTasks: 56,
+      userCount: 16,
+      note: 28,
+      view: 200,
+      time: '9h 45m',
+      courseTitle: 'Curso de introducción a la gestión de proyectos en Agile.',
+      desc: 'Aprende los principios y prácticas de la gestión de proyectos Agile.',
+      tags: 'Management',
+      rating: 4.2,
+      ratingCount: 7
     },
     {
       id: 14,
-      about: 'Bases de datos con MongoDB.',
-      image: '/images/courses/mongodb.png',
-      skillLevel: 'Intermediate',
-      totalStudents: 600,
-      language: 'Español',
-      isCaptions: true,
-      totalLectures: 10,
-      length: '1h 50m',
-      description: [
-        'Aprende MongoDB y cómo integrarlo en aplicaciones web.'
-      ],
-      instructor: 'Ana Gómez',
-      instructorPosition: 'Database Engineer',
-      videoUrl: 'https://www.youtube.com/watch?v=-56x56UppqQ',
-      content: [
-        {
-          title: 'MongoDB',
-          topics: [
-            { title: 'CRUD', time: '5.0', isCompleted: false },
-            { title: 'Consultas Avanzadas', time: '6.0', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Simply Explained',
+      completedTasks: 8,
+      totalTasks: 10,
+      userCount: 10,
+      note: 22,
+      view: 120,
+      time: '5h 30m',
+      courseTitle: 'Curso de fundamentos de blockchain y criptomonedas.',
+      desc: 'Aprende los conceptos básicos de blockchain y criptomonedas.',
+      tags: 'Blockchain',
+      rating: 4.6,
+      ratingCount: 9
     },
     {
       id: 15,
-      about: 'TypeScript: Tipado fuerte para JavaScript.',
-      image: '/images/courses/typescript.png',
-      skillLevel: 'Intermediate',
-      totalStudents: 400,
-      language: 'Español',
-      isCaptions: true,
-      totalLectures: 8,
-      length: '1h 30m',
-      description: [
-        'Aprende a usar TypeScript para código más seguro y legible.'
-      ],
-      instructor: 'Miguel Torres',
-      instructorPosition: 'Software Engineer',
-      videoUrl: 'https://www.youtube.com/watch?v=BwuLxPH8IDs',
-      content: [
-        {
-          title: 'Fundamentos',
-          topics: [
-            { title: 'Tipos', time: '4.0', isCompleted: false },
-            { title: 'Interfaces', time: '5.0', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Felipe Vergara',
+      completedTasks: 11,
+      totalTasks: 77,
+      userCount: 12,
+      note: 27,
+      view: 140,
+      time: '6h 10m',
+      courseTitle: 'Curso de introducción a la realidad aumentada y virtual.',
+      desc: 'Aprende los conceptos básicos de AR y VR.',
+      tags: 'Ai',
+      rating: 4.3,
+      ratingCount: 8
     },
     {
       id: 16,
-      about: 'React avanzado con Redux y Context API.',
-      image: '/images/courses/react-redux.png',
-      skillLevel: 'Advanced',
-      totalStudents: 350,
-      language: 'Español',
-      isCaptions: false,
-      totalLectures: 14,
-      length: '2h 40m',
-      description: [
-        'Aprende a manejar estados complejos con Redux y Context API.'
-      ],
-      instructor: 'Carlos Rivera',
-      instructorPosition: 'Senior React Developer',
-      videoUrl: 'https://www.youtube.com/watch?v=CVpUuw9XSjY',
-      content: [
-        {
-          title: 'Redux',
-          topics: [
-            { title: 'Store y Reducers', time: '5.5', isCompleted: false },
-            { title: 'Acciones y Dispatch', time: '6.0', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Fazt Code',
+      completedTasks: 13,
+      totalTasks: 14,
+      userCount: 14,
+      note: 32,
+      view: 160,
+      time: '7h 20m',
+      courseTitle: 'Curso de fundamentos de DevOps y CI/CD.',
+      desc: 'Aprende los principios y prácticas de DevOps, integración continua y entrega continua.',
+      tags: 'DevOps',
+      rating: 4.5,
+      ratingCount: 10
     },
     {
       id: 17,
-      about: 'Docker y contenedores para principiantes.',
-      image: '/images/courses/docker.png',
-      skillLevel: 'Beginner',
-      totalStudents: 220,
-      language: 'Español',
-      isCaptions: true,
-      totalLectures: 9,
-      length: '1h 20m',
-      description: [
-        'Aprende a crear contenedores y manejar aplicaciones en Docker.'
-      ],
-      instructor: 'Laura Fernández',
-      instructorPosition: 'DevOps Engineer',
-      videoUrl: 'https://www.youtube.com/watch?v=fqMOX6JJhGo',
-      content: [
-        {
-          title: 'Docker',
-          topics: [
-            { title: 'Instalación', time: '4.0', isCompleted: false },
-            { title: 'Contenedores Básicos', time: '5.5', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'edureka!',
+      completedTasks: 9,
+      totalTasks: 10,
+      userCount: 10,
+      note: 21,
+      view: 90,
+      time: '10h 30m',
+      courseTitle: 'Curso de introducción a la automatización con RPA.',
+      desc: 'Aprende los conceptos básicos de RPA.',
+      tags: 'Automation',
+      rating: 4.1,
+      ratingCount: 5
     },
     {
       id: 18,
-      about: 'Kubernetes para desarrolladores.',
-      image: '/images/courses/kubernetes.png',
-      skillLevel: 'Advanced',
-      totalStudents: 180,
-      language: 'Español',
-      isCaptions: false,
-      totalLectures: 12,
-      length: '2h 5m',
-      description: [
-        'Aprende a desplegar y escalar aplicaciones con Kubernetes.'
-      ],
-      instructor: 'Diego Ruiz',
-      instructorPosition: 'DevOps Specialist',
-      videoUrl: 'https://www.youtube.com/watch?v=X48VuDVv0do',
-      content: [
-        {
-          title: 'Kubernetes',
-          topics: [
-            { title: 'Pods y Deployments', time: '5.0', isCompleted: false },
-            { title: 'Services y Volumes', time: '6.0', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Freddy Vega',
+      completedTasks: 16,
+      totalTasks: 18,
+      userCount: 18,
+      note: 34,
+      view: 200,
+      time: '15h 4m',
+      courseTitle: 'Curso de fundamentos de Internet de las Cosas (IoT).',
+      desc: 'Aprende los conceptos básicos de IoT.',
+      tags: 'IoT',
+      rating: 4.4,
+      ratingCount: 7
     },
     {
       id: 19,
-      about: 'Introducción a la inteligencia artificial con Python.',
-      image: '/images/courses/ai-python.png',
-      skillLevel: 'Intermediate',
-      totalStudents: 260,
-      language: 'Español',
-      isCaptions: true,
-      totalLectures: 11,
-      length: '1h 50m',
-      description: [
-        'Aprende IA con Python y librerías como TensorFlow y scikit-learn.'
-      ],
-      instructor: 'Sofía Martínez',
-      instructorPosition: 'Data Scientist',
-      videoUrl: 'https://www.youtube.com/watch?v=aircAruvnKk',
-      content: [
-        {
-          title: 'IA con Python',
-          topics: [
-            { title: 'Fundamentos de Machine Learning', time: '5.0', isCompleted: false },
-            { title: 'Redes Neuronales', time: '6.0', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Hixec',
+      completedTasks: 7,
+      totalTasks: 10,
+      userCount: 8,
+      note: 18,
+      view: 70,
+      time: '1h 50m',
+      courseTitle: 'Virtualización en VirtualBox.',
+      desc: 'Aprende a crear y gestionar máquinas virtuales usando VirtualBox.',
+      tags: 'System',
+      rating: 4.0,
+      ratingCount: 4
     },
     {
       id: 20,
-      about: 'Scrum y metodologías ágiles.',
-      image: '/images/courses/scrum.png',
-      skillLevel: 'Beginner',
-      totalStudents: 200,
-      language: 'Español',
-      isCaptions: true,
-      totalLectures: 8,
-      length: '50m',
-      description: [
-        'Aprende los fundamentos de Scrum y gestión ágil de proyectos.'
-      ],
-      instructor: 'Pedro López',
-      instructorPosition: 'Agile Coach',
-      videoUrl: 'https://www.youtube.com/watch?v=9TycLR0TqFA',
-      content: [
-        {
-          title: 'Scrum',
-          topics: [
-            { title: 'Roles', time: '5.0', isCompleted: false },
-            { title: 'Eventos', time: '4.5', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Mosh Hamedani',
+      completedTasks: 12,
+      totalTasks: 15,
+      userCount: 14,
+      note: 29,
+      view: 160,
+      time: '45m 16s',
+      courseTitle: 'Curso de la introducción a la programación JavaScript',
+      desc: 'Aprende los conceptos basicos de la programación usando JavaScript',
+      tags: 'Programming',
+      rating: 4.2,
+      ratingCount: 6
     },
     {
       id: 21,
-      about: 'Fundamentos de SEO.',
-      image: '/images/courses/seo.png',
-      skillLevel: 'Beginner',
-      totalStudents: 150,
-      language: 'Español',
-      isCaptions: true,
-      totalLectures: 6,
-      length: '30m',
-      description: [
-        'Aprende técnicas básicas de SEO para mejorar el posicionamiento web.'
-      ],
-      instructor: 'Laura Pérez',
-      instructorPosition: 'SEO Specialist',
-      videoUrl: 'https://www.youtube.com/watch?v=hF515-0Tduk',
-      content: [
-        {
-          title: 'SEO',
-          topics: [
-            { title: 'SEO On-Page', time: '4.0', isCompleted: false },
-            { title: 'SEO Off-Page', time: '5.0', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Free Code Camp',
+      completedTasks: 18,
+      totalTasks: 90,
+      userCount: 22,
+      note: 38,
+      view: 300,
+      time: '12h',
+      courseTitle: 'Curso de la introducción a la programación con Ruby.',
+      desc: 'Aprende los conceptos basicos de la programación usando Ruby.',
+      tags: 'Programming',
+      rating: 4.7,
+      ratingCount: 11
     },
     {
       id: 22,
-      about: 'Fundamentos de diseño gráfico con Photoshop.',
-      image: '/images/courses/photoshop.png',
-      skillLevel: 'Beginner',
-      totalStudents: 120,
-      language: 'Español',
-      isCaptions: true,
-      totalLectures: 7,
-      length: '1h 10m',
-      description: [
-        'Aprende a usar Photoshop para diseño gráfico y retoque fotográfico.'
-      ],
-      instructor: 'Juan Martínez',
-      instructorPosition: 'Graphic Designer',
-      videoUrl: 'https://www.youtube.com/watch?v=OjRqZiAgoHo',
-      content: [
-        {
-          title: 'Photoshop',
-          topics: [
-            { title: 'Herramientas Básicas', time: '4.0', isCompleted: false },
-            { title: 'Capas y Ajustes', time: '5.5', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Hixec',
+      completedTasks: 14,
+      totalTasks: 31,
+      userCount: 18,
+      note: 32,
+      view: 180,
+      time: '10h 20m',
+      courseTitle: 'Curso de introducción a la programación con Angular.',
+      desc: 'Aprende los conceptos basicos y avanzados de la programación usando Angular.',
+      tags: 'Database',
+      rating: 4.4,
+      ratingCount: 9
     },
     {
       id: 23,
-      about: 'Fundamentos de SQL.',
-      image: '/images/courses/sql.png',
-      skillLevel: 'Beginner',
-      totalStudents: 180,
-      language: 'Español',
-      isCaptions: false,
-      totalLectures: 9,
-      length: '1h 20m',
-      description: [
-        'Aprende a crear y consultar bases de datos relacionales con SQL.'
-      ],
-      instructor: 'Pedro Sánchez',
-      instructorPosition: 'Database Engineer',
-      videoUrl: 'https://www.youtube.com/watch?v=HXV3zeQKqGY',
-      content: [
-        {
-          title: 'SQL',
-          topics: [
-            { title: 'SELECT y JOIN', time: '4.5', isCompleted: false },
-            { title: 'Subconsultas', time: '5.5', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Oscar Turquet',
+      completedTasks: 20,
+      totalTasks: 45,
+      userCount: 98,
+      note: 4.6,
+      view: 250,
+      time: '1h 2m 13s',
+      courseTitle: 'Curso de introducción a la programación con Go.',
+      desc: 'Aprende los conceptos básicos y avanzados de la programación usando Go.',
+      tags: 'Programming',
+      rating: 4.6,
+      ratingCount: 10,
+      instructor: 'Oscar Turquet'
     },
     {
       id: 24,
-      about: 'Fundamentos de Git y GitHub.',
-      image: '/images/courses/git.png',
-      skillLevel: 'Beginner',
-      totalStudents: 250,
-      language: 'Español',
-      isCaptions: true,
-      totalLectures: 8,
-      length: '50m',
-      description: [
-        'Aprende control de versiones con Git y colaboración en GitHub.'
-      ],
-      instructor: 'Ana Rodríguez',
-      instructorPosition: 'Software Engineer',
-      videoUrl: 'https://www.youtube.com/watch?v=RGOj5yH7evk',
-      content: [
-        {
-          title: 'Git y GitHub',
-          topics: [
-            { title: 'Comandos Básicos', time: '4.0', isCompleted: false },
-            { title: 'Ramas y Merge', time: '5.0', isCompleted: false }
-          ]
-        }
-      ]
+      user: 'Free Code Camp',
+      completedTasks: 22,
+      totalTasks: 25,
+      userCount: 28,
+      note: 48,
+      view: 300,
+      time: '20h 10m',
+      courseTitle: 'Curso de MongoDB para desarrolladores.',
+      desc: 'Aprende los conceptos desde el más básico al más avanzado utilizando MongoDB.',
+      tags: 'Web',
+      rating: 4.8,
+      ratingCount: 12
     }
   ]
-}
+};
