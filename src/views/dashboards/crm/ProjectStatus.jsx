@@ -13,6 +13,13 @@ import { useTheme } from '@mui/material/styles'
 // Components Imports
 import OptionMenu from '@core/components/option-menu'
 import CustomAvatar from '@core/components/mui/Avatar'
+import { useState } from 'react'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogActions from '@mui/material/DialogActions'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
 
 // Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
@@ -22,7 +29,7 @@ const series = [
   { data: [2000, 2000, 4000, 4000, 3050, 3050, 2050, 2050, 3050, 3050, 4700, 4700, 2750, 2750, 5700, 5700] }
 ]
 
-const data = [
+const initialData = [
   {
     title: 'Donates',
     trend: 'negative',
@@ -37,6 +44,12 @@ const data = [
 ]
 
 const ProjectStatus = () => {
+  const [progressData, setProgressData] = useState(initialData)
+
+  // Estado para Update (todos los items)
+  const [openUpdate, setOpenUpdate] = useState(false)
+  const [editData, setEditData] = useState(progressData)
+
   // Hooks
   const theme = useTheme()
 
@@ -105,44 +118,122 @@ const ProjectStatus = () => {
     yaxis: { show: false }
   }
 
+  // Acciones Menú
+  const handleMenuAction = (action) => {
+    if(action === 'Refresh') {
+      setProgressData(prev =>
+        prev.map(item => ({
+          ...item,
+          amount: `$${(Math.random() * 5000).toFixed(2)}`,   
+          trendDiff: (Math.random() * 1000).toFixed(2)       
+        }))
+      )
+    } else if (action === 'Update') {
+      setEditData(progressData)
+      setOpenUpdate(true)
+    } else if (action === 'Share') {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Assignment Progress',
+          text: 'Check out my assignment progress',
+          url: window.location.href
+        }).catch(err => console.log('Share canceled', err))
+      } else {
+        alert('Sharing is not supported in this browser.')
+      }
+    }
+  }
+
+  // Guardar cambios modal (todos)
+  const handleUpdateSave = () => {
+    setProgressData(editData)
+    setOpenUpdate(false)
+  }
+
+  // Cambiar valores en los inputs del modal
+  const handleEditChange = (index, field, value) => {
+    const updated = [...editData]
+    updated[index] = { ...updated[index], [field]: field === 'amount' ? Number(value) : value}
+    setEditData(updated)
+  }
+
   return (
-    <Card>
-      <CardHeader title='Project Status' action={<OptionMenu options={['Share', 'Refresh', 'Update']} />} />
-      <CardContent className='flex flex-col gap-6'>
-        <div className='flex items-center gap-4'>
-          <CustomAvatar skin='light' variant='rounded' color='warning'>
-            <i className='tabler-currency-dollar' />
-          </CustomAvatar>
-          <div className='flex justify-between items-center is-full'>
-            <div className='flex flex-col'>
-              <Typography className='font-medium' color='text.primary'>
-                $4,3742
-              </Typography>
-              <Typography variant='body2'>Your Earnings</Typography>
-            </div>
-            <Typography className='font-medium' color='success.main'>
-              +10.2%
-            </Typography>
-          </div>
-        </div>
-        <AppReactApexCharts type='area' height={198} width='100%' series={series} options={options} />
-        <div className='flex flex-col gap-4'>
-          {data.map((item, index) => (
-            <div key={index} className='flex items-center justify-between gap-4'>
-              <Typography className='font-medium' color='text.primary'>
-                {item.title}
-              </Typography>
-              <div className='flex items-center gap-4'>
-                <Typography>{item.amount}</Typography>
-                <Typography color={`${item.trend === 'negative' ? 'error' : 'success'}.main`}>
-                  {`${item.trend === 'negative' ? '-' : '+'}${item.trendDiff}`}
+    <>
+      <Card>
+        <CardHeader title='Project Status' action={
+            <OptionMenu 
+              options={[
+                { text: 'Refresh', menuItemProps: { onClick: () => handleMenuAction('Refresh') } },
+                { text: 'Update', menuItemProps: { onClick: () => handleMenuAction('Update') } },
+                { text: 'Share', menuItemProps: { onClick: () => handleMenuAction('Share') } }
+              ]}
+            />
+          }
+        />
+        <CardContent className='flex flex-col gap-6'>
+          <div className='flex items-center gap-4'>
+            <CustomAvatar skin='light' variant='rounded' color='warning'>
+              <i className='tabler-currency-dollar' />
+            </CustomAvatar>
+            <div className='flex justify-between items-center is-full'>
+              <div className='flex flex-col'>
+                <Typography className='font-medium' color='text.primary'>
+                  $4,3742
                 </Typography>
+                <Typography variant='body2'>Your Earnings</Typography>
               </div>
+              <Typography className='font-medium' color='success.main'>
+                +10.2%
+              </Typography>
+            </div>
+          </div>
+          <AppReactApexCharts type='area' height={198} width='100%' series={series} options={options} />
+          <div className='flex flex-col gap-4'>
+            {progressData.map((item, index) => (
+              <div key={index} className='flex items-center justify-between gap-4'>
+                <Typography className='font-medium' color='text.primary'>
+                  {item.title}
+                </Typography>
+                <div className='flex items-center gap-4'>
+                  <Typography>{item.amount}</Typography>
+                  <Typography color={`${item.trend === 'negative' ? 'error' : 'success'}.main`}>
+                    {`${item.trend === 'negative' ? '-' : '+'}${item.trendDiff}`}
+                  </Typography>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Modal Update (todos los items) */}
+      <Dialog open={openUpdate} onClose={() => setOpenUpdate(false)} maxWidth='sm' fullWidth>
+        <DialogTitle>Update All Topics</DialogTitle>
+        <DialogContent className='flex flex-col gap-4 mt-2'>
+          {editData.map((item, index) => (
+            <div key={index} className='flex gap-4 items-center'>
+              <TextField
+                label='title'
+                fullWidth
+                value={item.title}
+                onChange={(e) => handleEditChange(index, 'title', e.target.value)}
+              />
+              <TextField 
+                label='Value'
+                type='number'
+                value={item.amount}
+                onChange={(e) => handleEditChange(index, 'amount', e.target.value)}
+                style={{ width: '120px' }}
+              />
             </div>
           ))}
-        </div>
-      </CardContent>
-    </Card>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenUpdate(false)}>Cancel</Button>
+          <Button variant='contained' onClick={handleUpdateSave}>Save All</Button>
+        </DialogActions>
+      </Dialog>
+    </>
   )
 }
 

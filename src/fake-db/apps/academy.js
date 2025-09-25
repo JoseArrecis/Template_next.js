@@ -131,7 +131,7 @@ export const db = {
       time: '18h',
       courseTitle: 'Fundamentos de desarrollo móvil con React Native.',
       desc: 'Aprende a crear aplicaciones móviles multiplataforma.',
-      tags: 'Mobile',
+      tags: 'Web',
       rating: 4.3,
       ratingCount: 14
     },
@@ -176,7 +176,7 @@ export const db = {
       time: '8h 15m',
       courseTitle: 'Curso de introducción a la analítica de datos con Excel.',
       desc: 'Aprende a analizar datos de manera efectiva usando Microsoft Excel.',
-      tags: 'Data',
+      tags: 'Marketing',
       rating: 4.0,
       ratingCount: 6
     },
@@ -191,7 +191,7 @@ export const db = {
       time: '9h 45m',
       courseTitle: 'Curso de introducción a la gestión de proyectos en Agile.',
       desc: 'Aprende los principios y prácticas de la gestión de proyectos Agile.',
-      tags: 'Management',
+      tags: 'Programming',
       rating: 4.2,
       ratingCount: 7
     },
@@ -206,7 +206,7 @@ export const db = {
       time: '5h 30m',
       courseTitle: 'Curso de fundamentos de blockchain y criptomonedas.',
       desc: 'Aprende los conceptos básicos de blockchain y criptomonedas.',
-      tags: 'Blockchain',
+      tags: 'Programming',
       rating: 4.6,
       ratingCount: 9
     },
@@ -221,7 +221,7 @@ export const db = {
       time: '6h 10m',
       courseTitle: 'Curso de introducción a la realidad aumentada y virtual.',
       desc: 'Aprende los conceptos básicos de AR y VR.',
-      tags: 'Ai',
+      tags: 'AI',
       rating: 4.3,
       ratingCount: 8
     },
@@ -251,7 +251,7 @@ export const db = {
       time: '10h 30m',
       courseTitle: 'Curso de introducción a la automatización con RPA.',
       desc: 'Aprende los conceptos básicos de RPA.',
-      tags: 'Automation',
+      tags: 'Programming',
       rating: 4.1,
       ratingCount: 5
     },
@@ -266,7 +266,7 @@ export const db = {
       time: '15h 4m',
       courseTitle: 'Curso de fundamentos de Internet de las Cosas (IoT).',
       desc: 'Aprende los conceptos básicos de IoT.',
-      tags: 'IoT',
+      tags: 'AI',
       rating: 4.4,
       ratingCount: 7
     },
@@ -281,7 +281,7 @@ export const db = {
       time: '1h 50m',
       courseTitle: 'Virtualización en VirtualBox.',
       desc: 'Aprende a crear y gestionar máquinas virtuales usando VirtualBox.',
-      tags: 'System',
+      tags: 'Programming',
       rating: 4.0,
       ratingCount: 4
     },
@@ -326,7 +326,7 @@ export const db = {
       time: '10h 20m',
       courseTitle: 'Curso de introducción a la programación con Angular.',
       desc: 'Aprende los conceptos basicos y avanzados de la programación usando Angular.',
-      tags: 'Database',
+      tags: 'Web',
       rating: 4.4,
       ratingCount: 9
     },

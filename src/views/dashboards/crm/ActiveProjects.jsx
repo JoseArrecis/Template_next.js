@@ -1,3 +1,5 @@
+'use client'
+
 // MUI Imports
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -7,9 +9,16 @@ import LinearProgress from '@mui/material/LinearProgress'
 
 // Components Imports
 import OptionMenu from '@core/components/option-menu'
+import { useState } from 'react'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogActions from '@mui/material/DialogActions'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
 
 // Vars
-const data = [
+const initialData = [
   {
     title: 'Laravel',
     subtitle: 'eCommerce',
@@ -55,38 +64,121 @@ const data = [
 ]
 
 const ActiveProjects = () => {
+  const [progressData, setProgressData] = useState(initialData)
+
+  // Estado para update (todos los items)
+  const [openUpdate, setOpenUpdate] = useState(false)
+  const [editData, setEditData] = useState(progressData)
+
+  // Acciones menu
+  const handleMenuAction = (action) => {
+    if (action === 'Refresh') {
+      setProgressData(prev => 
+        prev.map(item => ({
+          ...item,
+          progress: Math.floor(Math.random() * 100) + 1 
+        }))
+      )
+    } else if (action === 'Update') {
+      setEditData(progressData)
+      setOpenUpdate(true)
+    } else if (action === 'Share') {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Assignment Progress',
+          text: 'Check out my assignment progress',
+          url: window.location.href
+        }).catch(err => console.log('Share canceled', err))
+      } else {
+        alert('Sharing is not supported in this browser')
+      }
+    }
+  }
+
+  const handleUpdateSave = () => {
+    setProgressData(editData)
+    setOpenUpdate(false)
+  }
+
+  const handleEditChange = (index, field, value ) => {
+    const updated = [...editData]
+    updated[index] = {
+      ...updated[index], 
+      [field]: field === 'progress' && !isNaN(value) ? Number(value) : value
+    }
+    setEditData(updated)
+  }
+
   return (
-    <Card>
-      <CardHeader
-        title='Active Projects'
-        subheader='Average 72% completed'
-        action={<OptionMenu options={['Refresh', 'Update', 'Share']} />}
-      />
-      <CardContent className='flex flex-col gap-4'>
-        {data.map((item, index) => (
-          <div key={index} className='flex items-center gap-4'>
-            <img src={item.imgSrc} alt={item.title} width={32} />
-            <div className='flex flex-wrap justify-between items-center gap-x-4 gap-y-1 is-full'>
-              <div className='flex flex-col'>
-                <Typography className='font-medium' color='text.primary'>
-                  {item.title}
-                </Typography>
-                <Typography variant='body2'>{item.subtitle}</Typography>
-              </div>
-              <div className='flex justify-between items-center is-32'>
-                <LinearProgress
-                  value={item.progress}
-                  variant='determinate'
-                  color={item.progressColor}
-                  className='min-bs-2 is-20'
-                />
-                <Typography color='text.disabled'>{`${item.progress}%`}</Typography>
+    <>
+      <Card>
+        <CardHeader
+          title='Active Projects'
+          subheader='Average 72% completed'
+          action={
+            <OptionMenu 
+              options={[
+                { text: 'Refresh', menuItemProps: { onClick: () => handleMenuAction('Refresh') } },
+                { text: 'Update', menuItemProps: { onClick: () => handleMenuAction('Update') } },
+                { text: 'Share', menuItemProps: { onClick: () => handleMenuAction('Share') } }
+              ]}
+            />
+          }
+        />
+        <CardContent className='flex flex-col gap-4'>
+          {progressData.map((item, index) => (
+            <div key={index} className='flex items-center gap-4'>
+              <img src={item.imgSrc} alt={item.title} width={32} />
+              <div className='flex flex-wrap justify-between items-center gap-x-4 gap-y-1 is-full'>
+                <div className='flex flex-col'>
+                  <Typography className='font-medium' color='text.primary'>
+                    {item.title}
+                  </Typography>
+                  <Typography variant='body2'>{item.subtitle}</Typography>
+                </div>
+                <div className='flex justify-between items-center is-32'>
+                  <LinearProgress
+                    value={item.progress}
+                    variant='determinate'
+                    color={item.progressColor}
+                    className='min-bs-2 is-20'
+                  />
+                  <Typography color='text.disabled'>{`${item.progress}%`}</Typography>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </CardContent>
-    </Card>
+          ))}
+        </CardContent>
+      </Card>
+
+      {/* Modal Update */}
+      <Dialog open={openUpdate} onClose={() => setOpenUpdate(false)}>
+        <DialogTitle>Update Projects</DialogTitle>
+        <DialogContent className='flex flex-col gap-4 mt-2'>
+          {editData.map((item, index) => (
+            <div key={index} className='flex gap-4 items-center'>
+              <TextField 
+                label='Title'
+                fullWidth
+                value={item.title}
+                onChange={(e) => handleEditChange(index, 'title', e.target.value)}
+              />
+              <TextField 
+                label='Progress (%)'
+                type='number'
+                fullWidth
+                value={item.progress}
+                onChange={(e) => handleEditChange(index, 'progress', e.target.value)}
+              />
+            </div>
+          ))}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenUpdate(false)}>Cancel</Button>
+          <Button variant='contained' onClick={handleUpdateSave}>Save</Button>
+        </DialogActions>
+      </Dialog>
+    </>
   )
 }
 

@@ -15,6 +15,7 @@ import LinearProgress from '@mui/material/LinearProgress'
 import TablePagination from '@mui/material/TablePagination'
 import Chip from '@mui/material/Chip'
 import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
 
 // Third-party Imports
 import classnames from 'classnames'
@@ -42,6 +43,7 @@ import { getLocalizedUrl } from '@/utils/i18n'
 // Style Imports
 import tableStyles from '@core/styles/table.module.css'
 
+// Colores de chip
 export const chipColor = {
   'No Warnings': { color: 'success' },
   'Fuel Problems': { color: 'primary' },
@@ -50,30 +52,47 @@ export const chipColor = {
   'Oil Leakage': { color: 'info' }
 }
 
+// Filtro difuso
 const fuzzyFilter = (row, columnId, value, addMeta) => {
-  // Rank the item
   const itemRank = rankItem(row.getValue(columnId), value)
-
-  // Store the itemRank info
-  addMeta({
-    itemRank
-  })
-
-  // Return if the item should be filtered in/out
+  addMeta({ itemRank })
   return itemRank.passed
 }
 
-// Column Definitions
+// Columnas
 const columnHelper = createColumnHelper()
 
 const LogisticsOverviewTable = ({ vehicleData }) => {
-  // States
   const [rowSelection, setRowSelection] = useState({})
-
-  const [data, setData] = useState(...[vehicleData])
-
-  // Hooks
+  const [data, setData] = useState(vehicleData)
   const { lang: locale } = useParams()
+
+  // Función para manejar acciones del menú
+  const handleMenuAction = action => {
+    if (action === 'Refresh') {
+      // Generar nuevos valores aleatorios manteniendo la página actual
+      setData(prev =>
+        prev.map(item => ({
+          ...item,
+          progress: Math.floor(Math.random() * 100)
+        }))
+      )
+    } else if (action === 'Update') {
+      alert('Feature Update Coming Soon 🚀')
+    } else if (action === 'Share') {
+      if (navigator.share) {
+        navigator
+          .share({
+            title: 'Vehicle Overview',
+            text: 'Check out this vehicle data',
+            url: window.location.href
+          })
+          .catch(err => console.log('Share canceled', err))
+      } else {
+        alert('Sharing is not supported in this browser ❌')
+      }
+    }
+  }
 
   const columns = useMemo(
     () => [
@@ -119,11 +138,15 @@ const LogisticsOverviewTable = ({ vehicleData }) => {
       }),
       columnHelper.accessor('startCity', {
         header: 'Starting Route',
-        cell: ({ row }) => <Typography>{`${row.original.startCity}, ${row.original.startCountry}`}</Typography>
+        cell: ({ row }) => (
+          <Typography>{`${row.original.startCity}, ${row.original.startCountry}`}</Typography>
+        )
       }),
       columnHelper.accessor('endCity', {
         header: 'Ending Route',
-        cell: ({ row }) => <Typography>{`${row.original.endCity}, ${row.original.endCountry}`}</Typography>
+        cell: ({ row }) => (
+          <Typography>{`${row.original.endCity}, ${row.original.endCountry}`}</Typography>
+        )
       }),
       columnHelper.accessor('warnings', {
         header: 'Warnings',
@@ -151,26 +174,16 @@ const LogisticsOverviewTable = ({ vehicleData }) => {
         )
       })
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [locale]
   )
 
   const table = useReactTable({
-    data: data,
+    data,
     columns,
-    filterFns: {
-      fuzzy: fuzzyFilter
-    },
-    state: {
-      rowSelection
-    },
-    initialState: {
-      pagination: {
-        pageSize: 5
-      }
-    },
-    enableRowSelection: true, //enable row selection for all rows
-    // enableRowSelection: row => row.original.age > 18, // or enable row selection conditionally per row
+    filterFns: { fuzzy: fuzzyFilter },
+    state: { rowSelection },
+    initialState: { pagination: { pageSize: 5 } },
+    enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -182,7 +195,18 @@ const LogisticsOverviewTable = ({ vehicleData }) => {
 
   return (
     <Card>
-      <CardHeader title='Course you are taking' action={<OptionMenu options={['Refresh', 'Update', 'Share']} />} />
+      <CardHeader
+        title='Vehicles Overview'
+        action={
+          <OptionMenu
+            options={[
+              { text: 'Refresh', menuItemProps: { onClick: () => handleMenuAction('Refresh') } },
+              { text: 'Update', menuItemProps: { onClick: () => handleMenuAction('Update') } },
+              { text: 'Share', menuItemProps: { onClick: () => handleMenuAction('Share') } }
+            ]}
+          />
+        }
+      />
       <div className='overflow-x-auto'>
         <table className={tableStyles.table}>
           <thead>
@@ -190,52 +214,21 @@ const LogisticsOverviewTable = ({ vehicleData }) => {
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
                   <th key={header.id}>
-                    {header.isPlaceholder ? null : (
-                      <>
-                        <div
-                          className={classnames({
-                            'flex items-center': header.column.getIsSorted(),
-                            'cursor-pointer select-none': header.column.getCanSort()
-                          })}
-                          onClick={header.column.getToggleSortingHandler()}
-                        >
-                          {flexRender(header.column.columnDef.header, header.getContext())}
-                          {{
-                            asc: <i className='tabler-chevron-up text-xl' />,
-                            desc: <i className='tabler-chevron-down text-xl' />
-                          }[header.column.getIsSorted()] ?? null}
-                        </div>
-                      </>
-                    )}
+                    {flexRender(header.column.columnDef.header, header.getContext())}
                   </th>
                 ))}
               </tr>
             ))}
           </thead>
-          {table.getFilteredRowModel().rows.length === 0 ? (
-            <tbody>
-              <tr>
-                <td colSpan={table.getVisibleFlatColumns().length} className='text-center'>
-                  No data available
-                </td>
+          <tbody>
+            {table.getRowModel().rows.map(row => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map(cell => (
+                  <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+                ))}
               </tr>
-            </tbody>
-          ) : (
-            <tbody>
-              {table
-                .getRowModel()
-                .rows.slice(0, table.getState().pagination.pageSize)
-                .map(row => {
-                  return (
-                    <tr key={row.id} className={classnames({ selected: row.getIsSelected() })}>
-                      {row.getVisibleCells().map(cell => (
-                        <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
-                      ))}
-                    </tr>
-                  )
-                })}
-            </tbody>
-          )}
+            ))}
+          </tbody>
         </table>
       </div>
       <TablePagination
@@ -243,9 +236,7 @@ const LogisticsOverviewTable = ({ vehicleData }) => {
         count={table.getFilteredRowModel().rows.length}
         rowsPerPage={table.getState().pagination.pageSize}
         page={table.getState().pagination.pageIndex}
-        onPageChange={(_, page) => {
-          table.setPageIndex(page)
-        }}
+        onPageChange={(_, page) => table.setPageIndex(page)}
       />
     </Card>
   )
