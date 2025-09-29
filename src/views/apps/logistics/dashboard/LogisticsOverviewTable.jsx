@@ -42,6 +42,7 @@ import TablePaginationComponent from '@components/TablePaginationComponent'
 
 // Style Imports
 import tableStyles from '@core/styles/table.module.css'
+import { getLocalizedUrl } from '@/utils/i18n'
 
 // Colores de chip
 export const chipColor = {
@@ -142,7 +143,7 @@ const LogisticsOverviewTable = ({ vehicleData }) => {
             </CustomAvatar>
             <Typography
               component={Link}
-              href={'#'}
+              href={getLocalizedUrl('/apps/logistics/fleet', locale)}
               className='font-medium hover:text-primary'
               color='text.primary'
             >
