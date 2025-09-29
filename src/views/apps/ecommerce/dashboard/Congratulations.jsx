@@ -20,7 +20,7 @@ const CongratulationsJohn = () => {
             <Typography variant='h4' color='primary.main' className='mbe-1'>
               $48.9k
             </Typography>
-            <Button variant='contained' color='primary'>
+            <Button variant='contained' color='primary' href='/apps/ecommerce/sales'>
               View Sales
             </Button>
           </CardContent>
