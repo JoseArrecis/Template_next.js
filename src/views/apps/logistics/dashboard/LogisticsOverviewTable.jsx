@@ -2,8 +2,6 @@
 
 // React Imports
 import { useState, useMemo } from 'react'
-
-// Next Imports
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
@@ -16,6 +14,11 @@ import TablePagination from '@mui/material/TablePagination'
 import Chip from '@mui/material/Chip'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogActions from '@mui/material/DialogActions'
+import TextField from '@mui/material/TextField'
 
 // Third-party Imports
 import classnames from 'classnames'
@@ -36,9 +39,6 @@ import {
 import CustomAvatar from '@core/components/mui/Avatar'
 import OptionMenu from '@core/components/option-menu'
 import TablePaginationComponent from '@components/TablePaginationComponent'
-
-// Util Imports
-import { getLocalizedUrl } from '@/utils/i18n'
 
 // Style Imports
 import tableStyles from '@core/styles/table.module.css'
@@ -67,18 +67,33 @@ const LogisticsOverviewTable = ({ vehicleData }) => {
   const [data, setData] = useState(vehicleData)
   const { lang: locale } = useParams()
 
-  // Función para manejar acciones del menú
+  // Estado para update de múltiples filas
+  const [openUpdate, setOpenUpdate] = useState(false)
+  const [editData, setEditData] = useState([])
+
+
+  const handleOpenUpdate = row => {
+    setEditData({ ...row.original })
+    setOpenUpdate(true)
+  }
+
+  // Guardar cambios en la tabla
+  const handleSaveUpdate = () => {
+    setData(prev =>
+      prev.map(item => (item.id === editData.id ? editData : item))
+    )
+    setOpenUpdate(false)
+    setEditData(null)
+  }
+
+  // Acciones de menú
   const handleMenuAction = action => {
     if (action === 'Refresh') {
-      // Generar nuevos valores aleatorios manteniendo la página actual
       setData(prev =>
-        prev.map(item => ({
-          ...item,
-          progress: Math.floor(Math.random() * 100)
-        }))
+        prev.map(item => ({ ...item, progress: Math.floor(Math.random() * 100) }))
       )
     } else if (action === 'Update') {
-      alert('Feature Update Coming Soon 🚀')
+      handleOpenUpdate()
     } else if (action === 'Share') {
       if (navigator.share) {
         navigator
@@ -89,7 +104,7 @@ const LogisticsOverviewTable = ({ vehicleData }) => {
           })
           .catch(err => console.log('Share canceled', err))
       } else {
-        alert('Sharing is not supported in this browser ❌')
+        alert('Sharing is not supported in this browser')
       }
     }
   }
@@ -127,7 +142,7 @@ const LogisticsOverviewTable = ({ vehicleData }) => {
             </CustomAvatar>
             <Typography
               component={Link}
-              href={getLocalizedUrl('/apps/logistics/fleet', locale)}
+              href={'#'}
               className='font-medium hover:text-primary'
               color='text.primary'
             >
@@ -155,7 +170,7 @@ const LogisticsOverviewTable = ({ vehicleData }) => {
             variant='tonal'
             label={row.original.warnings}
             size='small'
-            color={chipColor[row.original.warnings].color}
+            color={chipColor[row.original.warnings]?.color || 'default'}
           />
         )
       }),
@@ -172,7 +187,20 @@ const LogisticsOverviewTable = ({ vehicleData }) => {
             <Typography>{`${row.original.progress}%`}</Typography>
           </div>
         )
-      })
+      }),
+      {
+        id: 'update',
+        header: 'Update',
+        cell: ({ row }) => (
+          <Button
+            variant='contained'
+            size='small'
+            onClick={() => handleOpenUpdate(row)}
+          >
+            Update
+          </Button>
+        )
+      }
     ],
     [locale]
   )
@@ -189,7 +217,7 @@ const LogisticsOverviewTable = ({ vehicleData }) => {
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
-    getFacetedUniqueValues: getFacetedUniqueValues(),
+    getFacetedUniqueValues: getFacetedUniqueValues,
     getFacetedMinMaxValues: getFacetedMinMaxValues()
   })
 
@@ -201,12 +229,12 @@ const LogisticsOverviewTable = ({ vehicleData }) => {
           <OptionMenu
             options={[
               { text: 'Refresh', menuItemProps: { onClick: () => handleMenuAction('Refresh') } },
-              { text: 'Update', menuItemProps: { onClick: () => handleMenuAction('Update') } },
               { text: 'Share', menuItemProps: { onClick: () => handleMenuAction('Share') } }
             ]}
           />
         }
       />
+
       <div className='overflow-x-auto'>
         <table className={tableStyles.table}>
           <thead>
@@ -231,6 +259,7 @@ const LogisticsOverviewTable = ({ vehicleData }) => {
           </tbody>
         </table>
       </div>
+
       <TablePagination
         component={() => <TablePaginationComponent table={table} />}
         count={table.getFilteredRowModel().rows.length}
@@ -238,6 +267,33 @@ const LogisticsOverviewTable = ({ vehicleData }) => {
         page={table.getState().pagination.pageIndex}
         onPageChange={(_, page) => table.setPageIndex(page)}
       />
+
+      {/* Modal Update */}
+      <Dialog open={openUpdate} onClose={() => setOpenUpdate(false)}>
+        <DialogTitle>Actualizar Vehículo</DialogTitle>
+        <DialogContent className='flex flex-col gap-4'>
+          <TextField
+            label='Location'
+            value={editData?.location || ''}
+            onChange={e => setEditData({ ...editData, location: e.target.value })}
+          />
+          <TextField
+            label='Progress'
+            type='number'
+            value={editData?.progress || 0}
+            onChange={e => setEditData({ ...editData, progress: Number(e.target.value) })}
+          />
+          <TextField
+            label='Warnings'
+            value={editData?.warnings || ''}
+            onChange={e => setEditData({ ...editData, warnings: e.target.value })}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenUpdate(false)}>Cancelar</Button>
+          <Button variant='contained' onClick={handleSaveUpdate}>Guardar</Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   )
 }

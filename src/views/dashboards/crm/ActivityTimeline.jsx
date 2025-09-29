@@ -1,5 +1,8 @@
 'use client'
 
+// React Imports
+import { useState } from 'react'
+
 // MUI Imports
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -31,82 +34,114 @@ const Timeline = styled(MuiTimeline)({
 })
 
 const ActivityTimeline = () => {
+  const [events, setEvents] = useState([
+    {
+      color: 'primary',
+      title: '12 Invoices have been paid',
+      time: '12 min ago',
+      description: 'Invoices have been paid to the company',
+      file: 'invoices.pdf',
+      icon: '/images/icons/pdf-document.png'
+    },
+    {
+      color: 'success',
+      title: 'Client Meeting',
+      time: '45 min ago',
+      description: 'Project meeting with John @10:15am',
+      client: {
+        name: 'Lester McCarthy',
+        role: 'CEO of Pixinvent',
+        avatar: '/images/avatars/1.png'
+      }
+    },
+    {
+      color: 'info',
+      title: 'Create a new project for client',
+      time: '2 Day Ago',
+      description: '6 team members in a project',
+      members: [
+        '/images/avatars/1.png',
+        '/images/avatars/4.png',
+        '/images/avatars/2.png'
+      ]
+    }
+  ])
+
+  // Función para agregar un nuevo evento
+  const handleAddEvent = () => {
+    const newEvent = {
+      color: 'warning',
+      title: 'New task added',
+      time: 'Just now',
+      description: 'A new task has been added to the project'
+    }
+    setEvents(prev => [newEvent, ...prev])
+  }
+
   return (
     <Card>
       <CardHeader
         avatar={<i className='tabler-list-details text-xl' />}
         title='Activity Timeline'
         titleTypographyProps={{ variant: 'h5' }}
-        action={<OptionMenu options={['Share timeline', 'Suggest edits', 'Report bug']} />}
+        action={
+          <OptionMenu
+            options={[
+              { text: 'Add', menuItemProps: { onClick: handleAddEvent } },
+              'Share timeline',
+              'Suggest edits',
+              'Report bug'
+            ]}
+          />
+        }
         sx={{ '& .MuiCardHeader-avatar': { mr: 3 } }}
       />
       <CardContent className='flex flex-col gap-6 pbe-5'>
         <Timeline>
-          <TimelineItem>
-            <TimelineSeparator>
-              <TimelineDot color='primary' />
-              <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent>
-              <div className='flex flex-wrap items-center justify-between gap-x-2 mbe-2.5'>
-                <Typography className='font-medium' color='text.primary'>
-                  12 Invoices have been paid
-                </Typography>
-                <Typography variant='caption'>12 min ago</Typography>
-              </div>
-              <Typography className='mbe-2'>Invoices have been paid to the company</Typography>
-              <div className='flex items-center gap-2.5 is-fit rounded bg-actionHover plb-[5px] pli-2.5'>
-                <img height={20} alt='invoice.pdf' src='/images/icons/pdf-document.png' />
-                <Typography className='font-medium'>invoices.pdf</Typography>
-              </div>
-            </TimelineContent>
-          </TimelineItem>
-
-          <TimelineItem>
-            <TimelineSeparator>
-              <TimelineDot color='success' />
-              <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent>
-              <div className='flex flex-wrap items-center justify-between gap-x-2 mbe-2.5'>
-                <Typography className='font-medium' color='text.primary'>
-                  Client Meeting
-                </Typography>
-                <Typography variant='caption'>45 min ago</Typography>
-              </div>
-              <Typography className='mbe-2'>Project meeting with john @10:15am</Typography>
-              <div className='flex items-center gap-2.5'>
-                <Avatar src='/images/avatars/1.png' className='is-8 bs-8' />
-                <div className='flex flex-col flex-wrap'>
-                  <Typography variant='body2' className='font-medium'>
-                    Lester McCarthy (Client)
+          {events.map((event, index) => (
+            <TimelineItem key={index}>
+              <TimelineSeparator>
+                <TimelineDot color={event.color || 'primary'} />
+                {index !== events.length - 1 && <TimelineConnector />}
+              </TimelineSeparator>
+              <TimelineContent>
+                <div className='flex flex-wrap items-center justify-between gap-x-2 mbe-2.5'>
+                  <Typography className='font-medium' color='text.primary'>
+                    {event.title}
                   </Typography>
-                  <Typography variant='body2'>CEO of Pixinvent</Typography>
+                  <Typography variant='caption'>{event.time}</Typography>
                 </div>
-              </div>
-            </TimelineContent>
-          </TimelineItem>
+                <Typography className='mbe-2'>{event.description}</Typography>
 
-          <TimelineItem>
-            <TimelineSeparator>
-              <TimelineDot color='info' />
-              <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent>
-              <div className='flex flex-wrap items-center justify-between gap-x-2 mbe-2.5'>
-                <Typography className='font-medium' color='text.primary'>
-                  Create a new project for client
-                </Typography>
-                <Typography variant='caption'>2 Day Ago</Typography>
-              </div>
-              <Typography className='mbe-2'>6 team members in a project</Typography>
-              <AvatarGroup total={6} className='pull-up'>
-                <Avatar alt='Travis Howard' src='/images/avatars/1.png' />
-                <Avatar alt='Agnes Walker' src='/images/avatars/4.png' />
-                <Avatar alt='John Doe' src='/images/avatars/2.png' />
-              </AvatarGroup>
-            </TimelineContent>
-          </TimelineItem>
+                {event.file && (
+                  <div className='flex items-center gap-2.5 is-fit rounded bg-actionHover plb-[5px] pli-2.5'>
+                    <img height={20} alt={event.file} src={event.icon} />
+                    <Typography className='font-medium'>{event.file}</Typography>
+                  </div>
+                )}
+
+                {event.client && (
+                  <div className='flex items-center gap-2.5'>
+                    <Avatar src={event.client.avatar} className='is-8 bs-8' />
+                    <div className='flex flex-col flex-wrap'>
+                      <Typography variant='body2' className='font-medium'>
+                        {event.client.name}
+                      </Typography>
+                      <Typography variant='body2'>{event.client.role}</Typography>
+                    </div>
+                  </div>
+                )}
+
+                {event.members && (
+                  <AvatarGroup total={event.members.length} className='pull-up'>
+                    {event.members.map((m, i) => (
+                      <Avatar key={i} src={m} />
+                    ))}
+                  </AvatarGroup>
+                )}
+              </TimelineContent>
+            </TimelineItem>
+          ))}
         </Timeline>
       </CardContent>
     </Card>

@@ -1,18 +1,27 @@
+'use client'
+
+// React Imports
+import { useState } from 'react'
+
 // MUI Imports
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
 
 // Third-party Imports
 import classnames from 'classnames'
+import jsPDF from 'jspdf'
 
 // Components Imports
 import OptionMenu from '@core/components/option-menu'
 import CustomAvatar from '@core/components/mui/Avatar'
 
+
+
 // Vars
-const data = [
+const initialData = [
   {
     title: 'Wallet',
     subtitle: 'Starbucks',
@@ -68,15 +77,69 @@ const data = [
 ]
 
 const Transactions = () => {
+  const [progressData, setProgressData] = useState(initialData)
+
+  // 🔁 Refrescar montos aleatoriamente
+  const handleRefresh = () => {
+    const updated = progressData.map(item => ({
+      ...item,
+      amount: Math.floor(Math.random() * 1500) + 50
+    }))
+    setProgressData(updated)
+  }
+
+  // ➕ Agregar transacción nueva
+  const handleAddTransaction = () => {
+    const randomAmount = Math.floor(Math.random() * 1000) + 50
+    const newTransaction = {
+      title: 'New Payment',
+      subtitle: 'Auto-generated',
+      amount: randomAmount,
+      amountDiff: Math.random() > 0.5 ? 'negative' : 'positive',
+      avatarColor: 'warning',
+      avatarIcon: 'tabler-cash'
+    }
+    setProgressData(prev => [newTransaction, ...prev])
+  }
+
+  // 📄 Generar PDF
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF()
+    doc.setFontSize(16)
+    doc.text('Reporte de Transacciones', 20, 20)
+    doc.setFontSize(12)
+
+    let y = 40
+    progressData.forEach((row, i) => {
+      const sign = row.amountDiff === 'negative' ? '-' : '+'
+      const color = row.amountDiff === 'negative' ? 'Gasto' : 'Ingreso'
+      doc.text(
+        `${i + 1}. ${row.title} - ${row.subtitle} | ${color}: ${sign}$${row.amount}`,
+        20,
+        y
+      )
+      y += 10
+    })
+
+    doc.save('Transactions.pdf')
+  }
+
   return (
     <Card className='flex flex-col'>
       <CardHeader
         title='Transactions'
         subheader='Total 58 transaction done in month'
-        action={<OptionMenu options={['Refresh', 'Show all entries', 'Make payment']} />}
+        action={
+          <OptionMenu
+            options={[
+              { text: 'Refresh', menuItemProps: { onClick: handleRefresh } },
+              { text: 'Make Payment', menuItemProps: { onClick: handleAddTransaction } }
+            ]}
+          />
+        }
       />
-      <CardContent className='flex grow gap-y-[18px] lg:gap-y-5 flex-col justify-between max-sm:gap-5'>
-        {data.map((item, index) => (
+      <CardContent className='flex grow flex-col gap-y-[18px] lg:gap-y-5 justify-between'>
+        {progressData.map((item, index) => (
           <div key={index} className='flex items-center gap-4'>
             <CustomAvatar skin='light' variant='rounded' color={item.avatarColor} size={34}>
               <i className={classnames(item.avatarIcon, 'text-[22px]')} />
@@ -91,11 +154,20 @@ const Transactions = () => {
               <Typography
                 variant='h6'
                 color={`${item.amountDiff === 'negative' ? 'error' : 'success'}.main`}
-              >{`${item.amountDiff === 'negative' ? '-' : '+'}${item.amount}`}</Typography>
+              >
+                {`${item.amountDiff === 'negative' ? '-' : '+'}$${item.amount}`}
+              </Typography>
             </div>
           </div>
         ))}
       </CardContent>
+
+      {/* Botón para descargar PDF */}
+      <div className='flex justify-end p-4'>
+        <Button variant='contained' color='primary' onClick={handleDownloadPDF}>
+          Descargar PDF
+        </Button>
+      </div>
     </Card>
   )
 }

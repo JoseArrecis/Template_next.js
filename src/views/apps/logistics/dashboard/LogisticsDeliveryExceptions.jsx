@@ -11,12 +11,14 @@ import { useTheme } from '@mui/material/styles'
 
 // Components Imports
 import OptionMenu from '@core/components/option-menu'
+import { useState } from 'react'
 
 // Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
-const deliveryExceptionsChartSeries = [13, 25, 22, 40]
 
 const LogisticsDeliveryExceptions = () => {
+  const [chartData, setChartData] = useState([ 13, 25, 22, 40 ])
+
   // Hooks
   const theme = useTheme()
 
@@ -54,7 +56,7 @@ const LogisticsDeliveryExceptions = () => {
       fontSize: '13px',
       fontWeight: 400,
       labels: {
-        colors: 'var()',
+        colors: 'var(--mui-palette-text-secondary)',
         useSeriesColors: false
       }
     },
@@ -92,15 +94,48 @@ const LogisticsDeliveryExceptions = () => {
     }
   }
 
+  //Acciones de Menú
+  const handleMenuAction = (action) => {
+    if (action === 'Refresh') {
+      const newData = chartData.map(() => Math.floor(Math.random() * 50) + 10)
+      setChartData(newData)
+    } else if (action === 'SelectAll') {
+      const allSelected = chartData.map(() => 100)
+      setChartData(allSelected)
+    } else if (action === 'Share') {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Delivery Exception',
+          text: 'Check total deliverys',
+          url: window.location.href
+        }).catch(err => console.log('Share canceled', err))
+      } else { 
+        alert('Sharing is not supported in this browser')
+      }
+    }
+  }
+
   return (
     <Card className='bs-full'>
-      <CardHeader title='Delivery exceptions' action={<OptionMenu options={['Select All', 'Refresh', 'Share']} />} />
+        <CardHeader
+          title='Earning Reports'
+          subheader='Weekly Earnings Overview'
+          action={
+            <OptionMenu
+              options={[
+                { text: 'Refresh', menuItemProps: { onClick: () => handleMenuAction('Refresh') } },
+                { text: 'SelectAll', menuItemProps: { onClick: () => handleMenuAction('SelectAll') } },
+                { text: 'Share', menuItemProps: { onClick: () => handleMenuAction('Share') } }
+              ]}
+            />
+          }
+        />
       <CardContent>
         <AppReactApexCharts
           type='donut'
           height={452}
           width='100%'
-          series={deliveryExceptionsChartSeries}
+          series={chartData}
           options={options}
         />
       </CardContent>

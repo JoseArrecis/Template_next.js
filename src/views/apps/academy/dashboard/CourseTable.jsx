@@ -26,6 +26,7 @@ import CustomAvatar from '@core/components/mui/Avatar'
 import TablePaginationComponent from '@components/TablePaginationComponent'
 import CustomTextField from '@core/components/mui/TextField'
 import tableStyles from '@core/styles/table.module.css'
+import { db } from '@/fake-db/apps/academy'
 
 // Filtro difuso
 const fuzzyFilter = (row, columnId, value, addMeta) => {
@@ -47,24 +48,8 @@ const DebouncedInput = ({ value: initialValue, onChange, debounce = 500, ...prop
 
 const columnHelper = createColumnHelper()
 
-// 24 cursos de ejemplo
-const exampleCourses = Array.from({ length: 24 }, (_, i) => ({
-  id: i + 1,
-  courseTitle: `Curso ${i + 1}`,
-  color: 'primary',
-  logo: 'tabler-book',
-  image: '',
-  user: `Usuario ${i + 1}`,
-  time: `${Math.floor(Math.random() * 50) + 10}h`,
-  userCount: Math.floor(Math.random() * 500),
-  note: Math.floor(Math.random() * 10),
-  view: Math.floor(Math.random() * 1000),
-  completedTasks: Math.floor(Math.random() * 20),
-  totalTasks: 20
-}))
-
 const CourseTable = ({ courseData }) => {
-  const data = useMemo(() => (courseData && courseData.length ? courseData : exampleCourses), [courseData])
+  const data = useMemo(() => (courseData && courseData.length ? courseData : db.courses), [courseData])
   const [rowSelection, setRowSelection] = useState({})
   const [globalFilter, setGlobalFilter] = useState('')
 
@@ -91,9 +76,17 @@ const CourseTable = ({ courseData }) => {
       header: 'Curso',
       cell: ({ row }) => (
         <div className='flex items-center gap-4'>
-          <CustomAvatar variant='rounded' skin='light' color={row.original.color}>
-            <i className={classnames('text-[28px]', row.original.logo)} />
-          </CustomAvatar>
+          {row.original.image ? (
+            <img
+              src={row.original.image}
+              alt={row.original.courseTitle}
+              className='w-10 h-10 object-cover rounded'
+            />
+          ) : (
+            <CustomAvatar variant='rounded' skin='light' color={row.original.color}>
+              <i className={classnames('text-[28px]', row.original.logo)} />
+            </CustomAvatar>
+          )}
           <div className='flex flex-col'>
             <Typography
               component={Link}

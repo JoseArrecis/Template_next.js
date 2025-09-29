@@ -13,7 +13,8 @@ export const db = {
       desc: 'Este curso cubre los conceptos basicos de Next.js',
       tags: 'Web',
       rating: 4.9,
-      ratingCount: 9
+      ratingCount: 9,
+      image: '/images/courses/nextjs.png'
     },
     {
       id: 2,
@@ -28,7 +29,8 @@ export const db = {
       desc: 'Aprende a dominar hooks y el contexto global en React',
       tags: 'Web',
       rating: 3.5,
-      ratingCount: 5
+      ratingCount: 5,
+      image: '/images/courses/react.png'
     },
     {
       id: 3,
@@ -43,7 +45,8 @@ export const db = {
       desc: 'Aprende a crear páginas web atractivas y responsivas.',
       tags: 'Design',
       rating: 4.5,
-      ratingCount: 8
+      ratingCount: 8,
+      image: '/images/courses/html-css.png'
     },
     {
       id: 4,
@@ -58,7 +61,8 @@ export const db = {
       desc: 'Aprende a construir aplicaciones web completas con frontend y backend',
       tags: 'Web',
       rating: 5.0,
-      ratingCount: 15
+      ratingCount: 15,
+      image: '/images/courses/fullStack.png'
     },
     {
       id: 5,
@@ -73,7 +77,8 @@ export const db = {
       desc: 'Descubre los conocimientos basicos de la inteligencia artificial.',
       tags: 'AI',
       rating: 3.9,
-      ratingCount: 45
+      ratingCount: 45,
+      image: '/images/courses/ai-ml.png'
     },
     {
       id: 6,
@@ -88,7 +93,8 @@ export const db = {
       desc: 'Aprender las estrategias clave del marketing digital.',
       tags: 'Marketing',
       rating: 2.6,
-      ratingCount: 15
+      ratingCount: 15,
+      image: '/images/courses/marketing.png'
     },
     {
       id: 7,
@@ -103,7 +109,8 @@ export const db = {
       desc: 'Aprende los conceptos basicos de la ciberseguridad.',
       tags: 'Web',
       rating: 4.5,
-      ratingCount: 12
+      ratingCount: 12,
+      image: '/images/courses/cybersecurity.png'
     },
     {
       id: 8,
@@ -118,7 +125,8 @@ export const db = {
       desc: 'Aprende los conceptos básicos de la computación en la nube.',
       tags: 'Web',
       rating: 4.0,
-      ratingCount: 10
+      ratingCount: 10,
+      image: '/images/courses/aws.png'
     },
     {
       id: 9,
@@ -133,7 +141,8 @@ export const db = {
       desc: 'Aprende a crear aplicaciones móviles multiplataforma.',
       tags: 'Web',
       rating: 4.3,
-      ratingCount: 14
+      ratingCount: 14,
+      image: '/images/courses/react-native.png'
     },
     {
       id: 10,
@@ -148,7 +157,8 @@ export const db = {
       desc: 'Aprende los principios básicos del diseño UX/UI.',
       tags: 'Design',
       rating: 4.1,
-      ratingCount: 8
+      ratingCount: 8,
+      image: '/images/courses/ux-ui.png'
     },
     {
       id: 11,
@@ -163,7 +173,8 @@ export const db = {
       desc: 'Aprende los conceptos básicos de la programación usando Python.',
       tags: 'Programming',
       rating: 4.7,
-      ratingCount: 12
+      ratingCount: 12,
+      image: '/images/courses/python.png'
     },
     {
       id: 12,
@@ -178,7 +189,8 @@ export const db = {
       desc: 'Aprende a analizar datos de manera efectiva usando Microsoft Excel.',
       tags: 'Marketing',
       rating: 4.0,
-      ratingCount: 6
+      ratingCount: 6,
+      image: '/images/courses/excel.png'
     },
     {
       id: 13,
@@ -193,7 +205,8 @@ export const db = {
       desc: 'Aprende los principios y prácticas de la gestión de proyectos Agile.',
       tags: 'Programming',
       rating: 4.2,
-      ratingCount: 7
+      ratingCount: 7,
+      image: '/images/courses/agile.png'
     },
     {
       id: 14,
@@ -208,7 +221,8 @@ export const db = {
       desc: 'Aprende los conceptos básicos de blockchain y criptomonedas.',
       tags: 'Programming',
       rating: 4.6,
-      ratingCount: 9
+      ratingCount: 9,
+      image: '/images/courses/blockchain.png'
     },
     {
       id: 15,
@@ -223,7 +237,8 @@ export const db = {
       desc: 'Aprende los conceptos básicos de AR y VR.',
       tags: 'AI',
       rating: 4.3,
-      ratingCount: 8
+      ratingCount: 8,
+      image: '/images/courses/ar-vr.png'
     },
     {
       id: 16,
@@ -238,7 +253,8 @@ export const db = {
       desc: 'Aprende los principios y prácticas de DevOps, integración continua y entrega continua.',
       tags: 'DevOps',
       rating: 4.5,
-      ratingCount: 10
+      ratingCount: 10,
+      image: '/images/courses/devops.png'
     },
     {
       id: 17,
@@ -253,7 +269,8 @@ export const db = {
       desc: 'Aprende los conceptos básicos de RPA.',
       tags: 'Programming',
       rating: 4.1,
-      ratingCount: 5
+      ratingCount: 5,
+      image: '/images/courses/rpa.png'
     },
     {
       id: 18,
@@ -268,7 +285,8 @@ export const db = {
       desc: 'Aprende los conceptos básicos de IoT.',
       tags: 'AI',
       rating: 4.4,
-      ratingCount: 7
+      ratingCount: 7,
+      image: '/images/courses/iot.png'
     },
     {
       id: 19,
@@ -283,7 +301,8 @@ export const db = {
       desc: 'Aprende a crear y gestionar máquinas virtuales usando VirtualBox.',
       tags: 'Programming',
       rating: 4.0,
-      ratingCount: 4
+      ratingCount: 4,
+      image: '/images/courses/virtualbox.png'
     },
     {
       id: 20,
@@ -298,7 +317,8 @@ export const db = {
       desc: 'Aprende los conceptos basicos de la programación usando JavaScript',
       tags: 'Programming',
       rating: 4.2,
-      ratingCount: 6
+      ratingCount: 6,
+      image: '/images/courses/javaScript.png'
     },
     {
       id: 21,
@@ -313,7 +333,8 @@ export const db = {
       desc: 'Aprende los conceptos basicos de la programación usando Ruby.',
       tags: 'Programming',
       rating: 4.7,
-      ratingCount: 11
+      ratingCount: 11,
+      image: '/images/courses/ruby.png'
     },
     {
       id: 22,
@@ -328,7 +349,8 @@ export const db = {
       desc: 'Aprende los conceptos basicos y avanzados de la programación usando Angular.',
       tags: 'Web',
       rating: 4.4,
-      ratingCount: 9
+      ratingCount: 9,
+      image: '/images/courses/angular.png'
     },
     {
       id: 23,
@@ -344,7 +366,8 @@ export const db = {
       tags: 'Programming',
       rating: 4.6,
       ratingCount: 10,
-      instructor: 'Oscar Turquet'
+      instructor: 'Oscar Turquet',
+      image: '/images/courses/go.png'
     },
     {
       id: 24,
@@ -359,7 +382,8 @@ export const db = {
       desc: 'Aprende los conceptos desde el más básico al más avanzado utilizando MongoDB.',
       tags: 'Web',
       rating: 4.8,
-      ratingCount: 12
+      ratingCount: 12,
+      image: '/images/courses/mongodb.png'
     }
   ]
 };

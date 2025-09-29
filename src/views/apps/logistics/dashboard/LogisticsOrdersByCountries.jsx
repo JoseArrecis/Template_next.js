@@ -40,8 +40,8 @@ const Timeline = styled(MuiTimeline)({
   }
 })
 
-// Vars
-const data = {
+// Datos originales
+const initialData = {
   new: [
     {
       sender: {
@@ -111,11 +111,45 @@ const data = {
 }
 
 const LogisticsOrdersByCountries = () => {
-  // States
+  const [progressData, setProgressData] = useState(initialData)
   const [value, setValue] = useState('new')
+  const [showAll, setShowAll] = useState(false)
 
+  // Cambiar pestaña
   const handleChange = (event, newValue) => {
     setValue(newValue)
+  }
+
+  const handleMenuAction = (action) => {
+    if (action === 'Refresh') {
+      setProgressData(prev => {
+        const updated = {}
+        for (const key in prev) {
+          updated[key] = prev[key].map(item => {
+            const newSenderAddress = item.sender.address.replace(/\d+/g, () => Math.floor(Math.random() * 9999) + 1)
+            const newReceiverAddress = item.receiver.address.replace(/\d+/g, () => Math.floor(Math.random() * 9999) + 1)
+            return {
+              ...item,
+              sender: { ...item.sender, address: newSenderAddress },
+              receiver: { ...item.receiver, address: newReceiverAddress }
+            }
+          })
+        }
+        return updated
+      })
+    } else if (action === 'Share') {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Orders by Countries',
+          text: 'Check out the latest orders!',
+          url: window.location.href
+        }).catch(err => console.log('Share canceled', err))
+      } else {
+        alert('Sharing not supported in this browser')
+      }
+    } else if (action === 'Show all orders') {
+      setShowAll(true)
+    }
   }
 
   return (
@@ -123,20 +157,29 @@ const LogisticsOrdersByCountries = () => {
       <CardHeader
         title='Orders by Countries'
         subheader='62 deliveries in progress'
-        action={<OptionMenu options={['Show all orders', 'Share', 'Refresh']} />}
+        action={
+          <OptionMenu
+            options={[
+              { text: showAll ? 'Show by Tab' : 'Show all orders', menuItemProps: { onClick: () => setShowAll(!showAll) } },
+              { text: 'Share', menuItemProps: { onClick: () => handleMenuAction('Share') } },
+              { text: 'Refresh', menuItemProps: { onClick: () => handleMenuAction('Refresh') } }
+            ]}
+          />
+        }
         className='pbe-4'
       />
       <TabContext value={value}>
-        <TabList variant='fullWidth' onChange={handleChange} aria-label='full width tabs example'>
+        <TabList variant='fullWidth' onChange={handleChange}>
           <Tab value='new' label='New' />
           <Tab value='preparing' label='Preparing' />
           <Tab value='shipping' label='Shipping' />
         </TabList>
+
         <TabPanel value={value} className='pbs-0'>
           <CardContent>
-            {data[value].map((item, index) => {
-              return (
-                <Fragment key={index}>
+            {(showAll ? Object.keys(progressData) : [value]).map(tabKey =>
+              progressData[tabKey].map((item, index) => (
+                <Fragment key={`${tabKey}-${index}`}>
                   <Timeline>
                     <TimelineItem>
                       <TimelineSeparator>
@@ -155,6 +198,7 @@ const LogisticsOrdersByCountries = () => {
                         <Typography className='line-clamp-1'>{item.sender.address}</Typography>
                       </TimelineContent>
                     </TimelineItem>
+
                     <TimelineItem>
                       <TimelineSeparator>
                         <TimelineDot variant='outlined' className='mlb-0'>
@@ -172,10 +216,11 @@ const LogisticsOrdersByCountries = () => {
                       </TimelineContent>
                     </TimelineItem>
                   </Timeline>
-                  {index !== data[value].length - 1 && <Divider className='mlb-4 border-dashed' />}
+
+                  {index !== progressData[tabKey].length - 1 && <Divider className='mlb-4 border-dashed' />}
                 </Fragment>
-              )
-            })}
+              ))
+            )}
           </CardContent>
         </TabPanel>
       </TabContext>
