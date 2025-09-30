@@ -48,6 +48,7 @@ import { getLocalizedUrl } from '@/utils/i18n'
 
 // Style Imports
 import tableStyles from '@core/styles/table.module.css'
+import jsPDF from 'jspdf'
 
 const fuzzyFilter = (row, columnId, value, addMeta) => {
   // Rank the item
@@ -198,7 +199,14 @@ const ProductListTable = ({ productData }) => {
               iconButtonProps={{ size: 'medium' }}
               iconClassName='text-textSecondary'
               options={[
-                { text: 'Download', icon: 'tabler-download' },
+                { 
+                  text: 'Download', 
+                  icon: 'tabler-download',
+                  menuItemProps: {
+                    className: 'flex items-center gap-2 text-textSecondary',
+                    onClick: () => handleDownload(row.original)
+                  }
+                },
                 {
                   text: 'Delete',
                   icon: 'tabler-trash',
@@ -244,6 +252,26 @@ const ProductListTable = ({ productData }) => {
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues()
   })
+
+  const handleDownload = (row) => {
+    const doc = new jsPDF()
+
+    doc.setFontSize(16)
+    doc.text(`Product #${row.id}`, 20, 20)
+
+    doc.setFontSize(14)
+    doc.text(`ID: ${row.id}`, 20, 35)
+    doc.text(`Brand: ${row.productBrand}`, 20, 45)
+    doc.text(`Category: ${row.category}`, 20, 55)
+    doc.text(`Price: ${row.price}`, 20, 65)
+    doc.text(`SKU: ${row.sku}`, 20, 75)
+    doc.text(`Stock: ${row.stock ? 'Available' : 'Not Available'}`, 20, 85)
+    doc.text(`Quantity: ${row.qty}`, 20, 95)
+    doc.text(`Status: ${row.status}`, 20, 105)
+
+    // Descargar PDF con nombre dinámico
+    doc.save(`${row.productName.replace(/\s+/g, '_')}_details.pdf`)
+  }
 
   return (
     <>
