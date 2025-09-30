@@ -24,8 +24,8 @@ import TextField from '@mui/material/TextField'
 // Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
 
-// Vars
-const series = [
+// Datos iniciales
+const initialSeries = [
   { data: [2000, 2000, 4000, 4000, 3050, 3050, 2050, 2050, 3050, 3050, 4700, 4700, 2750, 2750, 5700, 5700] }
 ]
 
@@ -45,6 +45,7 @@ const initialData = [
 
 const ProjectStatus = () => {
   const [progressData, setProgressData] = useState(initialData)
+  const [seriesData, setSeriesData] = useState(initialSeries) // ✅ Ahora la gráfica es dinámica
 
   // Estado para Update (todos los items)
   const [openUpdate, setOpenUpdate] = useState(false)
@@ -52,24 +53,13 @@ const ProjectStatus = () => {
 
   // Hooks
   const theme = useTheme()
-
-  // Vars
   const warningColor = theme.palette.warning.main
 
   const options = {
-    chart: {
-      parentHeightOffset: 0,
-      toolbar: { show: false },
-      zoom: {
-        enabled: false
-      }
-    },
+    chart: { parentHeightOffset: 0, toolbar: { show: false }, zoom: { enabled: false } },
     tooltip: { enabled: false },
     dataLabels: { enabled: false },
-    stroke: {
-      width: 4,
-      curve: 'straight'
-    },
+    stroke: { width: 4, curve: 'straight' },
     fill: {
       type: 'gradient',
       gradient: {
@@ -94,40 +84,32 @@ const ProjectStatus = () => {
       }
     },
     theme: {
-      monochrome: {
-        enabled: true,
-        shadeTo: 'light',
-        shadeIntensity: 1,
-        color: warningColor
-      }
+      monochrome: { enabled: true, shadeTo: 'light', shadeIntensity: 1, color: warningColor }
     },
-    grid: {
-      show: false,
-      padding: {
-        top: -40,
-        left: 0,
-        right: 0,
-        bottom: 32
-      }
-    },
-    xaxis: {
-      labels: { show: false },
-      axisTicks: { show: false },
-      axisBorder: { show: false }
-    },
+    grid: { show: false, padding: { top: -40, left: 0, right: 0, bottom: 32 } },
+    xaxis: { labels: { show: false }, axisTicks: { show: false }, axisBorder: { show: false } },
     yaxis: { show: false }
   }
 
-  // Acciones Menú
+  // ✅ Refrescar datos + gráfica
   const handleMenuAction = (action) => {
-    if(action === 'Refresh') {
+    if (action === 'Refresh') {
+      // Actualizar datos de texto
       setProgressData(prev =>
         prev.map(item => ({
           ...item,
-          amount: `$${(Math.random() * 5000).toFixed(2)}`,   
-          trendDiff: (Math.random() * 1000).toFixed(2)       
+          amount: `$${(Math.random() * 5000).toFixed(2)}`,
+          trendDiff: (Math.random() * 1000).toFixed(2)
         }))
       )
+
+      // ✅ Actualizar gráfica con nuevos datos aleatorios
+      const newSeries = [
+        {
+          data: Array.from({ length: 16 }, () => Math.floor(Math.random() * 6000) + 1000)
+        }
+      ]
+      setSeriesData(newSeries)
     } else if (action === 'Update') {
       setEditData(progressData)
       setOpenUpdate(true)
@@ -144,24 +126,24 @@ const ProjectStatus = () => {
     }
   }
 
-  // Guardar cambios modal (todos)
   const handleUpdateSave = () => {
     setProgressData(editData)
     setOpenUpdate(false)
   }
 
-  // Cambiar valores en los inputs del modal
   const handleEditChange = (index, field, value) => {
     const updated = [...editData]
-    updated[index] = { ...updated[index], [field]: field === 'amount' ? Number(value) : value}
+    updated[index] = { ...updated[index], [field]: field === 'amount' ? Number(value) : value }
     setEditData(updated)
   }
 
   return (
     <>
       <Card>
-        <CardHeader title='Project Status' action={
-            <OptionMenu 
+        <CardHeader
+          title='Project Status'
+          action={
+            <OptionMenu
               options={[
                 { text: 'Refresh', menuItemProps: { onClick: () => handleMenuAction('Refresh') } },
                 { text: 'Update', menuItemProps: { onClick: () => handleMenuAction('Update') } },
@@ -187,7 +169,16 @@ const ProjectStatus = () => {
               </Typography>
             </div>
           </div>
-          <AppReactApexCharts type='area' height={198} width='100%' series={series} options={options} />
+
+          {/* ✅ Gráfica dinámica */}
+          <AppReactApexCharts
+            type='area'
+            height={198}
+            width='100%'
+            series={seriesData}
+            options={options}
+          />
+
           <div className='flex flex-col gap-4'>
             {progressData.map((item, index) => (
               <div key={index} className='flex items-center justify-between gap-4'>
@@ -206,7 +197,7 @@ const ProjectStatus = () => {
         </CardContent>
       </Card>
 
-      {/* Modal Update (todos los items) */}
+      {/* Modal Update */}
       <Dialog open={openUpdate} onClose={() => setOpenUpdate(false)} maxWidth='sm' fullWidth>
         <DialogTitle>Update All Topics</DialogTitle>
         <DialogContent className='flex flex-col gap-4 mt-2'>
@@ -218,7 +209,7 @@ const ProjectStatus = () => {
                 value={item.title}
                 onChange={(e) => handleEditChange(index, 'title', e.target.value)}
               />
-              <TextField 
+              <TextField
                 label='Value'
                 type='number'
                 value={item.amount}

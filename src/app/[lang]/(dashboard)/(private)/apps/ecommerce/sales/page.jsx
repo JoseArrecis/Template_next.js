@@ -55,7 +55,7 @@ const SalesPage = () => {
       }}
     >
       <Typography variant="h4" className="header" sx={{ textAlign: 'center', mb: 4 }}>
-        Ventas de Jhon
+        Ventas de John
       </Typography>
 
       {/* Tarjetas */}
@@ -114,7 +114,7 @@ const SalesPage = () => {
               <YAxis stroke="#e0e0e0" />
               <Tooltip />
               <Legend />
-              <Bar dataKey="sales" fill="#337e74ff" barSize={50} />
+              <Bar dataKey="sales" fill="#30cbb6ff" barSize={50} />
             </BarChart>
           </ResponsiveContainer>
         </Box>

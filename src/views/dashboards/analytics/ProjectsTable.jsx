@@ -62,6 +62,7 @@ const ProjectTables = () => {
   // Datos manuales
   const initialProjects = [
     {
+      id: 1,
       title: 'Proyecto Alpha',
       subtitle: 'Sistema de ventas',
       leader: 'Juan Pérez',
@@ -72,6 +73,7 @@ const ProjectTables = () => {
       topics: ['Frontend', 'Backend', 'Base de datos']
     },
     {
+      id: 2,
       title: 'Proyecto Beta',
       subtitle: 'Aplicación móvil',
       leader: 'María López',
@@ -82,6 +84,7 @@ const ProjectTables = () => {
       topics: ['React Native', 'API', 'UI/UX']
     },
     {
+      id: 3,
       title: 'Proyecto Gamma',
       subtitle: 'Inteligencia Artificial',
       leader: 'Carlos Martínez',
@@ -92,6 +95,7 @@ const ProjectTables = () => {
       topics: ['Machine Learning', 'Python', 'Data Science']
     },
     {
+      id: 4,
       title: 'Proyecto Delta',
       subtitle: 'Blog educativo',
       leader: 'Ana Gómez',
@@ -102,6 +106,7 @@ const ProjectTables = () => {
       topics: ['React', 'Node.js', 'MongoDB']
     },
     {
+      id: 5,
       title: 'Proyecto Épsilon',
       subtitle: 'Gestión de eventos',
       leader: 'Luis Hernández',
@@ -122,6 +127,16 @@ const ProjectTables = () => {
   const handleDetails = row => {
     const project = row.original
     alert(`Detalles del proyecto:\n\nTítulo: ${project.title}\nLíder: ${project.leader}\nDescripción: ${project.description}\nTemas: ${project.topics.join(', ')}`)
+  }
+
+  const handleRefresh = (row) => {
+    setData(prev =>
+      prev.map(item =>
+        item.id === row.original.id
+          ? { ...item, status: Math.floor(Math.random() * 100) + 1 } 
+          : item
+      )
+    )
   }
 
   const handleArchive = row => {
@@ -210,6 +225,7 @@ const ProjectTables = () => {
             { text: 'Details', menuItemProps: { onClick: () => handleDetails(row) } },
             !isArchived && { text: 'Archive', menuItemProps: { onClick: () => handleArchive(row) } },
             isArchived && { text: 'Restore', menuItemProps: { onClick: () => handleRestore(row) } },
+            { text: 'Refresh', menuItemProps: { onClick: () => handleRefresh(row) } },
             { divider: true },
             { text: 'Delete', menuItemProps: { className: 'text-error', onClick: () => handleDelete(row, isArchived) } }
           ].filter(Boolean)}

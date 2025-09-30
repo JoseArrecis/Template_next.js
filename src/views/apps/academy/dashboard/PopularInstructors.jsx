@@ -52,7 +52,7 @@ export default function PopularInstructors() {
   }
 
   const handleUpdateAll = () => {
-    setEditData(progressData.map(item => ({ ...item }))) // copia todo el array
+    setEditData(progressData.map(item => ({ ...item }))) 
     setOpenUpdate(true)
     closeMenu()
   }
@@ -77,9 +77,7 @@ export default function PopularInstructors() {
     }
   }
 
-  // --- Handlers for edit modal (all items) ---
   const handleFieldChange = (index, field, value) => {
-    // Actualiza ambos: modal y lista en tiempo real
     setEditData(prev => {
       const copy = [...prev]
       copy[index] = { ...copy[index], [field]: field === 'totalCourses' ? Number(value) : value }
@@ -93,7 +91,7 @@ export default function PopularInstructors() {
   }
 
   const handleUpdateSave = () => {
-    setOpenUpdate(false) // ya los cambios se aplicaron en tiempo real
+    setOpenUpdate(false)
   }
 
   return (

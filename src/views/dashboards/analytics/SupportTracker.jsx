@@ -51,6 +51,7 @@ const initialData = [
 
 const SupportTracker = () => {
   const [progressData, setProgressData] = useState(initialData)
+  const [chartValue, setChartValue] = useState(85) // 🔹 Nuevo estado para la gráfica
 
   // Estado para Update
   const [openUpdate, setOpenUpdate] = useState(false)
@@ -117,81 +118,25 @@ const SupportTracker = () => {
         right: 0,
         bottom: 14
       }
-    },
-    responsive: [
-      {
-        breakpoint: 1380,
-        options: {
-          grid: {
-            padding: {
-              top: 8,
-              left: 12
-            }
-          }
-        }
-      },
-      {
-        breakpoint: 1280,
-        options: {
-          chart: {
-            height: 325
-          },
-          grid: {
-            padding: {
-              top: 12,
-              left: 12
-            }
-          }
-        }
-      },
-      {
-        breakpoint: 1201,
-        options: {
-          chart: {
-            height: 362
-          }
-        }
-      },
-      {
-        breakpoint: 1135,
-        options: {
-          chart: {
-            height: 350
-          }
-        }
-      },
-      {
-        breakpoint: 980,
-        options: {
-          chart: {
-            height: 300
-          }
-        }
-      },
-      {
-        breakpoint: 900,
-        options: {
-          chart: {
-            height: 350
-          }
-        }
-      }
-    ]
+    }
   }
 
   const handleMenuAction = (action) => {
     if (action === 'Refresh') {
-      setProgressData(prev => 
+      setProgressData(prev =>
         prev.map(item => ({
           ...item,
-          subtitle: Math.floor(Math.random() *100) + 1
+          subtitle: Math.floor(Math.random() * 100) + 1
         }))
       )
+
+      // 🔹 Actualizar valor de la gráfica
+      setChartValue(Math.floor(Math.random() * 100) + 1)
     } else if (action === 'Update') {
       setEditData(progressData)
       setOpenUpdate(true)
     } else if (action === 'Share') {
-      if(navigator.share){
+      if (navigator.share) {
         navigator.share({
           title: 'Support Tracker',
           text: 'Check support tracker',
@@ -208,7 +153,7 @@ const SupportTracker = () => {
     setOpenUpdate(false)
   }
 
-  const handleEditChange = (index, field, value) =>{
+  const handleEditChange = (index, field, value) => {
     const updated = [...editData]
     updated[index] = {
       ...updated[index],
@@ -224,7 +169,7 @@ const SupportTracker = () => {
           title='Support Tracker'
           subheader='Last 7 Days'
           action={
-            <OptionMenu 
+            <OptionMenu
               options={[
                 { text: 'Refresh', menuItemProps: { onClick: () => handleMenuAction('Refresh') } },
                 { text: 'Update', menuItemProps: { onClick: () => handleMenuAction('Update') } },
@@ -255,7 +200,14 @@ const SupportTracker = () => {
               ))}
             </div>
           </div>
-          <AppReactApexCharts type='radialBar' height={350} width='100%' series={[85]} options={options} />
+
+          <AppReactApexCharts
+            type='radialBar'
+            height={350}
+            width='100%'
+            series={[chartValue]}
+            options={options}
+          />
         </CardContent>
       </Card>
 
@@ -265,13 +217,13 @@ const SupportTracker = () => {
         <DialogContent className='flex flex-col gap-4 mt-2'>
           {editData.map((item, index) => (
             <div key={index} className='flex gap-4 items-center'>
-              <TextField 
+              <TextField
                 label='Title'
                 fullWidth
                 value={item.title}
                 onChange={(e) => handleEditChange(index, 'title', e.target.value)}
               />
-              <TextField 
+              <TextField
                 label='Subtitle'
                 fullWidth
                 value={item.subtitle}
