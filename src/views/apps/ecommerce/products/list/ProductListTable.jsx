@@ -269,7 +269,6 @@ const ProductListTable = ({ productData }) => {
     doc.text(`Quantity: ${row.qty}`, 20, 95)
     doc.text(`Status: ${row.status}`, 20, 105)
 
-    // Descargar PDF con nombre dinámico
     doc.save(`${row.productName.replace(/\s+/g, '_')}_details.pdf`)
   }
 

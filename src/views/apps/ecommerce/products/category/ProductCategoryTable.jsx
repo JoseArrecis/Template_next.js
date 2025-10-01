@@ -36,6 +36,7 @@ import TablePaginationComponent from '@components/TablePaginationComponent'
 
 // Style Imports
 import tableStyles from '@core/styles/table.module.css'
+import jsPDF from 'jspdf'
 
 const fuzzyFilter = (row, columnId, value, addMeta) => {
   // Rank the item
@@ -240,7 +241,14 @@ const ProductCategoryTable = () => {
               iconButtonProps={{ size: 'medium' }}
               iconClassName='text-textSecondary'
               options={[
-                { text: 'Download', icon: 'tabler-download' },
+                { 
+                  text: 'Download', 
+                  icon: 'tabler-download',
+                  menuItemProps: {
+                    className: `flex items-center gap-2 text-textSecondary`,
+                    onClick: () => handleDownload(row.original)
+                  }
+                },
                 {
                   text: 'Delete',
                   icon: 'tabler-trash',
@@ -270,7 +278,7 @@ const ProductCategoryTable = () => {
     },
     initialState: {
       pagination: {
-        pageSize: 10
+        pageSize: 4
       }
     },
     enableRowSelection: true, //enable row selection for all rows
@@ -286,6 +294,22 @@ const ProductCategoryTable = () => {
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues()
   })
+
+  const handleDownload = (row) => {
+    const doc = new jsPDF
+
+    doc.setFontSize(16)
+    doc.text('Categories', 20, 20)
+    
+    doc.setFontSize(14)
+    doc.text(`ID: ${row.id}`, 20, 35)
+    doc.text(`Category Title: ${row.categoryTitle}`, 20, 45)
+    doc.text(`description: ${row.description}`, 20, 55)
+    doc.text(`Total Product: ${row.totalProduct}`, 20, 65 )
+    doc.text(`Total Earning: ${row.totalEarning}`, 20, 75)
+
+    doc.save(`${row.categoryTitle.replace(/\s+/g, `_`)}_category.pdf`)
+  }
 
   return (
     <>
@@ -304,9 +328,9 @@ const ProductCategoryTable = () => {
               onChange={e => table.setPageSize(Number(e.target.value))}
               className='flex-auto max-sm:is-full sm:is-[70px]'
             >
-              <MenuItem value='10'>10</MenuItem>
-              <MenuItem value='15'>15</MenuItem>
-              <MenuItem value='25'>25</MenuItem>
+              <MenuItem value='4'>4</MenuItem>
+              <MenuItem value='8'>8</MenuItem>
+              <MenuItem value='12'>12</MenuItem>
             </CustomTextField>
             <Button
               variant='contained'

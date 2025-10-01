@@ -42,18 +42,29 @@ const AddCategoryDrawer = props => {
     }
   })
 
-  // Handle Form Submit
   const handleFormSubmit = data => {
     const newData = {
       id: categoryData.length + 1,
       categoryTitle: data.title,
       description: data.description,
+      parentCategory: category,
+      comment,
+      status,
+      fileName,
       totalProduct: Math.floor(Math.random() * 9000) + 1000,
       totalEarning: Math.floor(Math.random() * 90000) + 10000,
       image: `/images/apps/ecommerce/product-${Math.floor(Math.random() * 20) + 1}.png`
     }
 
-    setData([...categoryData, newData])
+    // Guarda en estado
+    const updated = [...categoryData, newData]
+    setData(updated)
+
+    // Opcional: guardar también en localStorage
+    localStorage.setItem('categories', JSON.stringify(updated))
+
+    alert('Add category succesfully')
+
     handleReset()
   }
 
@@ -70,7 +81,6 @@ const AddCategoryDrawer = props => {
   // Handle File Upload
   const handleFileUpload = event => {
     const { files } = event.target
-
     if (files && files.length !== 0) {
       setFileName(files[0].name)
     }
@@ -91,7 +101,9 @@ const AddCategoryDrawer = props => {
           <i className='tabler-x text-textSecondary text-2xl' />
         </IconButton>
       </div>
+
       <Divider />
+
       <div className='p-6'>
         <form onSubmit={handleSubmit(data => handleFormSubmit(data))} className='flex flex-col gap-5'>
           <Controller
@@ -108,6 +120,7 @@ const AddCategoryDrawer = props => {
               />
             )}
           />
+
           <Controller
             name='description'
             control={control}
@@ -122,6 +135,7 @@ const AddCategoryDrawer = props => {
               />
             )}
           />
+
           <div className='flex items-end gap-4'>
             <CustomTextField
               label='Attachment'
@@ -146,6 +160,7 @@ const AddCategoryDrawer = props => {
               <input hidden id='contained-button-file' type='file' onChange={handleFileUpload} ref={fileInputRef} />
             </Button>
           </div>
+
           <CustomTextField
             select
             fullWidth
@@ -159,6 +174,7 @@ const AddCategoryDrawer = props => {
             <MenuItem value='Office'>Office</MenuItem>
             <MenuItem value='Accessories'>Accessories</MenuItem>
           </CustomTextField>
+
           <CustomTextField
             fullWidth
             label='Comment'
@@ -168,6 +184,7 @@ const AddCategoryDrawer = props => {
             rows={4}
             placeholder='Write a Comment...'
           />
+
           <CustomTextField
             select
             fullWidth
@@ -179,6 +196,7 @@ const AddCategoryDrawer = props => {
             <MenuItem value='Inactive'>Inactive</MenuItem>
             <MenuItem value='Scheduled'>Scheduled</MenuItem>
           </CustomTextField>
+
           <div className='flex items-center gap-4'>
             <Button variant='contained' type='submit'>
               Add
