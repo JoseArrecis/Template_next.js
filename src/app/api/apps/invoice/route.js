@@ -10,7 +10,14 @@ import { NextResponse } from 'next/server'
 
 // Data Imports
 import { db } from '@/fake-db/apps/invoice'
+import { Data } from 'emoji-mart'
 
 export async function GET() {
   return NextResponse.json(db)
+}
+
+export async function POST(req) {
+  const invoice = await req.json()
+  db.push(invoice)
+  return NextResponse.json(invoice)
 }

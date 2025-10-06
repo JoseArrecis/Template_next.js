@@ -323,6 +323,8 @@ const OrderDetailsCard = () => {
 
   const [orderDetails, setOrderDetails] = useState({ subtotal, shipping, tax, total })
 
+  const handleGoBack = () => router.back()
+
   const handleDownloadPDF = () => {
     const doc = new jsPDF()
     doc.setFontSize(16)
@@ -388,6 +390,9 @@ const OrderDetailsCard = () => {
       />
 
       <div className='flex justify-end gap-4 p-4'>
+        <Button variant='contained' color='secondary' onClick={handleGoBack}>
+          ← Back
+        </Button>
         <Button variant='contained' color='primary' onClick={handleDownloadPDF}>
           Descargar PDF
         </Button>
