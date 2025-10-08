@@ -47,6 +47,7 @@ import { getLocalizedUrl } from '@/utils/i18n'
 
 // Style Imports
 import tableStyles from '@core/styles/table.module.css'
+import jsPDF from 'jspdf'
 
 const fuzzyFilter = (row, columnId, value, addMeta) => {
   // Rank the item
@@ -217,7 +218,10 @@ const InvoiceListTable = ({ invoiceData }) => {
                 {
                   text: 'Download',
                   icon: 'tabler-download',
-                  menuItemProps: { className: 'flex items-center gap-2 text-textSecondary' }
+                  menuItemProps: { 
+                    className: 'flex items-center gap-2 text-textSecondary',
+                    onClick: () => handleDownload(row.original)
+                  }
                 },
                 {
                   text: 'Edit',
@@ -295,6 +299,29 @@ const InvoiceListTable = ({ invoiceData }) => {
 
     setFilteredData(filteredData)
   }, [status, data])
+
+  const handleDownload = (row) => {
+    const doc = new jsPDF()
+
+    doc.setFontSize(18)
+    doc.text(`Invoice #${row.id}`, 20, 20)
+
+    doc.setFontSize(14)
+    doc.text(`Company: ${row.company}`, 20, 40)
+    doc.text(`Name: ${row.name}`, 20, 50)
+    doc.text(`Service: ${row.service}`, 20, 60)
+    doc.text(`Total: $${row.total}`, 20, 70)
+    doc.text(`Status: ${row.invoiceStatus}`, 20, 80)
+    doc.text(`Issued Date: ${row.issuedDate}`, 20, 90)
+    doc.text(`Due Date: ${row.dueDate}`, 20, 100)
+    doc.text(`Balance: ${row.balance}`, 20, 110)
+    doc.text(`Address: ${row.address}`, 20, 120)
+    doc.text(`Contact: ${row.contact}`, 20, 130)
+    doc.text(`Email: ${row.companyEmail}`, 20, 140)
+    doc.text(`Country: ${row.country}`, 20, 150)
+
+    doc.save(`invoice-${row.id}.pdf`)
+  }
 
   return (
     <Card>
