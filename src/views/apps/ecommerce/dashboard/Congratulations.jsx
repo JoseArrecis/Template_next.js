@@ -1,11 +1,17 @@
+'use client'
+
 // MUI Imports
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid2'
+import { useParams } from 'next/navigation'
+import { getLocalizedUrl } from '@/utils/i18n'
 
 const CongratulationsJohn = () => {
+  const { lang } = useParams()
+
   return (
     <Card>
       <Grid container>
@@ -20,7 +26,7 @@ const CongratulationsJohn = () => {
             <Typography variant='h4' color='primary.main' className='mbe-1'>
               $48.9k
             </Typography>
-            <Button variant='contained' color='primary' href='/apps/ecommerce/sales'>
+            <Button variant='contained' color='primary' href={getLocalizedUrl('/apps/ecommerce/sales', lang)}>
               View Sales
             </Button>
           </CardContent>

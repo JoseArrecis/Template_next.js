@@ -70,8 +70,7 @@ const ActivityTimeline = () => {
       ]
     }
   ])
-
-  // ➕ Agregar un nuevo evento
+  
   const handleAddEvent = () => {
     const newEvent = {
       color: 'warning',
@@ -82,28 +81,24 @@ const ActivityTimeline = () => {
     setEvents(prev => [newEvent, ...prev])
   }
 
-  // 📋 Copiar timeline
   const handleShareTimeline = () => {
-    const text = `📋 Activity Timeline:\n\n${events
+    const text = `Activity Timeline:\n\n${events
       .map(e => `• ${e.title} (${e.time})`)
       .join('\n')}`
     navigator.clipboard.writeText(text)
-    alert('✅ Timeline copied to clipboard!')
+    alert('Timeline copied to clipboard!')
   }
 
-  // ✏️ Abrir editor
   const handleUpdateAll = () => {
     setEditData(events.map(item => ({ ...item })))
     setOpenUpdate(true)
   }
 
-  // 🐞 Reportar bug
   const handleReportBug = () => {
     const issueUrl = 'https://github.com/tu-repo/issues/new?title=Bug%20in%20Timeline'
     window.open(issueUrl, '_blank')
   }
 
-  // 📝 Editar campos
   const handleFieldChange = (index, field, value) => {
     setEditData(prev => {
       const updated = [...prev]
@@ -112,7 +107,6 @@ const ActivityTimeline = () => {
     })
   }
 
-  // 💾 Guardar cambios
   const handleUpdateSave = () => {
     setEvents(editData)
     setOpenUpdate(false)
@@ -195,9 +189,8 @@ const ActivityTimeline = () => {
         </CardContent>
       </Card>
 
-      {/* 🧩 Modal de actualización */}
       <Dialog open={openUpdate} onClose={() => setOpenUpdate(false)} maxWidth='sm' fullWidth>
-        <DialogTitle>✏️ Update Activity Timeline</DialogTitle>
+        <DialogTitle>Update Activity Timeline</DialogTitle>
         <DialogContent className='flex flex-col gap-4 mt-2'>
           {editData.map((event, index) => (
             <div key={index} className='flex flex-col gap-2 border p-3 rounded-md'>
@@ -221,6 +214,7 @@ const ActivityTimeline = () => {
               />
             </div>
           ))}
+          <Button variant='contained' onClick={() => setOpenUpdate(false)}>Cancel</Button>
           <Button variant='contained' onClick={handleUpdateSave} sx={{ mt: 2 }}>
             Save Changes
           </Button>

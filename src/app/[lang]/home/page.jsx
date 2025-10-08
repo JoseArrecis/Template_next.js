@@ -17,6 +17,7 @@ export default function HomePage() {
         justifyContent: 'center',
         background: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
         fontFamily: 'Inter, sans-serif',
+        fontSize: '1.1rem', 
       }}
     >
       <div
@@ -25,17 +26,17 @@ export default function HomePage() {
           flexDirection: 'column',
           alignItems: 'center',
           textAlign: 'center',
-          maxWidth: 500,
-          marginBottom: '2rem',
+          maxWidth: 600,
+          marginBottom: '2.5rem',
         }}
       >
         <svg
-          width='60'
-          height='40'
+          width='90'
+          height='80'
           viewBox='0 0 35 24'
           fill='none'
           xmlns='http://www.w3.org/2000/svg'
-          style={{ marginBottom: '1rem' }}
+          style={{ marginBottom: '2rem' }}
         >
           <path
             fillRule='evenodd'
@@ -64,21 +65,24 @@ export default function HomePage() {
             fill='#6366f1'
           />
         </svg>
-        <p>
+
+        <p style={{ fontSize: '1.4rem', lineHeight: '2.2rem', maxWidth: 600 }}>
           Presiona el botón de <strong>“Iniciar sesión”</strong> para acceder a la plantilla.
         </p>
       </div>
+
       {/* Botón */}
       <a
         href={getLocalizedUrl('/login', lang)}
         style={{
-          padding: '0.75rem 2rem',
+          padding: '1rem 3rem',
           background: '#6366f1',
           color: '#fff',
           borderRadius: '999px',
-          fontWeight: 600,
+          fontWeight: 700,
+          fontSize: '1.2rem',
           textDecoration: 'none',
-          boxShadow: '0 2px 8px #6366f133',
+          boxShadow: '0 4px 12px #6366f155',
           transition: 'background 0.2s',
         }}
       >

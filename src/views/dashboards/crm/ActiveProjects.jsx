@@ -66,11 +66,9 @@ const initialData = [
 const ActiveProjects = () => {
   const [progressData, setProgressData] = useState(initialData)
 
-  // Estado para update (todos los items)
   const [openUpdate, setOpenUpdate] = useState(false)
   const [editData, setEditData] = useState(progressData)
 
-  // Acciones menu
   const handleMenuAction = (action) => {
     if (action === 'Refresh') {
       setProgressData(prev => 
