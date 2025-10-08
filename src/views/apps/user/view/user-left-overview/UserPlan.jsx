@@ -10,19 +10,20 @@ import Button from '@mui/material/Button'
 import UpgradePlan from '@components/dialogs/upgrade-plan'
 import OpenDialogOnElementClick from '@components/dialogs/OpenDialogOnElementClick'
 
-const UserPlan = () => {
-  // Vars
+
+const UserPlan = ({ user }) => {
   const buttonProps = {
     variant: 'contained',
     children: 'Upgrade Plan'
   }
 
+  // Puedes personalizar el plan según el usuario si lo deseas
   return (
     <>
       <Card className='border-2 border-primary rounded shadow-primarySm'>
         <CardContent className='flex flex-col gap-6'>
           <div className='flex justify-between'>
-            <Chip label='Standard' size='small' color='primary' variant='tonal' />
+            <Chip label={user?.currentPlan || 'Standard'} size='small' color='primary' variant='tonal' />
             <div className='flex justify-center'>
               <Typography variant='h5' component='sup' className='self-start' color='primary.main'>
                 $

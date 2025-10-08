@@ -34,6 +34,8 @@ import TablePaginationComponent from '@components/TablePaginationComponent'
 
 // Style Imports
 import tableStyles from '@core/styles/table.module.css'
+import OptionMenu from '@/@core/components/option-menu'
+import menu from '@/@core/theme/overrides/menu'
 
 // Vars
 const projectTable = [
@@ -106,6 +108,36 @@ const projectTable = [
     projectType: 'HTML Project',
     projectTitle: 'Hoffman Website',
     img: '/images/logos/html-bg.png'
+  },
+  {
+    id: 8,
+    hours: '78:11',
+    progressValue: 38,
+    totalTask: '76/200',
+    progressColor: 'warning',
+    projectType: 'Angular Project',
+    projectTitle: 'Angular Admin',
+    img: '/images/logos/angular.png'
+  },
+  {
+    id: 9,
+    hours: '98:22',
+    progressValue: 28,
+    totalTask: '56/200',
+    progressColor: 'error',
+    projectType: 'Linkedin',
+    projectTitle: 'Linkedin Project',
+    img: '/images/logos/linkedin.png'
+  },
+  {
+    id: 10,
+    hours: '45:10',
+    progressValue: 68,
+    totalTask: '176/240',
+    progressColor: 'primary',
+    projectType: 'JavaScript Project',
+    projectTitle: 'Chat App',
+    img: '/images/logos/javascript.png'
   }
 ]
 
@@ -189,9 +221,28 @@ const ProjectListTable = () => {
       columnHelper.accessor('hours', {
         header: 'Hours',
         cell: ({ row }) => <Typography>{row.original.hours}</Typography>
+      }),
+      columnHelper.accessor('actions', {
+        header: 'Actions',
+        cell: ({ row }) => (
+          <OptionMenu
+            iconButtonProps={{ size: 'medium' }}
+            iconClassName='text-secondrary'
+            options={[
+              { text: 'Refresh', menuItemProps: { onClick: () => handleMenuAction('Refresh', row.original) } },
+              {
+                text: 'Delete',
+                menuItemProps: {
+                  className: 'text-error',
+                  onClick: () => handleMenuAction('Delete', row.original)
+                }
+              }
+            ]}
+          />
+        ),
+        enableSorting: false
       })
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
 
@@ -207,7 +258,7 @@ const ProjectListTable = () => {
     },
     initialState: {
       pagination: {
-        pageSize: 7
+        pageSize: 4
       }
     },
     enableRowSelection: true, //enable row selection for all rows
@@ -224,6 +275,20 @@ const ProjectListTable = () => {
     getFacetedMinMaxValues: getFacetedMinMaxValues()
   })
 
+  const handleMenuAction = (action, row) => {
+    if(action === 'Refresh') {
+      setData(prev => 
+        prev.map(item =>
+          item.id === row.id
+            ? { ...item, progressValue: Math.floor(Math.random() * 100)}
+            : item
+        )
+      )
+    } else if(action === 'Delete') {
+      setData(prev => prev.filter(item => item.id !== row.id) )
+    }
+  }
+
   return (
     <Card>
       <CardHeader title='User&#39;s Project List' className='flex flex-wrap gap-4' />
@@ -236,8 +301,8 @@ const ProjectListTable = () => {
             onChange={e => table.setPageSize(Number(e.target.value))}
             className='is-[70px]'
           >
-            <MenuItem value='5'>5</MenuItem>
-            <MenuItem value='7'>7</MenuItem>
+            <MenuItem value='4'>4</MenuItem>
+            <MenuItem value='6'>6</MenuItem>
             <MenuItem value='10'>10</MenuItem>
           </CustomTextField>
         </div>

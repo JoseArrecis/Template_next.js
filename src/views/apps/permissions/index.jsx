@@ -37,6 +37,11 @@ import TablePaginationComponent from '@components/TablePaginationComponent'
 
 // Style Imports
 import tableStyles from '@core/styles/table.module.css'
+import OptionMenu from '@/@core/components/option-menu'
+import Link from '@/components/Link'
+import { getLocalizedUrl } from '@/utils/i18n'
+import { useParams } from 'next/navigation'
+import jsPDF from 'jspdf'
 
 // Vars
 const colors = {
@@ -79,6 +84,26 @@ const DebouncedInput = ({ value: initialValue, onChange, debounce = 500, ...prop
   return <CustomTextField {...props} value={value} onChange={e => setValue(e.target.value)} />
 }
 
+const handleDownloadPDF = (row) => {
+  try {
+    const doc = new jsPDF()
+
+    doc.setFontSize (20)
+    doc.text ('Permission Details', 20, 20)
+
+    doc.setFontSize (12)
+    doc.text (`Permissions #${row.id}`, 20, 30)
+
+    doc.text (`Name: ${row.name}`, 20, 40)
+    doc.text(`Assigned To: ${Array.isArray(row.assignedTo) ? row.assignedTo.join(', ') : row.assignedTo}`, 20, 50)
+    doc.text (`Created Date: ${row.createdDate}`, 20, 60)
+
+    doc.save(`permission_${row.id}.pdf`)
+  } catch (err) {
+    console.error('Error downloading PDF', err)
+  }
+}
+
 // Column Definitions
 const columnHelper = createColumnHelper()
 
@@ -90,6 +115,8 @@ const Permissions = ({ permissionsData }) => {
 
   const [data, setData] = useState(...[permissionsData])
   const [globalFilter, setGlobalFilter] = useState('')
+
+  const { lang: locale } = useParams()
 
   // Vars
   const buttonProps = {
@@ -139,12 +166,36 @@ const Permissions = ({ permissionsData }) => {
         header: 'Actions',
         cell: ({ row }) => (
           <div className='flex items-center'>
-            <IconButton onClick={() => handleEditPermission(row.original.name)}>
-              <i className='tabler-edit text-textSecondary' />
+            <IconButton onClick={() => setData(data?.filter(product => product.id !== row.original.id))}>
+              <i className='tabler-trash text-textSecondary' />
             </IconButton>
             <IconButton>
-              <i className='tabler-dots-vertical text-textSecondary' />
+              <Link
+                href={getLocalizedUrl(`/apps/user/view/${row.original.id}`, locale)}
+                className='flex'
+              >
+                <i className='tabler-eye text-textSecondary' />
+              </Link>
             </IconButton>
+            <OptionMenu
+              iconButtonProps={{ size: 'medium' }}
+              iconClassName='text-textSecondary'
+              options={[
+                {
+                  text: 'Download',
+                  icon: 'tabler-download',
+                  menuItemProps: {
+                    className: 'flex items-center gap-2 text-textSecondary',
+                    onClick: () => handleDownloadPDF(row.original)
+                  }
+                },
+                {
+                  text: 'Edit',
+                  icon: 'tabler-edit',
+                  menuItemProps: { className: 'flex items-center gap-2 text-textSecondary' }
+                }
+              ]}
+            />
           </div>
         ),
         enableSorting: false

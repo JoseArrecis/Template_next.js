@@ -46,6 +46,7 @@ import { getLocalizedUrl } from '@/utils/i18n'
 
 // Style Imports
 import tableStyles from '@core/styles/table.module.css'
+import jsPDF from 'jspdf'
 
 // Styled Components
 const Icon = styled('i')({})
@@ -99,6 +100,30 @@ const userStatusObj = {
 
 // Column Definitions
 const columnHelper = createColumnHelper()
+
+const handleDownloadPDF = (row) => {
+  try {
+    const doc = new jsPDF()
+
+    doc.setFontSize(16)
+    doc.text('User Details', 14, 20)
+
+    doc.setFontSize(12)
+    doc.text(`user #${row.id}`, 14, 30)
+
+    doc.setFontSize(10)
+    doc.text(`Name: ${row.fullName}`, 14, 40)
+    doc.text(`Username: ${row.username}`, 14, 50)
+    doc.text(`Billing Email: ${row.billing}`, 14, 60)
+    doc.text(`Status: ${row.status}`, 14, 70)
+    doc.text(`Role: ${row.role}`, 14, 80)
+    doc.text(`Company: ${row.company}`, 14, 90)
+
+    doc.save(`user-details-${row.id}.pdf`)
+  } catch (err) {
+    console.error('Error generating PDF:', err)
+  }
+}
 
 const RolesTable = ({ tableData }) => {
   // States
@@ -197,7 +222,7 @@ const RolesTable = ({ tableData }) => {
               <i className='tabler-trash text-textSecondary' />
             </IconButton>
             <IconButton>
-              <Link href={getLocalizedUrl('/apps/user/view', locale)} className='flex'>
+              <Link href={getLocalizedUrl(`/apps/user/view/${row.original.id}`, locale)} className='flex'>
                 <i className='tabler-eye text-textSecondary' />
               </Link>
             </IconButton>
@@ -208,7 +233,10 @@ const RolesTable = ({ tableData }) => {
                 {
                   text: 'Download',
                   icon: 'tabler-download',
-                  menuItemProps: { className: 'flex items-center gap-2 text-textSecondary' }
+                  menuItemProps: { 
+                    className: 'flex items-center gap-2 text-textSecondary',
+                    onClick: () => handleDownloadPDF(row.original)
+                  }
                 },
                 {
                   text: 'Edit',

@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid2'
 // Component Imports
 import CustomTabList from '@core/components/mui/TabList'
 
-const UserRight = ({ tabContentList }) => {
+const UserRight = ({ tabContentList, user }) => {
   // States
   const [activeTab, setActiveTab] = useState('overview')
 
