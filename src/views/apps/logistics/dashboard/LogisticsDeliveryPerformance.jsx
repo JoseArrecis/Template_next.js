@@ -32,7 +32,7 @@ const LogisticsDeliveryPerformance = () => {
     if (action === 'Refresh') {
       const newData = progressData.map(item => ({
         ...item,
-        change: parseFloat((Math.random() * 100 - 50).toFixed(2)), // -50 a 50
+        change: parseFloat((Math.random() * 100 - 50).toFixed(2)), 
         value: item.value.includes('%')
           ? `${Math.floor(Math.random() * 100)}%`
           : item.value.includes('/')
@@ -52,7 +52,7 @@ const LogisticsDeliveryPerformance = () => {
         navigator
           .share({
             title: 'Delivery Performance',
-            text: 'Check the total delivery performance!',
+            text: 'Check the total delivery performance',
             url: window.location.href
           })
           .catch(err => console.log('Share canceled', err))

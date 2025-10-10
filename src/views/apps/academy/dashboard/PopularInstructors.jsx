@@ -33,17 +33,14 @@ const initialData = [
 export default function PopularInstructors() {
   const [progressData, setProgressData] = useState(initialData)
 
-  // Menu (three dots) state
   const [anchorEl, setAnchorEl] = useState(null)
   const menuOpen = Boolean(anchorEl)
   const openMenu = (e) => setAnchorEl(e.currentTarget)
   const closeMenu = () => setAnchorEl(null)
 
-  // Modal state for update-all
   const [openUpdate, setOpenUpdate] = useState(false)
   const [editData, setEditData] = useState([])
 
-  // --- Handlers for menu actions ---
   const handleRefresh = () => {
     setProgressData(prev =>
       prev.map(item => ({ ...item, totalCourses: Math.floor(Math.random() * 100) + 1 }))
@@ -138,7 +135,7 @@ export default function PopularInstructors() {
         </CardContent>
       </Card>
 
-      {/* Modal: editar todos */}
+      {/* Modal Update */}
       <Dialog open={openUpdate} onClose={() => setOpenUpdate(false)} maxWidth='sm' fullWidth>
         <DialogTitle>Update All Instructors</DialogTitle>
         <DialogContent className='flex flex-col gap-4 mt-2'>

@@ -26,7 +26,7 @@ const dataSets = {
       imgSrc: '/images/cards/us.png'
     },
     {
-      title: '$1.11kk',
+      title: '$1.1k',
       subtitle: 'Brazil',
       trendNumber: 8.35,
       imgSrc: '/images/cards/brazil.png'

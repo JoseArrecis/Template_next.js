@@ -18,6 +18,8 @@ import {
   Bar,
   Legend
 } from 'recharts'
+import { useParams } from 'next/navigation'
+import { getLocalizedUrl } from '@/utils/i18n'
 
 const salesByMonth = [
   { month: 'Jan', sales: 12000 },
@@ -42,6 +44,7 @@ const salesByProduct = [
 
 const SalesPage = () => {
   const [flipped, setFlipped] = useState(false)
+  const { lang } = useParams()
 
   return (
     <Box
@@ -121,7 +124,7 @@ const SalesPage = () => {
       </Box>
       
       <Box sx={{ textAlign: 'center', margin: "25px" }}>
-        <Button variant='contained' color='primary' href="/dashboards/ecommerce">
+        <Button variant='contained' color='primary' href={getLocalizedUrl("/dashboards/ecommerce", lang)}>
           Back to Ecommerce
         </Button>
       </Box>

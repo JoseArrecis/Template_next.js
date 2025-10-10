@@ -1,3 +1,5 @@
+'use client'
+
 // MUI Imports
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -10,8 +12,9 @@ import classnames from 'classnames'
 // Components Imports
 import OptionMenu from '@core/components/option-menu'
 import CustomAvatar from '@core/components/mui/Avatar'
+import { useState } from 'react'
 
-const deliveryData = [
+const initialData = [
   { title: 'Packages in transit', value: '10k', change: 25.8, icon: 'tabler-box', color: 'primary' },
   { title: 'Packages out for delivery', value: '5k', change: 4.3, icon: 'tabler-truck', color: 'info' },
   { title: 'Packages delivered', value: '15k', change: -12.5, icon: 'tabler-circle-check', color: 'success' },
@@ -21,15 +24,57 @@ const deliveryData = [
 ]
 
 const DeliveryPerformance = () => {
+  const [progressData, setProgressData] = useState(initialData) 
+
+  const handleMenuAction = (action) => {
+    if (action === 'Refresh') {
+      const newData = progressData.map(item => ({
+        ...item,
+        change: parseFloat((Math.random() * 100 - 50).toFixed(2)),
+        value: item.value.includes('%')
+          ? `${Math.floor(Math.random() * 100)}%`
+          : item.value.includes('/')
+          ? `${(Math.random() * 5).toFixed(1)}/5`
+          : `${Math.floor(Math.random() * 20)}`
+      }))
+      setProgressData(newData)
+    } else if (action === 'Select All') {
+      const allSelected = progressData.map(item => ({
+        ...item,
+        value: '100%',
+        change: 100
+      }))
+      setProgressData(allSelected)
+    } else if (action === 'Share') {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Delivery Performance',
+          text: 'Check the total delivery performance',
+          url: window.location.href
+        }).catch(err => console.log('Share canceled', err))
+      } else {
+        alert('Sharing is not supported in this browser.')
+      }
+    }
+  }
+
   return (
     <Card>
       <CardHeader
         title='Delivery Performance'
         subheader='12% increase in this month'
-        action={<OptionMenu options={['Select All', 'Refresh', 'Share']} />}
+        action={
+          <OptionMenu 
+            options={[
+              { text: 'Select All', menuItemProps: { onClick: () => handleMenuAction('Select All') }}, 
+              { text: 'Refresh', menuItemProps: { onClick: () => handleMenuAction('Refresh') } }, 
+              { text: 'Share', menuItemProps: { onClick: () => handleMenuAction('Share') } }
+            ]} 
+          />
+        }
       />
       <CardContent className='flex flex-col gap-[30px]'>
-        {deliveryData.map((data, index) => (
+        {progressData.map((data, index) => (
           <div key={index} className='flex items-center gap-4'>
             <CustomAvatar skin='light' color={data.color} variant='rounded' size={38}>
               <i className={data.icon} />

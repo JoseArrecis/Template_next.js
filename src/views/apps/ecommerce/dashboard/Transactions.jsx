@@ -18,8 +18,6 @@ import jsPDF from 'jspdf'
 import OptionMenu from '@core/components/option-menu'
 import CustomAvatar from '@core/components/mui/Avatar'
 
-
-
 // Vars
 const initialData = [
   {
@@ -79,7 +77,6 @@ const initialData = [
 const Transactions = () => {
   const [progressData, setProgressData] = useState(initialData)
 
-  // 🔁 Refrescar montos aleatoriamente
   const handleRefresh = () => {
     const updated = progressData.map(item => ({
       ...item,
@@ -88,7 +85,6 @@ const Transactions = () => {
     setProgressData(updated)
   }
 
-  // ➕ Agregar transacción nueva
   const handleAddTransaction = () => {
     const randomAmount = Math.floor(Math.random() * 1000) + 50
     const newTransaction = {
@@ -102,7 +98,6 @@ const Transactions = () => {
     setProgressData(prev => [newTransaction, ...prev])
   }
 
-  // 📄 Generar PDF
   const handleDownloadPDF = () => {
     const doc = new jsPDF()
     doc.setFontSize(16)

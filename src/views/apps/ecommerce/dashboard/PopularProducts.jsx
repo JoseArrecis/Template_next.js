@@ -23,7 +23,6 @@ const PopularProducts = () => {
     { title: 'PlayStation Console', subtitle: '7892', amount: '$129.48', price: 129.48, imgSrc: '/images/cards/play-station-console.png' }
   ])
 
-  // Ordenar productos
   const handleSort = (type) => {
     let sorted = [...products]
     if (type === 'lowToHigh') {
@@ -34,7 +33,6 @@ const PopularProducts = () => {
     setProducts(sorted)
   }
 
-  // Agregar producto nuevo
   const handleAdd = () => {
     const newProduct = {
       title: 'New Product',

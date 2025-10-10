@@ -16,9 +16,12 @@ import OptionMenu from '@core/components/option-menu'
 
 // Style Imports
 import tableStyles from '@core/styles/table.module.css'
+import { useState } from 'react'
+import jsPDF from 'jspdf'
+import { Button } from '@mui/material'
 
 // Vars
-const data = [
+const initialData = [
   {
     trend: '+$1,678',
     status: 'verified',
@@ -68,18 +71,73 @@ const statusObj = {
   verified: { text: 'Verified', color: 'success' }
 }
 
-const LastTransaction = ({ serverMode }) => {
-  // Hooks
-  const { mode } = useColorScheme()
+const cardTypes = ['Credit', 'ATM']
+const cardImages = { Credit: ['visa', 'mastercard'], ATM: ['american-express'] }
+const statuses = ['verified', 'rejected', 'pending', 'on-hold']
 
-  // Vars
+const LastTransaction = ({ serverMode }) => {
+  const [progressData, setProgressData] = useState(initialData)
+  const { mode } = useColorScheme()
   const _mode = (mode === 'system' ? serverMode : mode) || serverMode
+
+  const handleMenuAction = (action) => {
+    if (action === 'Refresh') {
+      setProgressData(prev =>
+        prev.map(row => ({
+          ...row,
+          trend: (Math.random() > 0.5 ? '+' : '-') + '$' + Math.floor(Math.random() * 5000),
+          date: `${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')} ${
+            ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][Math.floor(Math.random()*12)]
+          } ${new Date().getFullYear()}`
+        }))
+      )
+    } else if (action === 'Add') {
+      const cardType = cardTypes[Math.floor(Math.random()*cardTypes.length)]
+      const newRow = {
+        trend: (Math.random() > 0.5 ? '+' : '-') + '$' + Math.floor(Math.random() * 5000),
+        status: statuses[Math.floor(Math.random()*statuses.length)],
+        cardType,
+        cardNumber: '*' + Math.floor(1000 + Math.random()*9000),
+        imgName: cardImages[cardType][Math.floor(Math.random()*cardImages[cardType].length)],
+        date: `${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')} ${
+          ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][Math.floor(Math.random()*12)]
+        } ${new Date().getFullYear()}`
+      }
+      setProgressData(prev => [newRow, ...prev])
+    }
+  }
+
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF()
+    doc.setFontSize(16)
+    doc.text('Reporte de Transacciones', 20, 20)
+
+    let y = 40
+    progressData.forEach((row, i) => {
+      doc.setFontSize(12)
+      doc.text(
+        `${i + 1}. ${row.cardType} ${row.cardNumber} | ${row.date} | ${statusObj[row.status].text} | ${row.trend}`,
+        20,
+        y
+      )
+      y += 10
+    })
+
+    doc.save('Transactions.pdf')
+  }
 
   return (
     <Card>
       <CardHeader
         title='Last Transaction'
-        action={<OptionMenu options={['Show all entries', 'Refresh', 'Download']} />}
+        action={
+          <OptionMenu 
+            options={[
+              { text: 'Add', menuItemProps: { onClick: () => handleMenuAction('Add') } },
+              { text: 'Refresh', menuItemProps: { onClick: () => handleMenuAction('Refresh') } }
+            ]} 
+            />
+          }
       />
       <div className='overflow-x-auto'>
         <table className={tableStyles.table}>
@@ -92,7 +150,7 @@ const LastTransaction = ({ serverMode }) => {
             </tr>
           </thead>
           <tbody>
-            {data.map((row, index) => (
+            {progressData.map((row, index) => (
               <tr key={index} className='border-0'>
                 <td className='pis-6 pli-2 plb-3'>
                   <div className='flex items-center gap-4'>
@@ -136,6 +194,12 @@ const LastTransaction = ({ serverMode }) => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      <div className='flex justify-end p-4'>
+        <Button variant='contained' color='primary' onClick={handleDownloadPDF}>
+          Descargar PDF
+        </Button>
       </div>
     </Card>
   )

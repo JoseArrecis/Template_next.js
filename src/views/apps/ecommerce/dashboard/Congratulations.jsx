@@ -30,7 +30,7 @@ const CongratulationsJohn = () => {
               View Sales
             </Button>
           </CardContent>
-        </Grid>
+        </Grid>  
         <Grid size={{ xs: 4 }}>
           <div className='relative bs-full is-full'>
             <img

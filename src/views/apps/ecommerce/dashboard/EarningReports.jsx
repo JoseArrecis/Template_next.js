@@ -128,7 +128,6 @@ const EarningReports = () => {
           trendNumber: Math.floor(Math.random() * 100) + 1
         }))
       )
-      // Actualización de Gráfica
       setChartSeries([
         { name: 'Earning', data: Array.from({ length: 7 }, () => Math.floor(Math.random() * 20) + 5) }
       ])
@@ -148,13 +147,11 @@ const EarningReports = () => {
     }
   }
 
-  // Guardar cambios desde el model
   const handleUpdateSave = () => {
     setProgressData(editData)
     setOpenUpdate(false)
   }
 
-  // Cambiar valores en inputs del modal
   const handleEditChange = (index, field, value) => {
     const updated = [...editData]
     updated[index] = {

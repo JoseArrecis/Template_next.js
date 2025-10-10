@@ -1,3 +1,5 @@
+'use client'
+
 // MUI Imports
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -10,9 +12,12 @@ import classnames from 'classnames'
 // Components Imports
 import OptionMenu from '@core/components/option-menu'
 import CustomAvatar from '@core/components/mui/Avatar'
+import { useState } from 'react'
+import jsPDF from 'jspdf'
+import { Button } from '@mui/material'
 
 // Vars
-const data = [
+const initialData = [
   {
     title: 'Wallet',
     subtitle: 'Starbucks',
@@ -68,15 +73,66 @@ const data = [
 ]
 
 const Transactions = () => {
+  const [progressData, setProgressData] = useState(initialData)
+
+  const handleRefresh = () => {
+    const updated = progressData.map(item => ({
+      ...item,
+      amount: Math.floor(Math.random() * 1500) + 50
+    }))
+    setProgressData(updated)
+  }
+
+  const handleAddTransaction = () => {
+    const randomAmount = Math.floor(Math.random() * 1000) + 50
+    const newTransaction = {
+      title: 'New Payment',
+      subtitle: 'Amazon Q',
+      amount: randomAmount,
+      amountDiff: Math.random() > 0.5 ? 'negative' : 'positive',
+      avatarColor: 'warning',
+      avatarIcon: 'tabler-cash'
+    }
+    setProgressData(prev => [newTransaction, ...prev])
+  }
+
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF()
+    doc.setFontSize(16)
+    doc.text('Transactions Report', 20, 20)
+    doc.setFontSize(12)
+
+    let y = 40
+    progressData.forEach((row, i) => {
+      const sign = row.amountDiff === 'negative' ? '-' : '+'
+      const color = row.amountDiff === 'negative' ? 'Gasto' : 'Ingreso'
+      doc.text(
+        `${i + 1}. ${row.title} - ${row.subtitle} | ${color}: ${sign}$${row.amount}`,
+        20,
+        y
+      )
+      y += 10
+    })
+
+    doc.save('Transactions.pdf')
+  }
+
   return (
     <Card>
       <CardHeader
         title='Transactions'
         subheader='Total 58 transaction done in month'
-        action={<OptionMenu options={['Refresh', 'Show all entries', 'Make payment']} />}
+        action={
+          <OptionMenu 
+            options={[
+              { text: 'Refresh', menuItemProps: { onClick: handleRefresh } },
+              { text: 'Make Payment', menuItemProps: { onClick: handleAddTransaction } }
+            ]} 
+          />
+        }
       />
       <CardContent className='flex flex-col gap-[1.125rem]'>
-        {data.map((item, index) => (
+        {progressData.map((item, index) => (
           <div key={index} className='flex items-center gap-4'>
             <CustomAvatar skin='light' variant='rounded' color={item.avatarColor} size={34}>
               <i className={classnames(item.avatarIcon, 'text-[22px]')} />
@@ -96,7 +152,15 @@ const Transactions = () => {
           </div>
         ))}
       </CardContent>
+
+      {/* Boto para descargar PDF */}
+      <div className='flex justify-end p-4'>
+        <Button variant='contained' color='primary' onClick={handleDownloadPDF}>
+          Descargar PDF
+        </Button>
+      </div>
     </Card>
+
   )
 }
 
