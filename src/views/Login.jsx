@@ -65,7 +65,7 @@ const MaskImg = styled('img')({
 })
 
 const schema = object({
-  email: pipe(string(), minLength(1, 'This field is required'), email('Email is invalid')),
+  email: pipe(string(), nonEmpty('This field is required')),
   password: pipe(
     string(),
     nonEmpty('This field is required'),
@@ -120,6 +120,7 @@ const Login = ({ mode }) => {
   const onSubmit = async data => {
     const res = await signIn('credentials', {
       email: data.email,
+      user: data.user, 
       password: data.password,
       redirect: false
     })
@@ -127,13 +128,16 @@ const Login = ({ mode }) => {
     if (res && res.ok && res.error === null) {
       // Vars
       const redirectURL = searchParams.get('redirectTo') ?? '/'
-
       router.replace(getLocalizedUrl(redirectURL, locale))
     } else {
       if (res?.error) {
-        const error = JSON.parse(res.error)
-
-        setErrorState(error)
+        let errorObj = { message: ["Error desconocido"] };
+        try {
+          errorObj = JSON.parse(res.error);
+        } catch (e) {
+          errorObj = { message: [res.error] };
+        }
+        setErrorState(errorObj);
       }
     }
   }
@@ -184,7 +188,7 @@ const Login = ({ mode }) => {
                   fullWidth
                   type='email'
                   label='Email'
-                  placeholder='Enter your email'
+                  placeholder='Enter your email or username'
                   onChange={e => {
                     field.onChange(e.target.value)
                     errorState !== null && setErrorState(null)

@@ -42,6 +42,7 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String?   // Campo para login y reset-password
+  role          String?   @default("user")
   accounts      Account[]
   sessions      Session[]
 }

@@ -17,13 +17,10 @@ import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
 import { useTheme } from '@mui/material/styles'
 
-// Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
 
-// Opciones de años disponibles
 const yearOptions = [2022, 2023, 2024]
 
-// Datos de ejemplo por año
 const yearData = {
   2022: {
     barSeries: [
@@ -64,7 +61,6 @@ const yearData = {
 }
 
 const RevenueReport = () => {
-  // States
   const [anchorEl, setAnchorEl] = useState(null)
   const [selectedYear, setSelectedYear] = useState(2024)
   const [budget, setBudget] = useState(Number(yearData[selectedYear].budget.replace(/,/g, '')));

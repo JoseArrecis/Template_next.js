@@ -21,232 +21,174 @@ import { useTheme } from '@mui/material/styles'
 import classnames from 'classnames'
 
 // Components Imports
-import OptionMenu from '@core/components/option-menu'
 import CustomAvatar from '@core/components/mui/Avatar'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material'
 
 // Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
 
-// Vars
-const tabData = [
-  {
-    type: 'orders',
-    avatarIcon: 'tabler-shopping-cart',
-    series: [{ data: [28, 10, 46, 38, 15, 30, 35, 28, 8] }]
-  },
-  {
-    type: 'sales',
-    avatarIcon: 'tabler-chart-bar',
-    series: [{ data: [35, 25, 15, 40, 42, 25, 48, 8, 30] }]
-  },
-  {
-    type: 'profit',
-    avatarIcon: 'tabler-currency-dollar',
-    series: [{ data: [10, 22, 27, 33, 42, 32, 27, 22, 8] }]
-  },
-  {
-    type: 'income',
-    avatarIcon: 'tabler-chart-pie-2',
-    series: [{ data: [5, 9, 12, 18, 20, 25, 30, 36, 48] }]
-  }
-]
-
-const renderTabs = value => {
-  return tabData.map((item, index) => (
-    <Tab
-      key={index}
-      value={item.type}
-      className='mie-4'
-      label={
-        <div
-          className={classnames(
-            'flex flex-col items-center justify-center gap-2 is-[110px] bs-[100px] border rounded-xl',
-            item.type === value ? 'border-solid border-[var(--mui-palette-primary-main)]' : 'border-dashed'
-          )}
-        >
-          <CustomAvatar variant='rounded' skin='light' size={38} {...(item.type === value && { color: 'primary' })}>
-            <i className={classnames('text-[22px]', { 'text-textSecondary': item.type !== value }, item.avatarIcon)} />
-          </CustomAvatar>
-          <Typography className='font-medium capitalize' color='text.primary'>
-            {item.type}
-          </Typography>
-        </div>
-      }
-    />
-  ))
-}
-
-const renderTabPanels = (value, theme, options, colors) => {
-  return tabData.map((item, index) => {
-    const max = Math.max(...item.series[0].data)
-    const seriesIndex = item.series[0].data.indexOf(max)
-    const finalColors = colors.map((color, i) => (seriesIndex === i ? 'var(--mui-palette-primary-main)' : color))
-
-    return (
-      <TabPanel key={index} value={item.type} className='!p-0'>
-        <AppReactApexCharts
-          type='bar'
-          height={230}
-          width='100%'
-          options={{ ...options, colors: finalColors }}
-          series={item.series}
-        />
-      </TabPanel>
-    )
-  })
-}
 
 const EarningReportsWithTabs = () => {
+  const [tabData, setTabData] = useState([
+    { 
+      type: 'orders', 
+      avatarIcon: 'tabler-shopping-cart', 
+      series: [{ data: [28, 10, 46, 38, 15, 30, 35, 28, 8, 25, 12, 5] }] 
+    },
+    { 
+      type: 'sales', 
+      avatarIcon: 'tabler-chart-bar', 
+      series: [{ data: [35, 25, 15, 40, 42, 25, 48, 8, 30, 41, 55, 24] }] 
+    },
+    { 
+      type: 'profit', 
+      avatarIcon: 'tabler-currency-dollar', 
+      series: [{ data: [10, 22, 27, 33, 42, 32, 27, 22, 8, 51, 42, 25] }] 
+    },
+    {
+      type: 'income',
+      avatarIcon: 'tabler-chart-pie-2',
+      series: [{ data: [5, 9, 12, 18, 20, 25, 30, 36, 48] }]
+    }
+  ])
+  
   // States
   const [value, setValue] = useState('orders')
+  const [open, setOpen] = useState(false)
+  const [editIndex, setEditIndex] = useState(null)
+  const [formData, setFormData] = useState({ type: '', series: '' }) 
 
-  // Hooks
   const theme = useTheme()
-
-  // Vars
   const disabledText = 'var(--mui-palette-text-disabled)'
 
   const handleChange = (event, newValue) => {
-    setValue(newValue)
+    if (newValue === 'add') {
+      setFormData({ type: '', series: '' })
+      setEditIndex(null)
+      setOpen(true)
+    } else {
+      setValue(newValue)
+    }
   }
 
-  const colors = Array(9).fill('var(--mui-palette-primary-lightOpacity)')
+  const handleEdit = (index) => {
+    setFormData({
+      type: tabData[index].type,
+      series: tabData[index].series[0].data.join(',')
+    })
+    setEditIndex(index)
+    setOpen(true)
+  }
 
-  const options = {
-    chart: {
-      parentHeightOffset: 0,
-      toolbar: { show: false }
-    },
-    plotOptions: {
-      bar: {
-        borderRadius: 6,
-        distributed: true,
-        columnWidth: '33%',
-        borderRadiusApplication: 'end',
-        dataLabels: { position: 'top' }
-      }
-    },
+  const handleSave = () => {
+    const newSeries = formData.series.split(',').map(v => Number(v.trim()))
+    let updated = [...tabData]
+
+    if (editIndex !== null) {
+      updated[editIndex] = { ...updated[editIndex], type: formData.type, series: [{ data: newSeries }] }
+      setValue(formData.type)
+    } else {
+      updated.push({ type: formData.type, avatarIcon: 'tabler-chart-bar', series: [{ data: newSeries }] })
+      setValue(formData.type)
+    }
+
+    setTabData(updated)
+    setOpen(false)
+  }
+
+  const baseOptions = {
+    chart: { parentHeightOffset: 0, toolbar: { show: false } },
+    plotOptions: { bar: { borderRadius: 6, distributed: true, columnWidth: '33%' } },
     legend: { show: false },
     tooltip: { enabled: false },
-    dataLabels: {
-      offsetY: -11,
-      formatter: val => `${val}k`,
-      style: {
-        fontWeight: 500,
-        colors: ['var(--mui-palette-text-primary)'],
-        fontSize: theme.typography.body1.fontSize
-      }
-    },
-    colors,
-    states: {
-      hover: {
-        filter: { type: 'none' }
-      },
-      active: {
-        filter: { type: 'none' }
-      }
-    },
-    grid: {
-      show: false,
-      padding: {
-        top: -19,
-        left: -4,
-        right: 0,
-        bottom: -11
-      }
-    },
+    dataLabels: { enabled: false },
+    grid: { show: false },
     xaxis: {
-      axisTicks: { show: false },
-      axisBorder: { color: 'var(--mui-palette-divider)' },
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-      labels: {
-        style: {
-          colors: disabledText,
-          fontFamily: theme.typography.fontFamily,
-          fontSize: theme.typography.body2.fontSize
-        }
-      }
+      categories: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+      labels: { style: { colors: disabledText, fontFamily: theme.typography.fontFamily } }
     },
-    yaxis: {
-      labels: {
-        offsetX: -18,
-        formatter: val => `$${val}k`,
-        style: {
-          colors: disabledText,
-          fontFamily: theme.typography.fontFamily,
-          fontSize: theme.typography.body2.fontSize
-        }
-      }
-    },
-    responsive: [
-      {
-        breakpoint: 1450,
-        options: {
-          plotOptions: {
-            bar: { columnWidth: '45%' }
-          }
-        }
-      },
-      {
-        breakpoint: 600,
-        options: {
-          dataLabels: {
-            style: {
-              fontSize: theme.typography.body2.fontSize
-            }
-          },
-          plotOptions: {
-            bar: { columnWidth: '58%' }
-          }
-        }
-      },
-      {
-        breakpoint: 500,
-        options: {
-          plotOptions: {
-            bar: { columnWidth: '70%' }
-          }
-        }
-      }
-    ]
+    yaxis: { labels: { style: { colors: disabledText, fontFamily: theme.typography.fontFamily } } }
   }
 
   return (
     <Card>
-      <CardHeader
-        title='Earning Reports'
-        subheader='Yearly Earnings Overview'
-        action={<OptionMenu options={['Last Week', 'Last Month', 'Last Year']} />}
-      />
+      <CardHeader title="Earning Reports" subheader="Manage and Edit Charts" />
       <CardContent>
         <TabContext value={value}>
-          <TabList
-            variant='scrollable'
-            scrollButtons='auto'
-            onChange={handleChange}
-            aria-label='earning report tabs'
-            className='!border-0 mbe-10'
-            sx={{
-              '& .MuiTabs-indicator': { display: 'none !important' },
-              '& .MuiTab-root': { padding: '0 !important', border: '0 !important' }
-            }}
-          >
-            {renderTabs(value)}
+          <TabList onChange={handleChange} variant="scrollable" scrollButtons="auto" className="!border-0 mbe-10">
+            {tabData.map((item, index) => (
+              <Tab
+                key={index}
+                value={item.type}
+                label={
+                  <div className="flex flex-col items-center justify-center gap-2 is-[110px] bs-[100px] border rounded-xl relative">
+                    <CustomAvatar variant="rounded" skin="light" size={38}>
+                      <i className={classnames('text-[22px]', item.avatarIcon)} />
+                    </CustomAvatar>
+                    <Typography>{item.type}</Typography>
+                    <span
+                      className="absolute top-2 right-2 cursor-pointer text-gray-500 hover:text-gray-800"
+                      onClick={(e) => { e.stopPropagation(); handleEdit(index) }}
+                    >
+                      <i className="tabler-edit text-sm" />
+                    </span>
+                  </div>
+                }
+              />
+            ))}
             <Tab
-              disabled
-              value='add'
+              value="add"
               label={
-                <div className='flex flex-col items-center justify-center is-[110px] bs-[100px] border border-dashed rounded-xl'>
-                  <CustomAvatar variant='rounded' size={34}>
-                    <i className='tabler-plus text-textSecondary' />
+                <div className="flex flex-col items-center justify-center is-[110px] bs-[100px] border border-dashed rounded-xl">
+                  <CustomAvatar variant="rounded" size={34}>
+                    <i className="tabler-plus text-textSecondary" />
                   </CustomAvatar>
                 </div>
               }
             />
           </TabList>
-          {renderTabPanels(value, theme, options, colors)}
+
+          {tabData.map((item, index) => {
+            const data = item.series[0].data
+            const maxValue = Math.max(...data)
+            const dynamicColors = data.map(v =>
+              v === maxValue ? 'var(--mui-palette-primary-main)' : 'var(--mui-palette-primary-lightOpacity)'
+            )
+            const dynamicOptions = { ...baseOptions, colors: dynamicColors }
+
+            return (
+              <TabPanel key={index} value={item.type} className="!p-0">
+                <AppReactApexCharts type="bar" height={233} options={dynamicOptions} series={item.series} />
+              </TabPanel>
+            )
+          })}
         </TabContext>
       </CardContent>
+
+      {/* Modal para agregar/editar gráfica */}
+      <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth='sm'>
+        <DialogTitle>{editIndex !== null ? 'Edit Chart' : 'Add Chart'}</DialogTitle>
+        <DialogContent>
+          <TextField 
+            fullWidth
+            margin='normal'
+            label='Chart Name'
+            value={formData.type}
+            onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+          />
+          <TextField 
+            fullWidth
+            margin='normal'
+            label='Values (comma separated)'
+            value={formData.series}
+            onChange={(e) => setFormData({ ...formData, series: e.target.value })}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)}>Cancel</Button>
+          <Button variant='contained' onClick={handleSave}>Save</Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   )
 }

@@ -16,12 +16,19 @@ import classnames from 'classnames'
 // Components Imports
 import OptionMenu from '@core/components/option-menu'
 import CustomAvatar from '@core/components/mui/Avatar'
+import { useState } from 'react'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogActions from '@mui/material/DialogActions'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
 
 // Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
 
 // Vars
-const data = [
+const initialData = [
   {
     title: 'New Tickets',
     subtitle: '142',
@@ -43,6 +50,12 @@ const data = [
 ]
 
 const SupportTracker = () => {
+  const [progressData, setProgressData] = useState(initialData)
+  const [chartValue, setChartValue] = useState(85) 
+
+  const [openUpdate, setOpenUpdate] = useState(false)
+  const [editData, setEditData] = useState(progressData)
+
   // Hooks
   const theme = useTheme()
 
@@ -104,100 +117,125 @@ const SupportTracker = () => {
         right: 0,
         bottom: 14
       }
-    },
-    responsive: [
-      {
-        breakpoint: 1380,
-        options: {
-          grid: {
-            padding: {
-              top: 8,
-              left: 12
-            }
-          }
-        }
-      },
-      {
-        breakpoint: 1280,
-        options: {
-          chart: {
-            height: 325
-          },
-          grid: {
-            padding: {
-              top: 12,
-              left: 12
-            }
-          }
-        }
-      },
-      {
-        breakpoint: 1201,
-        options: {
-          chart: {
-            height: 362
-          }
-        }
-      },
-      {
-        breakpoint: 1135,
-        options: {
-          chart: {
-            height: 350
-          }
-        }
-      },
-      {
-        breakpoint: 980,
-        options: {
-          chart: {
-            height: 300
-          }
-        }
-      },
-      {
-        breakpoint: 900,
-        options: {
-          chart: {
-            height: 350
-          }
-        }
+    }
+  }
+
+  const handleMenuAction = (action) => {
+    if (action === 'Refresh') {
+      setProgressData(prev =>
+        prev.map(item => ({
+          ...item,
+          subtitle: Math.floor(Math.random() * 100) + 1
+        }))
+      )
+
+      setChartValue(Math.floor(Math.random() * 100) + 1)
+    } else if (action === 'Update') {
+      setEditData(progressData)
+      setOpenUpdate(true)
+    } else if (action === 'Share') {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Support Tracker',
+          text: 'Check support tracker',
+          url: window.location.href
+        }).catch(err => console.log('Share canceled', err))
+      } else {
+        alert('Sharing is not supported in this browser')
       }
-    ]
+    }
+  }
+
+  const handleUpdateSave = () => {
+    setProgressData(editData)
+    setOpenUpdate(false)
+  }
+
+  const handleEditChange = (index, field, value) => {
+    const updated = [...editData]
+    updated[index] = {
+      ...updated[index],
+      [field]: field === 'subtitle' && !isNaN(value) ? Number(value) : value
+    }
+    setEditData(updated)
   }
 
   return (
-    <Card>
-      <CardHeader
-        title='Support Tracker'
-        subheader='Last 7 Days'
-        action={<OptionMenu options={['Refresh', 'Edit', 'Share']} />}
-      />
-      <CardContent className='flex flex-col sm:flex-row items-center justify-between gap-7'>
-        <div className='flex flex-col gap-6 is-full sm:is-[unset]'>
-          <div className='flex flex-col'>
-            <Typography variant='h2'>164</Typography>
-            <Typography>Total Tickets</Typography>
-          </div>
-          <div className='flex flex-col gap-4 is-full'>
-            {data.map((item, index) => (
-              <div key={index} className='flex items-center gap-4'>
-                <CustomAvatar skin='light' variant='rounded' color={item.avatarColor} size={34}>
-                  <i className={classnames(item.avatarIcon, 'text-[22px]')} />
-                </CustomAvatar>
-                <div className='flex flex-col'>
-                  <Typography className='font-medium' color='text.primary'>
-                    {item.title}
-                  </Typography>
-                  <Typography variant='body2'>{item.subtitle}</Typography>
+    <>
+      <Card>
+        <CardHeader
+          title='Support Tracker'
+          subheader='Last 7 Days'
+          action={
+            <OptionMenu
+              options={[
+                { text: 'Refresh', menuItemProps: { onClick: () => handleMenuAction('Refresh') } },
+                { text: 'Update', menuItemProps: { onClick: () => handleMenuAction('Update') } },
+                { text: 'Share', menuItemProps: { onClick: () => handleMenuAction('Share') } }
+              ]}
+            />
+          }
+        />
+        <CardContent className='flex flex-col sm:flex-row items-center justify-between gap-7'>
+          <div className='flex flex-col gap-6 is-full sm:is-[unset]'>
+            <div className='flex flex-col'>
+              <Typography variant='h2'>164</Typography>
+              <Typography>Total Tickets</Typography>
+            </div>
+            <div className='flex flex-col gap-4 is-full'>
+              {progressData.map((item, index) => (
+                <div key={index} className='flex items-center gap-4'>
+                  <CustomAvatar skin='light' variant='rounded' color={item.avatarColor} size={34}>
+                    <i className={classnames(item.avatarIcon, 'text-[22px]')} />
+                  </CustomAvatar>
+                  <div className='flex flex-col'>
+                    <Typography className='font-medium' color='text.primary'>
+                      {item.title}
+                    </Typography>
+                    <Typography variant='body2'>{item.subtitle}</Typography>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-        <AppReactApexCharts type='radialBar' height={350} width='100%' series={[85]} options={options} />
-      </CardContent>
-    </Card>
+
+          <AppReactApexCharts
+            type='radialBar'
+            height={350}
+            width='100%'
+            series={[chartValue]}
+            options={options}
+          />
+        </CardContent>
+      </Card>
+
+      {/* Modal Updated */}
+      <Dialog open={openUpdate} onClose={() => setOpenUpdate(false)}>
+        <DialogTitle>Update Tracker</DialogTitle>
+        <DialogContent className='flex flex-col gap-4 mt-2'>
+          {editData.map((item, index) => (
+            <div key={index} className='flex gap-4 items-center'>
+              <TextField
+                label='Title'
+                fullWidth
+                value={item.title}
+                onChange={(e) => handleEditChange(index, 'title', e.target.value)}
+              />
+              <TextField
+                label='Subtitle'
+                fullWidth
+                value={item.subtitle}
+                onChange={(e) => handleEditChange(index, 'subtitle', e.target.value)}
+              />
+            </div>
+          ))}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenUpdate(false)}>Cancel</Button>
+          <Button variant='contained' onClick={handleUpdateSave}>Save</Button>
+        </DialogActions>
+      </Dialog>
+    </>
   )
 }
 

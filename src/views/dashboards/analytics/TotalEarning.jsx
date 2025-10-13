@@ -112,7 +112,6 @@ const TotalEarning = () => {
           amount: Math.floor(Math.random() * 100) + 1
         }))
       )
-      // Actalizacion de Gráfica
       setChartSeries([
         { name: 'Earning', data: Array.from({ length: 8 }, () => Math.floor(Math.random() * 20) + 5) },
         { name: 'Expense', data: Array.from({ length: 8 }, () => -(Math.floor(Math.random() * 15) + 3)) }
@@ -135,13 +134,11 @@ const TotalEarning = () => {
     }
   }
 
-  // Guardar cambios desde el modal
   const handleUpdateSave = () => {
     setProgressData(editData)
     setOpenUpdate(false)
   }
 
-  // Cambiar valores en inputs del modal
   const handleEditChange = (index, field, value) => {
     const updated = [...editData]
     updated[index] = {
@@ -176,10 +173,8 @@ const TotalEarning = () => {
           }
         />
         <CardContent className='flex flex-col gap-4'>
-          {/* Gráfica */}
           <AppReactApexCharts type='bar' height={189} width='100%' series={chartSeries} options={options} />
 
-          {/* Tarjetas */}
           {progressData.map((item, index) => (
             <div key={index} className='flex items-center gap-4'>
               <CustomAvatar skin='light' variant='rounded' color={item.avatarColor} size={38}>

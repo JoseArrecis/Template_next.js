@@ -42,6 +42,11 @@ const EarningReportsWithTabs = () => {
       type: 'profit', 
       avatarIcon: 'tabler-currency-dollar', 
       series: [{ data: [10, 22, 27, 33, 42, 32, 27, 22, 8, 51, 42, 25] }] 
+    },
+    {
+      type: 'income',
+      avatarIcon: 'tabler-chart-pie-2',
+      series: [{ data: [5, 9, 12, 18, 20, 25, 30, 36, 48] }]
     }
   ])
 

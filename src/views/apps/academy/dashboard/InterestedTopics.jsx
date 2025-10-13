@@ -56,7 +56,6 @@ const InterestedTopics = () => {
 
   const labels = progressData.map(item => item.title)
 
-  // Opciones gráfico
   const options = {
     chart: { parentHeightOffset: 0, toolbar: { show: false } },
     plotOptions: {
@@ -136,13 +135,11 @@ const InterestedTopics = () => {
     }
   }
 
-  // Guardar cambios modal (todos)
   const handleUpdateSave = () => {
     setProgressData(editData)
     setOpenUpdate(false)
   }
 
-  // Cambiar valores en los inputs del modal
   const handleEditChange = (index, field, value) => {
     const updated = [...editData]
     updated[index] = { ...updated[index], [field]: field === 'value' ? Number(value) : value }
@@ -186,7 +183,7 @@ const InterestedTopics = () => {
         </CardContent>
       </Card>
 
-      {/* Modal Update (todos los items) */}
+      {/* Modal Update */}
       <Dialog open={openUpdate} onClose={() => setOpenUpdate(false)} maxWidth="sm" fullWidth>
         <DialogTitle>Update All Topics</DialogTitle>
         <DialogContent className='flex flex-col gap-4 mt-2'>

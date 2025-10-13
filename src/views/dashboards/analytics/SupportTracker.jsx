@@ -51,9 +51,8 @@ const initialData = [
 
 const SupportTracker = () => {
   const [progressData, setProgressData] = useState(initialData)
-  const [chartValue, setChartValue] = useState(85) // 🔹 Nuevo estado para la gráfica
+  const [chartValue, setChartValue] = useState(85) 
 
-  // Estado para Update
   const [openUpdate, setOpenUpdate] = useState(false)
   const [editData, setEditData] = useState(progressData)
 
@@ -130,7 +129,6 @@ const SupportTracker = () => {
         }))
       )
 
-      // 🔹 Actualizar valor de la gráfica
       setChartValue(Math.floor(Math.random() * 100) + 1)
     } else if (action === 'Update') {
       setEditData(progressData)

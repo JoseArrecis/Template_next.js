@@ -23,7 +23,6 @@ import { useState } from 'react'
 // Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
 
-// ====================== DATOS ======================
 const periodData = {
   lastWeek: {
     series: [{ data: [37, 76, 65, 41, 99, 53, 70] }],
@@ -52,12 +51,10 @@ const periodData = {
 }
 
 
-// ====================== COMPONENTE PRINCIPAL ======================
 const EarningReports = () => {
   const [period, setPeriod] = useState('lastMonth')
   const { series, data } = periodData[period]
   
-  // calcular la barra más alta
   const maxValue = Math.max(...series[0].data)
   const colors = series[0].data.map(v =>
     v === maxValue ? 'var(--mui-palette-primary-main)' : 'var(--mui-palette-primary-lightOpacity)'
@@ -80,7 +77,7 @@ const EarningReports = () => {
     },
     yaxis: { show: false }
   }
-  // ====================== MENÚ ======================
+  
   const PeriodMenu = ({ onChange }) => {
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)

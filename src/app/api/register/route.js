@@ -19,10 +19,10 @@ export async function POST(req) {
     const hashedPassword = await hash(password, 12);
 
     const user = await prisma.user.create({
-      data: { username, email, password: hashedPassword },
+      data: { name: username, email, password: hashedPassword },
     });
 
-    return new Response(JSON.stringify({ user: { id: user.id, username, email } }), { status: 201 });
+    return new Response(JSON.stringify({ user: { id: user.id, name: username, email } }), { status: 201 });
   } catch (err) {
     console.error('Signup error:', err);
     return new Response(JSON.stringify({ error: 'Internal server error' }), { status: 500 });

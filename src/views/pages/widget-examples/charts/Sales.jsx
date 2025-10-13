@@ -11,21 +11,43 @@ import { useTheme } from '@mui/material/styles'
 
 // Components Imports
 import OptionMenu from '@core/components/option-menu'
+import { useState } from 'react'
+import { IconButton, Menu, MenuItem } from '@mui/material'
+import { MoreVerticalIcon } from 'lucide-react'
 
 // Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
 
-// Vars
-const series = [
-  { name: 'Sales', data: [32, 27, 27, 30, 25, 25] },
-  { name: 'Visits', data: [25, 35, 20, 20, 20, 20] }
-]
+const dataSets = {
+  lastMonth: {
+    series: [
+      { name: 'Sales', data: [12, 18, 14, 20] },
+      { name: 'Visits', data: [10, 15, 12, 18] }
+    ],
+    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4']
+  },
+  last6Months: {
+    series: [
+      { name: 'Sales', data: [32, 27, 27, 30, 25, 25] },
+      { name: 'Visits', data: [25, 35, 20, 20, 20, 20] }
+    ],
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+  },
+  lastYear: {
+    series: [
+      { name: 'Sales', data: [200, 180, 150, 170, 160, 140, 120, 130, 110, 150, 170, 190] },
+      { name: 'Visits', data: [150, 170, 140, 130, 120, 110, 100, 90, 95, 130, 140, 160] }
+    ],
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  }
+}
 
 const Sales = () => {
-  // Hooks
   const theme = useTheme()
+  const [period, setPeriod] = useState('last6Months')
 
-  // Vars
+  const { series, labels } = dataSets[period]
+
   const textDisabled = 'var(--mui-palette-text-disabled)'
   const divider = 'var(--mui-palette-divider)'
 
@@ -47,7 +69,7 @@ const Sales = () => {
     fill: {
       opacity: [1, 0.85]
     },
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    labels,
     markers: { size: 0 },
     legend: {
       fontSize: '13px',
@@ -61,19 +83,50 @@ const Sales = () => {
         show: true,
         style: {
           fontSize: '13px',
-          colors: [textDisabled, textDisabled, textDisabled, textDisabled, textDisabled, textDisabled]
+          colors: labels.map(() => textDisabled)
         }
       }
     },
     yaxis: { show: false }
   }
 
+  const PeriodMenu = () => {
+    const [anchorEl, setAnchorEl] = useState(null)
+    const open = Boolean(anchorEl)
+
+    const handleClick = (event) => setAnchorEl(event.currentTarget)
+    const handleClose = () => setAnchorEl(null)
+    const handleSelect = (value) => {
+      setPeriod(value)
+      handleClose()
+    }
+
+    return (
+      <>
+        <IconButton onClick={handleClick}>
+          <MoreVerticalIcon />
+        </IconButton>
+        <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+          <MenuItem onClick={() => handleSelect('lastMonth')}>Last Month</MenuItem>
+          <MenuItem onClick={() => handleSelect('last6Months')}>Last 6 Months</MenuItem>
+          <MenuItem onClick={() => handleSelect('lastYear')}>Last Year</MenuItem>
+        </Menu>
+      </>
+    )
+  }
+
   return (
     <Card>
       <CardHeader
         title='Sales'
-        subheader='Last 6 Months'
-        action={<OptionMenu options={['Last Month', 'Last 6 months', 'Last Year']} />}
+        subheader={
+          period === 'lastMonth'
+            ? 'Last Month'
+            : period === 'last6Months'
+            ? 'Last 6 Months'
+            : 'Last Year'
+        }
+        action={<PeriodMenu />}
       />
       <CardContent>
         <AppReactApexCharts type='radar' height={299} width='100%' series={series} options={options} />

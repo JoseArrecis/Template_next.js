@@ -16,6 +16,7 @@ const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexChart
 
 // Styles Imports
 import './styles.css'
+import { useState } from 'react'
 
 // Vars
 const colors = {
@@ -28,7 +29,7 @@ const labelColor = 'var(--mui-palette-text-disabled)'
 const bodyColor = 'var(--mui-palette-text-secondary)'
 const borderColor = 'var(--mui-palette-divider)'
 
-const series = [
+const initialSeries = [
   {
     name: 'Delivery rate',
     type: 'column',
@@ -47,30 +48,42 @@ const series = [
 ]
 
 const CarrierPerformance = () => {
+  const [chartSeries, setChartSeries] = useState(initialSeries)
+
+  const handleOptionSelect = option => {
+    if (option === 'View More') {
+      alert(
+        `Series Details:\n\n${chartSeries
+          .map(s => `${s.name}: ${s.data.join(', ')}`)
+          .join('\n')}`
+      )
+    } else if (option === 'Delete') {
+      const names = chartSeries.map(s => s.name)
+      const toDelete = prompt(`Which series do you want to delete?\n${names.join(', ')}`)
+      if (toDelete) {
+        const updatedSeries = chartSeries.filter(s => s.name.toLowerCase() !== toDelete.toLowerCase())
+        if (updatedSeries.length === chartSeries.length) {
+          alert('No matching series found.')
+        } else {
+          setChartSeries(updatedSeries)
+          alert(`Series "${toDelete}" deleted successfully.`)
+        }
+      }
+    }
+  }
+
   const options = {
     chart: {
       parentHeightOffset: 0,
       stacked: false,
-      toolbar: {
-        show: false
-      },
-      zoom: {
-        enabled: false
-      }
+      toolbar: { show: false },
+      zoom: { enabled: false }
     },
-    tooltip: {
-      enabled: false
-    },
+    tooltip: { enabled: false },
     plotOptions: {
-      bar: {
-        horizontal: false,
-        columnWidth: '50%',
-        borderRadius: 4
-      }
+      bar: { horizontal: false, columnWidth: '50%', borderRadius: 4 }
     },
-    dataLabels: {
-      enabled: false
-    },
+    dataLabels: { enabled: false },
     xaxis: {
       tickAmount: 10,
       categories: ['Carrier A', 'Carrier B', 'Carrier C', 'Carrier D'],
@@ -82,12 +95,8 @@ const CarrierPerformance = () => {
           fontWeight: 400
         }
       },
-      axisBorder: {
-        show: false
-      },
-      axisTicks: {
-        show: false
-      }
+      axisBorder: { show: false },
+      axisTicks: { show: false }
     },
     yaxis: {
       tickAmount: 4,
@@ -106,46 +115,40 @@ const CarrierPerformance = () => {
       }
     },
     legend: {
-      markers: {
-        width: 8,
-        height: 8,
-        offsetX: -3,
-        radius: 12
-      },
+      markers: { width: 8, height: 8, offsetX: -3, radius: 12 },
       height: 33,
       offsetY: 10,
-      itemMargin: {
-        horizontal: 10,
-        vertical: 0
-      },
+      itemMargin: { horizontal: 10, vertical: 0 },
       fontSize: '13px',
       fontFamily: 'Public Sans',
       fontWeight: 400,
-      labels: {
-        colors: bodyColor,
-        useSeriesColors: false
-      }
+      labels: { colors: bodyColor, useSeriesColors: false }
     },
-    grid: {
-      borderColor,
-      strokeDashArray: 6
-    },
+    grid: { borderColor, strokeDashArray: 6 },
     colors: [colors.series1, colors.series2, colors.series3],
-    fill: {
-      opacity: 1
-    }
+    fill: { opacity: 1 }
   }
 
   return (
     <Card>
-      <CardHeader title='Carrier Performance' action={<OptionMenu options={['View More', 'Delete']} />} />
+      <CardHeader
+        title='Carrier Performance'
+        action={
+          <OptionMenu 
+            options={[
+              { text: 'View More', menuItemProps: { onClick: () => handleOptionSelect('View More') } }, 
+              { text: 'Delete', menuItemProps: { onClick: () => handleOptionSelect('Delete') } }
+            ]}
+          />
+        }
+      />
       <CardContent>
         <AppReactApexCharts
           id='carrier-performance'
           type='bar'
           height={360}
           width='100%'
-          series={series}
+          series={chartSeries}
           options={options}
         />
       </CardContent>

@@ -12,10 +12,8 @@ import { useState } from 'react'
 import { IconButton, Menu, MenuItem } from '@mui/material'
 import { MoreVertical as MoreVerticalIcon } from 'lucide-react'
 
-// Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
 
-// ====================== DATASETS ======================
 const dataSets = {
   lastMonth: {
     series: [
@@ -40,10 +38,9 @@ const dataSets = {
   }
 }
 
-// ====================== COMPONENT ======================
 const RadarSalesChart = () => {
   const theme = useTheme()
-  const [period, setPeriod] = useState('last6Months') // default
+  const [period, setPeriod] = useState('last6Months')
 
   const { series, labels } = dataSets[period]
 
@@ -89,7 +86,6 @@ const RadarSalesChart = () => {
     yaxis: { show: false }
   }
 
-  // Menu personalizado
   const PeriodMenu = () => {
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)

@@ -45,9 +45,8 @@ const initialData = [
 
 const ProjectStatus = () => {
   const [progressData, setProgressData] = useState(initialData)
-  const [seriesData, setSeriesData] = useState(initialSeries) // ✅ Ahora la gráfica es dinámica
+  const [seriesData, setSeriesData] = useState(initialSeries) 
 
-  // Estado para Update (todos los items)
   const [openUpdate, setOpenUpdate] = useState(false)
   const [editData, setEditData] = useState(progressData)
 
@@ -91,10 +90,8 @@ const ProjectStatus = () => {
     yaxis: { show: false }
   }
 
-  // ✅ Refrescar datos + gráfica
   const handleMenuAction = (action) => {
     if (action === 'Refresh') {
-      // Actualizar datos de texto
       setProgressData(prev =>
         prev.map(item => ({
           ...item,
@@ -103,7 +100,6 @@ const ProjectStatus = () => {
         }))
       )
 
-      // ✅ Actualizar gráfica con nuevos datos aleatorios
       const newSeries = [
         {
           data: Array.from({ length: 16 }, () => Math.floor(Math.random() * 6000) + 1000)
@@ -170,7 +166,6 @@ const ProjectStatus = () => {
             </div>
           </div>
 
-          {/* ✅ Gráfica dinámica */}
           <AppReactApexCharts
             type='area'
             height={198}
@@ -197,7 +192,6 @@ const ProjectStatus = () => {
         </CardContent>
       </Card>
 
-      {/* Modal Update */}
       <Dialog open={openUpdate} onClose={() => setOpenUpdate(false)} maxWidth='sm' fullWidth>
         <DialogTitle>Update All Topics</DialogTitle>
         <DialogContent className='flex flex-col gap-4 mt-2'>
