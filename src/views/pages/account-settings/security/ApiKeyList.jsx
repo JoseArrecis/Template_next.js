@@ -1,3 +1,5 @@
+'use client'
+
 // MUI Imports
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -5,6 +7,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Chip from '@mui/material/Chip'
 import IconButton from '@mui/material/IconButton'
+import { useState } from 'react'
 
 // Vars
 const apiKeyList = [
@@ -29,6 +32,12 @@ const apiKeyList = [
 ]
 
 const ApiKeyList = () => {
+  const [copiedKey, setCopiedKey] = useState(null)
+
+  const handleCopy = () => {
+    
+  }
+
   return (
     <Card>
       <CardHeader title='API Key List & Access' className='pbe-4' />

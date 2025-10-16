@@ -42,6 +42,9 @@ import { getLocalizedUrl } from '@/utils/i18n'
 
 // Style Imports
 import tableStyles from '@core/styles/table.module.css'
+import jsPDF from 'jspdf'
+import * as XLSX from 'xlsx'
+import { Menu } from '@mui/material'
 
 const fuzzyFilter = (row, columnId, value, addMeta) => {
   // Rank the item
@@ -66,11 +69,48 @@ const userStatusObj = {
 // Column Definitions
 const columnHelper = createColumnHelper()
 
+const exportPDF = (data) => {
+  const doc = new jsPDF()
+  doc.setFontSize(18)
+  doc.text('Refrerred User List', 14, 22)
+  doc.setFontSize(11)
+
+  let y = 30
+  data.forEach((row, i) => {
+    doc.text(`ID: ${row.id} | ID Referrals: ${row.referredId} | User: ${row.user} | Email: ${row.email} | Value: ${row.value}`,14 ,y)
+    y += 10
+    if ( y > 280) {
+      doc.addPage()
+      y = 20 
+    }
+  })
+  doc.save('referrals_user-list.pdf')
+}
+
+const exportXLSX = (data) => {
+  const ws = XLSX.utils.json_to_sheet(data)
+  const wb = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(wb, ws, 'RefrerralsUserList')
+  XLSX.writeFile(wb, 'referrals_user-list.xlsx')
+}
+
+const exportCSV = (data) => {
+  const ws = XLSX.utils.json_to_sheet(data)
+  const csv = XLSX.utils.sheet_to_csv(ws)
+  const blob = new Blob([csv], { type: 'text/csv:charset=utf-8' })
+  const link = document.createElement('a')
+  link.href = URL.createObjectURL(blob)
+  link.download = 'referrals_user.csv'
+  link.click()
+}
+
 const ReferredUsersTable = ({ referralsData }) => {
   // States
   const [rowSelection, setRowSelection] = useState({})
-
   const [data, setData] = useState(...[referralsData])
+  const [filteredData, setFilteredData] = useState(data)
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [anchorExportEl, setAnchorExportEl] = useState(null)
 
   // Hooks
   const { lang: locale } = useParams()
@@ -167,6 +207,13 @@ const ReferredUsersTable = ({ referralsData }) => {
     getFacetedMinMaxValues: getFacetedMinMaxValues()
   })
 
+  const handleClick = (event) => setAnchorEl(event.currentTarget)
+  const handleClose = () => setAnchorEl(null)
+
+  const openExport = Boolean(anchorExportEl)
+  const handleExportClick = (e) => setAnchorExportEl(e.currentTarget)
+  const handleExportClose = () => setAnchorExportEl(null)
+
   return (
     <>
       <Card>
@@ -183,9 +230,24 @@ const ReferredUsersTable = ({ referralsData }) => {
               <MenuItem value='25'>25</MenuItem>
               <MenuItem value='50'>50</MenuItem>
             </CustomTextField>
-            <Button variant='tonal' startIcon={<i className='tabler-upload' />} color='secondary'>
+            <Button
+              variant='tonal'
+              color='secondary'
+              endIcon={<i className='tabler-upload' />}
+              onClick={e => setAnchorExportEl(e.currentTarget)}
+            >
               Export
             </Button>
+            <Menu
+              open={openExport}
+              anchorEl={anchorExportEl}
+              onClose={handleExportClose}
+              id='export-menu'
+            >
+              <MenuItem onClick={() => { exportPDF(data); handleExportClose() }}>PDF</MenuItem>
+              <MenuItem onClick={() => { exportXLSX(data); handleExportClose() }}>XLSX</MenuItem>
+              <MenuItem onClick={() => { exportCSV(data); handleExportClose() }}>CSV</MenuItem>
+            </Menu>
           </div>
         </CardContent>
         <div className='overflow-x-auto'>

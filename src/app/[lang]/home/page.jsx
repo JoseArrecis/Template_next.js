@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { getLocalizedUrl } from '@/utils/i18n';
 
 export default function HomePage() {
-  const { lang } = useParams();
+  const { lang: locale } = useParams();
 
   return (
     <div
@@ -73,7 +73,7 @@ export default function HomePage() {
 
       {/* Botón */}
       <a
-        href={getLocalizedUrl('/login', lang)}
+        href={getLocalizedUrl('/login', locale)}
         style={{
           padding: '1rem 3rem',
           background: '#6366f1',

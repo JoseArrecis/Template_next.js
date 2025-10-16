@@ -46,7 +46,7 @@ const EarningReportsWithTabs = () => {
     {
       type: 'income',
       avatarIcon: 'tabler-chart-pie-2',
-      series: [{ data: [5, 9, 12, 18, 20, 25, 30, 36, 48] }]
+      series: [{ data: [5, 9, 12, 18, 20, 25, 30, 36, 48, 52, 65, 69] }]
     }
   ])
 

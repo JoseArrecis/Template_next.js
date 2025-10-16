@@ -31,14 +31,13 @@ const ConnectionsTeams = props => {
   }
   const handleClose = () => setModal({ open: false, type: '', context: '' })
 
-  // Opciones para Connections
   const connectionOptions = [
     { text: 'Share Connections', icon: 'tabler-share', menuItemProps: { onClick: () => handleMenuAction('share', 'connections') } },
     { text: 'Suggest Edits', icon: 'tabler-edit', menuItemProps: { onClick: () => handleMenuAction('suggest', 'connections') } },
     { divider: true },
     { text: 'Report Bug', icon: 'tabler-bug', menuItemProps: { onClick: () => handleMenuAction('bug', 'connections') } }
   ]
-  // Opciones para Teams
+
   const teamOptions = [
     { text: 'Share Teams', icon: 'tabler-share', menuItemProps: { onClick: () => handleMenuAction('share', 'teams') } },
     { text: 'Suggest Edits', icon: 'tabler-edit', menuItemProps: { onClick: () => handleMenuAction('suggest', 'teams') } },

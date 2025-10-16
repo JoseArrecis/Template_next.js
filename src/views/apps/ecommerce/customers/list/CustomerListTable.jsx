@@ -44,6 +44,9 @@ import { getLocalizedUrl } from '@/utils/i18n'
 
 // Style Imports
 import tableStyles from '@core/styles/table.module.css'
+import jsPDF from 'jspdf'
+import * as XLSX from 'xlsx'
+import { Menu } from '@mui/material'
 
 export const paymentStatus = {
   1: { text: 'Paid', color: 'success' },
@@ -93,12 +96,50 @@ const DebouncedInput = ({ value: initialValue, onChange, debounce = 500, ...prop
 // Column Definitions
 const columnHelper = createColumnHelper()
 
+const exportPDF = (data) => {
+  const doc = new jsPDF()
+  doc.setFontSize(18)
+  doc.text('Customer List', 14, 12)
+  doc.setFontSize(11)
+
+  let y = 30
+  data.forEach((row, i) => {
+    doc.text(`ID: ${row.id} | Customer: ${row.customer} | Customer ID: ${row.customerId} | Email: ${row.email} | Country: ${row.country} | Order: ${row.order}`, 14, y)
+    y += 10
+    if (y > 280) {
+      doc.addPage()
+      y = 20
+    }
+  }) 
+  doc.save('customer-list.pdf')
+}
+
+const exportXLSX = (data) => {
+  const ws = XLSX.utils.json_to_sheet(data)
+  const wb = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(wb, ws, 'CustomerList')
+  XLSX.writeFile(wb, 'customer-list.xlsx')
+}
+
+const exportCSV = (data) => {
+  const ws = XLSX.utils.json_to_sheet(data)
+  const csv = XLSX.utils.sheet_to_csv(ws)
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' })
+  const link = document.createElement('a')
+  link.href = URL.createObjectURL(blob)
+  link.download = 'customer-list.csv'
+  link.click()
+}
+
 const CustomerListTable = ({ customerData }) => {
   // States
   const [customerUserOpen, setCustomerUserOpen] = useState(false)
   const [rowSelection, setRowSelection] = useState({})
   const [data, setData] = useState(...[customerData])
+  const [filteredData, setFilteredData] = useState(data)
   const [globalFilter, setGlobalFilter] = useState('')
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [anchorExportEl, setAnchorExportEl] = useState(null)
 
   // Hooks
   const { lang: locale } = useParams()
@@ -205,6 +246,13 @@ const CustomerListTable = ({ customerData }) => {
     getFacetedMinMaxValues: getFacetedMinMaxValues()
   })
 
+  const handleClick = (event) => setAnchorEl(event.currentTarget)
+  const handleClose = () => setAnchorEl(null)
+
+  const openExport = Boolean(anchorExportEl)
+  const handleExportClick = (e) => setAnchorExportEl(e.currentTarget)
+  const handleExportClose = () => setAnchorExportEl(null)
+
   const getAvatar = params => {
     const { avatar, customer } = params
 
@@ -243,12 +291,22 @@ const CustomerListTable = ({ customerData }) => {
             </CustomTextField>
             <Button
               variant='tonal'
-              className='max-sm:is-full'
               color='secondary'
-              startIcon={<i className='tabler-upload' />}
+              endIcon={<i className='tabler-upload' />}
+              onClick={e => setAnchorExportEl(e.currentTarget)}
             >
               Export
             </Button>
+            <Menu
+              open={openExport}
+              anchorEl={anchorExportEl}
+              onClose={handleExportClose}
+              id='export-menu'
+            >
+              <MenuItem onClick={() => { exportPDF(data); handleExportClose() }}>PDF</MenuItem>
+              <MenuItem onClick={() => { exportXLSX(data); handleExportClose() }}>XLSX</MenuItem>
+              <MenuItem onClick={() => { exportCSV(data); handleExportClose() }}>CSV</MenuItem>            
+            </Menu>
             <Button
               variant='contained'
               color='primary'
