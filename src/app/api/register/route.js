@@ -1,6 +1,5 @@
-// src/app/api/signup/route.js
 import { hash } from 'bcryptjs';
-import prisma from '@/prisma/prismaClient'; // si usas prisma
+import prisma from '@/prisma/prismaClient';
 
 export async function POST(req) {
   try {
@@ -10,7 +9,6 @@ export async function POST(req) {
       return new Response(JSON.stringify({ error: 'Missing fields' }), { status: 400 });
     }
 
-    // Aquí verificas si el usuario ya existe, usando prisma u otra base
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
       return new Response(JSON.stringify({ error: 'Email already registered' }), { status: 400 });

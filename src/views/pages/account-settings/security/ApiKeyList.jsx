@@ -7,6 +7,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Chip from '@mui/material/Chip'
 import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
 import { useState } from 'react'
 
 // Vars
@@ -34,8 +35,14 @@ const apiKeyList = [
 const ApiKeyList = () => {
   const [copiedKey, setCopiedKey] = useState(null)
 
-  const handleCopy = () => {
-    
+  const handleCopy = async key => {
+    try {
+      await navigator.clipboard.writeText(key)
+      setCopiedKey(key)
+      setTimeout(() => setCopiedKey(null), 2000) 
+    } catch (err) {
+      console.error('Error copying text: ', err)
+    }
   }
 
   return (
@@ -47,20 +54,26 @@ const ApiKeyList = () => {
           for accessing public data anonymously, and are used to associate API requests with your project for quota and
           billing.
         </Typography>
+
         {apiKeyList.map((item, index) => (
           <div key={index} className='flex flex-col gap-2 p-4 rounded bg-actionHover'>
             <div className='flex items-center gap-3'>
               <Typography variant='h5'>{item.title}</Typography>
               <Chip color='primary' variant='tonal' label={item.access} size='small' />
             </div>
+
             <div className='flex items-center gap-1'>
-              <Typography className='font-medium'>{item.key}</Typography>
-              <div className='flex'>
-                <IconButton size='small'>
-                  <i className='tabler-copy text-textSecondary' />
+              <Typography className='font-medium break-all'>{item.key}</Typography>
+              <Tooltip title={copiedKey === item.key ? 'Copied!' : 'Copy'}>
+                <IconButton size='small' onClick={() => handleCopy(item.key)}>
+                  <i
+                    className={`tabler-${copiedKey === item.key ? 'check' : 'copy'} text-textSecondary`}
+                    style={{ color: copiedKey === item.key ? '#4caf50' : 'inherit' }}
+                  />
                 </IconButton>
-              </div>
+              </Tooltip>
             </div>
+
             <Typography color='text.disabled'>{`Created on ${item.date}`}</Typography>
           </div>
         ))}
