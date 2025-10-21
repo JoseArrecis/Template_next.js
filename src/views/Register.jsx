@@ -90,7 +90,7 @@ const Register = ({ mode }) => {
       const data = await res.json()
 
       if (res.ok) {
-        router.push(getLocalizedUrl('/login', locale))
+        router.push(getLocalizedUrl(`/verify?email=${email}`, locale))
       } else {
         setErrorState({ message: [data.error || 'Something went wrong'] })
       }
@@ -190,8 +190,12 @@ const Register = ({ mode }) => {
 
             <div className='flex justify-center items-center flex-wrap gap-2'>
               <Typography>Already have an account?</Typography>
-              <Typography component={Link} href={getLocalizedUrl('/login', locale)} color='primary.main'>
-                Sign in instead
+              <Typography
+                component={Link}
+                href={getLocalizedUrl('/verify', locale)}
+                color='primary.main'
+              >
+                Verify your account
               </Typography>
             </div>
 

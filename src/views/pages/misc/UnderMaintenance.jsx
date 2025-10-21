@@ -47,7 +47,7 @@ const UnderMaintenance = ({ mode }) => {
           <Typography variant='h4'>Under Maintenance! 🚧</Typography>
           <Typography>Sorry for the inconvenience but we&#39;re performing some maintenance at the moment</Typography>
         </div>
-        <Button href={getLocalizedUrl('/', locale)} component={Link} variant='contained'>
+        <Button href={getLocalizedUrl('/home', locale)} component={Link} variant='contained'>
           Back To Home
         </Button>
         <img

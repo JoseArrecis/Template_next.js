@@ -104,11 +104,9 @@ const handleDownloadPDF = (row) => {
   }
 }
 
-// Column Definitions
 const columnHelper = createColumnHelper()
 
 const Permissions = ({ permissionsData }) => {
-  // States
   const [open, setOpen] = useState(false)
   const [rowSelection, setRowSelection] = useState({})
   const [editValue, setEditValue] = useState('')
@@ -118,7 +116,6 @@ const Permissions = ({ permissionsData }) => {
 
   const { lang: locale } = useParams()
 
-  // Vars
   const buttonProps = {
     variant: 'contained',
     children: 'Add Permission',
@@ -127,7 +124,6 @@ const Permissions = ({ permissionsData }) => {
     startIcon: <i className='tabler-plus' />
   }
 
-  // Hooks
   const columns = useMemo(
     () => [
       columnHelper.accessor('name', {
@@ -201,7 +197,6 @@ const Permissions = ({ permissionsData }) => {
         enableSorting: false
       })
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
 

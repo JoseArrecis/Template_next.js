@@ -23,7 +23,7 @@ import DirectionalIcon from '@components/DirectionalIcon'
 import CustomTextField from '@core/components/mui/TextField'
 
 // Vars
-const products = [
+const initialProducts = [
   {
     imgSrc: '/images/pages/google-home.png',
     imgAlt: 'Google Home',
@@ -52,6 +52,7 @@ const StepCart = ({ handleNext }) => {
   // States
   const [openCollapse, setOpenCollapse] = useState(true)
   const [openFade, setOpenFade] = useState(true)
+  const [products, setProducts] = useState(initialProducts)
 
   useEffect(() => {
     if (!openFade) {
@@ -60,6 +61,22 @@ const StepCart = ({ handleNext }) => {
       }, 300)
     }
   }, [openFade])
+
+  const removeProduct = (index) => {
+    setProducts(products.filter((_, i) => i !== index))
+  }
+
+  const updateProductCount = (index, count) => {
+    setProducts(
+      products.map((product, i) => 
+        i === index ? { ...product, count: Math.max(1, count) } : product
+      )
+    )
+  }
+
+  const addProduct = (newProduct) => {
+    setProducts([...products, newProduct])
+  }
 
   return (
     <Grid container spacing={6}>
@@ -91,7 +108,9 @@ const StepCart = ({ handleNext }) => {
             </Alert>
           </Fade>
         </Collapse>
-        <Typography variant='h5'>My Shopping Bag (2 Items)</Typography>
+
+        <Typography variant='h5'>My Shopping Bag ({products.length} Items)</Typography>
+
         <div className='border rounded'>
           {products.map((product, index) => (
             <div
@@ -99,9 +118,14 @@ const StepCart = ({ handleNext }) => {
               className='flex flex-col sm:flex-row items-center gap-4 p-6 relative [&:not(:last-child)]:border-be'
             >
               <img height={140} width={140} src={product.imgSrc} alt={product.imgAlt} />
-              <IconButton size='small' className='absolute block-start-4 inline-end-4'>
+              <IconButton 
+                size='small' 
+                className='absolute block-start-4 inline-end-4'
+                onClick={() => removeProduct(index)}
+              >
                 <i className='tabler-x text-lg' />
               </IconButton>
+
               <div className='flex flex-col sm:flex-row items-center sm:justify-between is-full'>
                 <div className='flex flex-col items-center gap-2 sm:items-start'>
                   <Typography color='text.primary' className='font-medium'>
@@ -110,7 +134,12 @@ const StepCart = ({ handleNext }) => {
                   <div className='flex items-center gap-4'>
                     <div className='flex items-center gap-0.5'>
                       <Typography color='text.disabled'>Sold By:</Typography>
-                      <Typography href='/' component={Link} onClick={e => e.preventDefault()} color='primary.main'>
+                      <Typography 
+                        href='/' 
+                        component={Link} 
+                        onClick={e => e.preventDefault()} 
+                        color='primary.main'
+                      >
                         {product.soldBy}
                       </Typography>
                     </div>
@@ -146,6 +175,27 @@ const StepCart = ({ handleNext }) => {
             </div>
           ))}
         </div>
+
+        <Button
+          variant='outlined'
+          className='mt-4'
+          onClick={() =>
+            addProduct({
+              imgSrc: '/images/pages/airpods.png',
+              imgAlt: 'Apple AirPods',
+              productName: 'Apple AirPods Pro',
+              soldBy: 'Apple',
+              inStock: true,
+              rating: 5,
+              count: 1,
+              price: 249,
+              originalPrice: 299
+            })
+          }
+        >
+          Add Product
+        </Button>
+
         <Typography
           href='/'
           component={Link}
