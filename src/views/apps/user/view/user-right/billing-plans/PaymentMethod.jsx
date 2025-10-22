@@ -1,6 +1,5 @@
 'use client'
 
-// React Imports
 import { useState } from 'react'
 
 // MUI Imports
@@ -15,8 +14,7 @@ import Chip from '@mui/material/Chip'
 import BillingCard from '@components/dialogs/billing-card'
 import OpenDialogOnElementClick from '@components/dialogs/OpenDialogOnElementClick'
 
-// Vars
-const data = [
+const initialData = [
   {
     cardCvv: '587',
     name: 'Tom McBride',
@@ -48,18 +46,33 @@ const data = [
 ]
 
 const PaymentMethod = () => {
-  // States
-  const [creditCard, setCreditCard] = useState(0)
+  const [cards, setCards] = useState(initialData)
+  const [creditCard, setCreditCard] = useState(null)
 
+  // 🔹 Add or update card
+  const handleUpdateCard = updatedCard => {
+    setCards(prevCards => {
+      if (creditCard !== null && creditCard >= 0) {
+        const updated = [...prevCards]
+        updated[creditCard] = updatedCard
+        return updated
+      } else {
+        return [...prevCards, updatedCard]
+      }
+    })
+    setCreditCard(null)
+  }
+
+  // 🔹 Add new card
   const handleAddCard = () => {
     setCreditCard(-1)
   }
 
+  // 🔹 Open edit dialog
   const handleClickOpen = index => {
     setCreditCard(index)
   }
 
-  // Vars
   const addButtonProps = {
     variant: 'contained',
     children: 'Add Card',
@@ -77,51 +90,67 @@ const PaymentMethod = () => {
   })
 
   return (
-    <>
-      <Card>
-        <CardHeader
-          title='Payment Methods'
-          action={<OpenDialogOnElementClick element={Button} elementProps={addButtonProps} dialog={BillingCard} />}
-        />
-        <CardContent className='flex flex-col gap-4'>
-          {data.map((item, index) => (
-            <div
-              key={index}
-              className='flex justify-between border rounded sm:items-center p-6 flex-col !items-start sm:flex-row gap-2'
-            >
-              <div className='flex flex-col items-start gap-2'>
-                <img src={item.imgSrc} alt={item.imgAlt} height={25} />
-                <div className='flex items-center gap-2'>
-                  <Typography className='font-medium' color='text.primary'>
-                    {item.name}
-                  </Typography>
-                  {item.cardStatus ? (
-                    <Chip color={item.badgeColor} label={item.cardStatus} size='small' variant='tonal' />
-                  ) : null}
-                </div>
-                <Typography>
-                  {item.cardNumber && item.cardNumber.slice(0, -4).replace(/[0-9]/g, '*') + item.cardNumber.slice(-4)}
+    <Card>
+      <CardHeader
+        title='Payment Methods'
+        action={
+          <OpenDialogOnElementClick
+            element={Button}
+            elementProps={addButtonProps}
+            dialog={BillingCard}
+            dialogProps={{
+              onUpdate: handleUpdateCard
+            }}
+          />
+        }
+      />
+      <CardContent className='flex flex-col gap-4'>
+        {cards.map((item, index) => (
+          <div
+            key={index}
+            className='flex justify-between border rounded sm:items-center p-6 flex-col !items-start sm:flex-row gap-2'
+          >
+            <div className='flex flex-col items-start gap-2'>
+              <img src={item.imgSrc} alt={item.imgAlt} height={25} />
+              <div className='flex items-center gap-2'>
+                <Typography className='font-medium' color='text.primary'>
+                  {item.name}
                 </Typography>
+                {item.cardStatus ? (
+                  <Chip color={item.badgeColor} label={item.cardStatus} size='small' variant='tonal' />
+                ) : null}
               </div>
-              <div className='flex flex-col gap-4'>
-                <div className='flex items-center justify-end gap-4'>
-                  <OpenDialogOnElementClick
-                    element={Button}
-                    elementProps={editButtonProps(index)}
-                    dialog={BillingCard}
-                    dialogProps={{ data: data[creditCard] }}
-                  />
-                  <Button variant='tonal' color='error' size='small'>
-                    Delete
-                  </Button>
-                </div>
-                <Typography variant='body2'>Card expires at {item.expiryDate}</Typography>
-              </div>
+              <Typography>
+                {item.cardNumber &&
+                  item.cardNumber.slice(0, -4).replace(/[0-9]/g, '*') + item.cardNumber.slice(-4)}
+              </Typography>
             </div>
-          ))}
-        </CardContent>
-      </Card>
-    </>
+            <div className='flex flex-col gap-4'>
+              <div className='flex items-center justify-end gap-4'>
+                <OpenDialogOnElementClick
+                  element={Button}
+                  elementProps={editButtonProps(index)}
+                  dialog={BillingCard}
+                  dialogProps={{
+                    data: cards[index],
+                    onUpdate: handleUpdateCard
+                  }}
+                />
+                <Button
+                  variant='tonal'
+                  color='error'
+                  size='small'
+                  onClick={() => setCards(cards.filter((_, i) => i !== index))}
+                >
+                  Delete
+                </Button>
+              </div>
+              <Typography variant='body2'>Card expires at {item.expiryDate}</Typography>
+            </div>
+          </div>
+        ))}
+      </CardContent>
+    </Card>
   )
 }
 

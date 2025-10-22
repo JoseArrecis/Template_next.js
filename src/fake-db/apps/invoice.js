@@ -2,7 +2,7 @@ const now = new Date()
 const currentMonth = now.toLocaleString('default', { month: 'short' })
 
 export const db = [
-  {
+   {
     id: '4987',
     issuedDate: `13 ${currentMonth} ${now.getFullYear()}`,
     address: '7777 Mendez Plains',
@@ -17,7 +17,41 @@ export const db = [
     avatarColor: 'primary',
     invoiceStatus: 'Paid',
     balance: '$724',
-    dueDate: `23 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `23 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Premium Branding Package',
+        description: 'Branding & Promotion',
+        hours: 48,
+        qty: 1,
+        total: 32
+      },
+      {
+        item: 'Social Media',
+        description: 'Social media templates',
+        hours: 42,
+        qty: 1,
+        total: 28
+      },
+      {
+        item: 'Web Design',
+        description: 'Web designing package',
+        hours: 46,
+        qty: 1,
+        total: 24
+      },
+      {
+        item: 'SEO',
+        description: 'Search engine optimization',
+        hours: 40,
+        qty: 1,
+        total: 22
+      }
+    ],
+
+    salesperson: 'Tommy Shelby',
+    note: 'It was a pleasure working with you and your team. We hope you will keep us in mind for future projects.'
   },
   {
     id: '4988',
@@ -33,7 +67,27 @@ export const db = [
     avatar: '/images/avatars/1.png',
     invoiceStatus: 'Downloaded',
     balance: 0,
-    dueDate: `15 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `15 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Web Design',
+        description: 'Web designing package',
+        hours: 50,
+        qty: 2,
+        total: 24
+      },
+      {
+        item: 'SEO Optimization',
+        description: 'SEO improvement package',
+        hours: 30,
+        qty: 2,
+        total: 50
+      }
+    ],
+
+    salesperson: 'Arthur Morgan',
+    note: 'Thank you for trusting us with your project. We look forward to collaborating again soon.'
   },
   {
     id: '4989',
@@ -49,7 +103,27 @@ export const db = [
     avatar: '/images/avatars/2.png',
     invoiceStatus: 'Paid',
     balance: 0,
-    dueDate: `03 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `03 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Graphic Design',
+        description: 'Graphic content creation',
+        hours: 25,
+        qty: 1,
+        total: 50
+      },
+      {
+        item: 'Content Writing',
+        description: 'Articles and blog posts',
+        hours: 15,
+        qty: 4,
+        total: 45
+      }
+    ],
+
+    salesperson: 'Sarah Connor',
+    note: 'It was great working with rout team! Hope to continue this partnership ib future campaigns'
   },
   {
     id: '4990',
@@ -65,7 +139,27 @@ export const db = [
     avatar: '/images/avatars/3.png',
     invoiceStatus: 'Sent',
     balance: 0,
-    dueDate: `11 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `11 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'UI/UX design',
+        description: 'User interface and experiencie',
+        hours: 40,
+        qty: 1,
+        total: 35
+      },
+      {
+        item: 'App Development',
+        description: 'Mobile application development',
+        hours: 60,
+        qty: 1,
+        total: 80
+      }
+    ],
+
+    salesperson: 'Michael Scott',
+    note: 'We appreciate your confidence in our services. Wishing you success on your launch'
   },
   {
     id: '4991',
@@ -81,7 +175,27 @@ export const db = [
     avatar: '/images/avatars/4.png',
     invoiceStatus: 'Draft',
     balance: '$815',
-    dueDate: `30 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `30 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Social Media Management',
+        description: 'Managing social media accounts',
+        hours: 20,
+        qty: 2,
+        total: 30
+      },
+      {
+        item: 'Email Marketing',
+        description: 'Campaign creation and management',
+        hours: 10,
+        qty: 5,
+        total: 25
+      }
+    ],
+
+    salesperson: 'Lara Croft',
+    note: 'Your cooperation mode this project a success. Let´s work together again soon'
   },
   {
     id: '4992',
@@ -98,7 +212,27 @@ export const db = [
     avatarColor: 'secondary',
     invoiceStatus: 'Paid',
     balance: 0,
-    dueDate: `24 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `24 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Video Editing',
+        description: 'Editing promotional videos',
+        hours: 35,
+        qty: 1,
+        total: 40
+      },
+      {
+        item: 'Photography',
+        description: 'Professional photo sessions',
+        hours: 15,
+        qty: 2,
+        total: 30
+      }
+    ],
+
+    salesperson: 'Walter White',
+    note: 'Thanks for the opportunity. We hope to bring even more value next time.'
   },
   {
     id: '4993',
@@ -115,7 +249,27 @@ export const db = [
     avatarColor: 'success',
     invoiceStatus: 'Draft',
     balance: '$407',
-    dueDate: `22 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `22 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Animation',
+        description: '2D and 3D animation',
+        hours: 50,
+        qty: 1,
+        total: 60
+      },
+      {
+        item: 'Logo Design',
+        description: 'Brand identity logo creation',
+        hours: 12,
+        qty: 3,
+        total: 36
+      }
+    ],
+
+    salesperson: 'Evelyn Carter',
+    note: 'It was a pleasure assisting you. Don´t hesitate to reack out for future needs.'
   },
   {
     id: '4994',
@@ -131,7 +285,27 @@ export const db = [
     avatar: '/images/avatars/5.png',
     invoiceStatus: 'Paid',
     balance: '-$205',
-    dueDate: `10 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `10 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Illustration',
+        description: 'Custom illustration',
+        hours: 20,
+        qty: 2,
+        total: 35
+      },
+      {
+        item: 'Brand Strategy',
+        description: 'Brand identity logo creation',
+        hours: 12,
+        qty: 3,
+        total: 36
+      }
+    ],
+
+    salesperson: 'James Anderson', 
+    note: 'Working with your company was a rewarding experience. Let’s stay in touch!'
   },
   {
     id: '4995',
@@ -147,7 +321,27 @@ export const db = [
     avatar: '/images/avatars/6.png',
     invoiceStatus: 'Downloaded',
     balance: 0,
-    dueDate: `24 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `24 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Copywriting',
+        description: 'Creative copywriting for ads',
+        hours: 18,
+        qty: 3,
+        total: 40,
+      },
+      {
+        item: 'Web Hosting',
+        description: 'Website hosting services',
+        hours: 5,
+        qty: 4,
+        total: 20
+      }
+    ],
+
+    salesperson: 'Mia Khalifa', 
+    note: 'Thank you for choosing our team. We truly enjoyed this collaboration.'
   },
   {
     id: '4996',
@@ -163,7 +357,27 @@ export const db = [
     avatar: '/images/avatars/7.png',
     invoiceStatus: 'Downloaded',
     balance: '$305',
-    dueDate: `02 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `02 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Domain Registration',
+        description: 'Registering domain names',
+        hours: 2,
+        qty: 5,
+        total: 10
+      },
+      {
+        item: 'PPC Campaing',
+        description: 'Pay per click advertising',
+        hours: 25,
+        qty: 2,
+        total: 50
+      }
+    ],
+
+    salesperson: 'Tony Stark', 
+    note: 'A fantastic project from start to finish! Looking forward to new challenges together.'
   },
   {
     id: '4997',
@@ -179,7 +393,27 @@ export const db = [
     avatar: '/images/avatars/8.png',
     invoiceStatus: 'Partial Payment',
     balance: '$666',
-    dueDate: `18 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `18 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Analytics Setup',
+        description: 'Website analytics integration',
+        hours: 8,
+        qty: 1,
+        total: 12
+      },
+      {
+        item: 'App Maintenance',
+        description: 'Ongoing app updates',
+        hours: 61,
+        qty: 11,
+        total: 50
+      }
+    ],
+
+    salesperson: 'Hannah Green', 
+    note: 'We loved working with your organization. Hope to collaborate again soon!'
   },
   {
     id: '4998',
@@ -195,7 +429,27 @@ export const db = [
     avatar: '/images/avatars/1.png',
     invoiceStatus: 'Partial Payment',
     balance: 0,
-    dueDate: `17 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `17 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Cloud Services',
+        description: 'Cloud infrastructure setup',
+        hours: 40,
+        qty: 1,
+        total: 60
+      },
+      {
+        item: 'E-commerce Development',
+        description: 'Online store creation',
+        hours: 55,
+        qty: 1,
+        total: 75
+      }
+    ],
+
+    salesperson: 'Jack Miller', 
+    note: 'Appreciate your trust and professionalism throughout the project. Thank you!'
   },
   {
     id: '4999',
@@ -211,7 +465,27 @@ export const db = [
     avatar: '/images/avatars/2.png',
     invoiceStatus: 'Paid',
     balance: 0,
-    dueDate: `01 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `01 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Security Audit',
+        description: 'Website security assessment',
+        hours: 15,
+        qty: 4,
+        total: 20
+      },
+      {
+        item: 'Performance Optimization',
+        description: 'Improving website speed',
+        hours: 10,
+        qty: 2,
+        total: 18
+      }
+    ],
+
+    salesperson: 'Sophia Turner', 
+    note: 'We hope the results exceeded your expectations. Let’s do it again!'
   },
   {
     id: '5000',
@@ -227,7 +501,27 @@ export const db = [
     avatar: '/images/avatars/3.png',
     invoiceStatus: 'Paid',
     balance: 0,
-    dueDate: `22 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `22 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'CRM Setup',
+        description: 'Customer Relationship management',
+        hours: 25,
+        qty: 1,
+        total: 30
+      },
+      {
+        item: 'Newsletter Design',
+        description: 'Designing email newsletter',
+        hours: 12,
+        qty: 2,
+        total: 20
+      }
+    ],
+
+    salesperson: 'Daniel Kim', 
+    note: 'It was inspiring to work with such a creative team. Until next time!'
   },
   {
     id: '5001',
@@ -243,7 +537,27 @@ export const db = [
     avatar: '/images/avatars/4.png',
     invoiceStatus: 'Partial Payment',
     balance: '-$202',
-    dueDate: `02 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `02 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Product Photography',
+        description: 'High-quality product photos',
+        hours: 18,
+        qty: 3,
+        total: 45
+      },
+      {
+        item: 'Illustrative Infographics',
+        description: 'Creating infographics',
+        hours: 20, 
+        qty: 2,
+        total: 38
+      }
+    ],
+
+    salesperson: 'Emily Rose', 
+    note: 'We’re grateful for the opportunity to contribute to your success.'
   },
   {
     id: '5002',
@@ -259,7 +573,27 @@ export const db = [
     avatar: '/images/avatars/5.png',
     invoiceStatus: 'Downloaded',
     balance: '$731',
-    dueDate: `15 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `15 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'App Testing',
+        description: 'Manual and automated testing',
+        hours: 22,
+        qty: 1,
+        total: 28
+      },
+      {
+        item: 'Video Production',
+        description: 'Full video production services',
+        hours: 50,
+        qty: 1,
+        total: 65
+      }
+    ],
+
+    salesperson: 'Victor Reyes', 
+    note: 'Thanks for your excellent communication and support during this project.'
   },
   {
     id: '5003',
@@ -276,7 +610,27 @@ export const db = [
     avatarColor: 'warning',
     invoiceStatus: 'Sent',
     balance: '-$344',
-    dueDate: `17 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `17 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Social Media Ads',
+        description: 'Creating ad campaigns',
+        hours: 15,
+        qty: 3,
+        total: 40
+      },
+      {
+        item: 'Marketing Consulation',
+        description: 'Expert marketing advice',
+        hours: 10,
+        qty: 2,
+        total: 25
+      }
+    ],
+
+    salesperson: 'Nina Patel', 
+    note: 'Working with you has been a highlight for our team. Thank you for your trust.'
   },
   {
     id: '5004',
@@ -292,7 +646,27 @@ export const db = [
     avatar: '/images/avatars/6.png',
     invoiceStatus: 'Partial Payment',
     balance: '-$253',
-    dueDate: `16 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `16 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Protography Editing',
+        description: 'Editing and retouching',
+        hours: 12,
+        qty: 2,
+        total: 22
+      },
+      {
+        item: 'Content Strategy',
+        description: 'Planning content calendar',
+        hours: 20,
+        qty: 1,
+        total: 28
+      }
+    ],
+
+    salesperson: 'Chris Evans', 
+    note: 'Your feedback was invaluable. Looking forward to the next big idea!'
   },
   {
     id: '5005',
@@ -309,7 +683,27 @@ export const db = [
     avatarColor: 'error',
     invoiceStatus: 'Past Due',
     balance: 0,
-    dueDate: `01 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `01 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Website Redesign',
+        description: 'Redesigning existing website',
+        hours: 45,
+        qty: 1,
+        total: 55
+      },
+      {
+        item: 'Technical Support',
+        description: 'IT support devices',
+        hours: 10,
+        qty: 3,
+        total: 30
+      }
+    ],
+
+    salesperson: 'Olivia Martinez', 
+    note: 'We’re proud to have helped you reach your goals. Let’s stay connected!'
   },
   {
     id: '5006',
@@ -325,7 +719,27 @@ export const db = [
     avatar: '/images/avatars/7.png',
     invoiceStatus: 'Downloaded',
     balance: '$883',
-    dueDate: `12 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `12 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Animation for Ads',
+        description: 'Short ad animations',
+        hours: 18,
+        qty: 2, 
+        total: 36
+      },
+      {
+        item: 'Print Design',
+        description: 'Design for print materials',
+        hours: 15,
+        qty: 3,
+        total: 35
+      }
+    ],
+
+    salesperson: 'Jason Brown', 
+    note: 'It was a smooth and successful collaboration. Thank you for your partnership.'
   },
   {
     id: '5007',
@@ -341,7 +755,27 @@ export const db = [
     avatar: '/images/avatars/8.png',
     invoiceStatus: 'Sent',
     balance: 0,
-    dueDate: `19 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `19 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Brand Guidelines',
+        description: 'Creating brand manuals',
+        hours: 20,
+        qty: 1,
+        total: 30
+      },
+      {
+        item: 'App Store Submission',
+        description: 'Submitting apps to stores',
+        hours: 20,
+        qty: 1,
+        total: 30 
+      }
+    ],
+
+    salesperson: 'Sophia Lopez', 
+    note: 'We’re happy to have worked on your project. Hope we’ll meet again soon.'
   },
   {
     id: '5008',
@@ -357,7 +791,27 @@ export const db = [
     avatar: '/images/avatars/1.png',
     invoiceStatus: 'Partial Payment',
     balance: 0,
-    dueDate: `30 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `30 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Video Ads',
+        description: 'Producing promotional videos',
+        hours: 25,
+        qty: 2,
+        total: 45 
+      },
+      {
+        item: 'Illustration for Books',
+        description: 'Book illustrations',
+        hours: 30,
+        qty: 1,
+        total: 38
+      }
+    ],
+
+    salesperson: 'Ethan Clark', 
+    note: 'Thank you for choosing us! We’re always ready to support your next initiative.'
   },
   {
     id: '5009',
@@ -373,7 +827,27 @@ export const db = [
     avatar: '/images/avatars/2.png',
     invoiceStatus: 'Paid',
     balance: 0,
-    dueDate: `10 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `10 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Voice Over',
+        description: 'Professional voice recording',
+        hours: 10,
+        qty: 3,
+        total: 35
+      },
+      {
+        item: 'Podcast Editing',
+        description: 'Editing audio recording',
+        hours: 12,
+        qty: 2,
+        total: 20 
+      }
+    ],
+
+    salesperson: 'Isabella Moore', 
+    note: 'It was wonderful collaborating with your team. Best wishes for your growth!'
   },
   {
     id: '5010',
@@ -389,7 +863,26 @@ export const db = [
     avatar: '/images/avatars/3.png',
     invoiceStatus: 'Downloaded',
     balance: 0,
-    dueDate: `08 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `08 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Landing Page',
+        description: 'Single-page website design',
+        hours: 15,
+        qty: 1,
+        total: 18
+      },
+      {
+        item: 'Logo Animation',
+        description: 'Animation Logos',
+        hours: 12,
+        qty: 1,
+        total: 16
+      }
+    ],
+    salesperson: 'Ryan Brooks', 
+    note: 'Your trust means a lot to us. Looking forward to future opportunities together.'
   },
   {
     id: '5011',
@@ -406,7 +899,27 @@ export const db = [
     avatarColor: 'info',
     invoiceStatus: 'Draft',
     balance: 0,
-    dueDate: `01 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `01 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Banner Design',
+        description: 'Web and print banners',
+        hours: 10,
+        qty: 3,
+        total: 28
+      },
+      {
+        item: 'Content Translation',
+        description: 'Translating content',
+        hours: 20,
+        qty: 2,
+        total: 35
+      }
+    ],
+
+    salesperson: 'Charlotte Davis', 
+    note: 'It’s always great to work with motivated teams like yours. Thanks again!'
   },
   {
     id: '5012',
@@ -422,7 +935,27 @@ export const db = [
     avatar: '/images/avatars/4.png',
     invoiceStatus: 'Partial Payment',
     balance: 0,
-    dueDate: `18 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `18 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Email Setup',
+        description: 'Setting up email accounts',
+        hours: 5,
+        qty: 4,
+        total: 12
+      },
+      {
+        item: 'Video Tutorial Creation',
+        description: 'Making tutorial videos',
+        hours: 20,
+        qty: 1,
+        total: 25
+      }
+    ],
+
+    salesperson: 'Noah Bennett', 
+    note: 'Appreciate your business and your vision. Hope to work with you again soon.'
   },
   {
     id: '5013',
@@ -438,7 +971,27 @@ export const db = [
     avatar: '/images/avatars/5.png',
     invoiceStatus: 'Draft',
     balance: 0,
-    dueDate: `01 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `01 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Social Media Graphics',
+        description: 'Creating social media visual',
+        hours: 15,
+        qty: 2,
+        total: 28 
+      },
+      {
+        item: 'UX Audit',
+        description: 'Evaluating user experience',
+        hours: 18,
+        qty: 1,
+        total: 22
+      }
+    ],
+
+    salesperson: 'Grace Adams', 
+    note: 'We’re grateful for this project and excited about future collaborations!'
   },
   {
     id: '5014',
@@ -455,7 +1008,27 @@ export const db = [
     avatarColor: 'primary',
     invoiceStatus: 'Downloaded',
     balance: 0,
-    dueDate: `23 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `23 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Web App Integration',
+        description: 'Integrating APIs',
+        hours: 25,
+        qty: 1,
+        total: 32
+      },
+      {
+        item: 'Photography Retouching',
+        description: 'Advanced photo editing',
+        hours: 12,
+        qty: 2,
+        total: 22
+      }
+    ],
+
+    salesperson: 'Lucas Rivera', 
+    note: 'Your support made everything easier. Thank you for being a great client!'
   },
   {
     id: '5015',
@@ -471,7 +1044,27 @@ export const db = [
     avatar: '/images/avatars/6.png',
     invoiceStatus: 'Draft',
     balance: 0,
-    dueDate: `01 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `01 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Online course design',
+        description: 'Creating e-learnng content',
+        hours: 40,
+        qty: 1,
+        total: 50
+      },
+      {
+        item: 'Interactive Infographics',
+        description: 'Dynamic infographic design',
+        hours: 22,
+        qty: 1,
+        total: 30
+      }
+    ],
+
+    salesperson: 'Ava Johnson', 
+    note: 'It’s been a pleasure supporting your project goals. Until next time!'
   },
   {
     id: '5016',
@@ -488,7 +1081,27 @@ export const db = [
     avatarColor: 'secondary',
     invoiceStatus: 'Paid',
     balance: '$951',
-    dueDate: `30 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `30 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Brand Photography',
+        description: 'Lifestyle brand photos',
+        hours: 22,
+        qty: 2,
+        total: 36
+      },
+      {
+        item: '3D Modeling',
+        description: '3D asset creation',
+        hours: 35,
+        qty: 1,
+        total: 45
+      }
+    ],
+
+    salesperson: 'Henry Thompson', 
+    note: 'We’re proud of the results we achieved together. Thanks for trusting us.'
   },
   {
     id: '5017',
@@ -504,7 +1117,27 @@ export const db = [
     avatar: '/images/avatars/7.png',
     invoiceStatus: 'Partial Payment',
     balance: '-$153',
-    dueDate: `25 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `25 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'Phototype Design',
+        description: 'App and website prototyping',
+        hours: 20,
+        qty: 1,
+        total: 28
+      },
+      {
+        item: 'Content Editing',
+        description: 'Proofreading and editing',
+        hours: 12,
+        qty: 3,
+        total: 30
+      }
+    ],
+
+    salesperson: 'Emma Wilson', 
+    note: 'It was a fun and productive experience. Hope to collaborate again soon!'
   },
   {
     id: '5018',
@@ -520,7 +1153,27 @@ export const db = [
     avatar: '/images/avatars/8.png',
     invoiceStatus: 'Draft',
     balance: 0,
-    dueDate: `10 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `10 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      {
+        item: 'UI Kit Design',
+        description: 'Custom UI kit creation',
+        hours: 25,
+        qty: 1,
+        total: 35
+      },
+      {
+        item: 'Illustration for Web',
+        description: 'Web page illustrations',
+        hours: 15,
+        qty: 2,
+        total: 28
+      }
+    ],
+
+    salesperson: 'David Carter', 
+    note: 'Thanks for your patience and professionalism throughout this process.'
   },
   {
     id: '5019',
@@ -536,7 +1189,27 @@ export const db = [
     avatar: '/images/avatars/1.png',
     invoiceStatus: 'Partial Payment',
     balance: '-$459',
-    dueDate: `14 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `14 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      { 
+        item: 'Video Subtitles', 
+        description: 'Adding subtitles to videos', 
+        hours: 8, 
+        qty: 2, 
+        total: 14 
+      },
+      { 
+        item: 'Animated GIFs', 
+        description: 'Creating GIFs for social media',
+        hours: 10, 
+        qty: 2, 
+        total: 18 
+      },
+    ],
+
+    salesperson: 'Amelia Scott', 
+    note: 'We really enjoyed working with your company. See you on the next project!'
   },
   {
     id: '5020',
@@ -552,7 +1225,27 @@ export const db = [
     avatar: '/images/avatars/2.png',
     invoiceStatus: 'Past Due',
     balance: 0,
-    dueDate: `28 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `28 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      { 
+        item: 'Photography Portfolio',
+        description: 'Curating photography portfolio', 
+        hours: 20, 
+        qty: 1, 
+        total: 28 
+      },
+      { 
+        item: 'UX Research',
+        description: 'User research and testing', 
+        hours: 30, 
+        qty: 1, 
+        total: 38 
+      },
+    ],
+
+    salesperson: 'Benjamin Reed', 
+    note: 'Your enthusiasm was contagious! Looking forward to more successful work ahead.'
   },
   {
     id: '5021',
@@ -569,7 +1262,27 @@ export const db = [
     avatarColor: 'success',
     invoiceStatus: 'Sent',
     balance: 0,
-    dueDate: `06 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `06 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      { 
+        item: 'App Wireframing', 
+        description: 'Wireframe creation', 
+        hours: 15, 
+        qty: 1, 
+        total: 18 
+      },
+      { 
+        item: 'Web Analytics', 
+        description: 'Data analysis and reporting', 
+        hours: 12, 
+        qty: 1, 
+        total: 16 
+      },
+    ],
+
+    salesperson: 'Lily Collins', 
+    note: 'It was an absolute pleasure. Let’s make the next project even better!'
   },
   {
     id: '5022',
@@ -586,7 +1299,27 @@ export const db = [
     avatarColor: 'error',
     invoiceStatus: 'Sent',
     balance: 0,
-    dueDate: `09 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `09 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      { 
+        item: 'Photo Restoration', 
+        description: 'Restoring old photos', 
+        hours: 10, 
+        qty: 2, 
+        total: 18 
+      },
+      { 
+        item: 'Marketing Video', 
+        description: 'Promotional video production', 
+        hours: 25, 
+        qty: 1, 
+        total: 32 
+      },
+    ],
+
+    salesperson: 'Andrew Morgan', 
+    note: 'We value your partnership and commitment. Thanks for everything!'
   },
   {
     id: '5023',
@@ -602,7 +1335,27 @@ export const db = [
     avatar: '/images/avatars/3.png',
     invoiceStatus: 'Draft',
     balance: 0,
-    dueDate: `23 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `23 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      { 
+        item: 'Social Media Strategy', 
+        description: 'Planning campaigns', 
+        hours: 20, 
+        qty: 1, 
+        total: 28 
+      },
+      { 
+        item: 'Illustrated Icons', 
+        description: 'Custom icon design', 
+        hours: 12, 
+        qty: 2, 
+        total: 20 
+      },
+    ],
+
+    salesperson: 'Zoe Phillips', 
+    note: 'A smooth collaboration from start to finish — we truly appreciate it.'
   },
   {
     id: '5024',
@@ -618,7 +1371,27 @@ export const db = [
     avatar: '/images/avatars/4.png',
     invoiceStatus: 'Partial Payment',
     balance: 0,
-    dueDate: `25 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `25 ${currentMonth} ${now.getFullYear()}`,
+    
+    items: [
+      { 
+        item: 'Landing Page Optimization', 
+        description: 'Improving landing page', 
+        hours: 15, 
+        qty: 1, 
+        total: 18 
+      },
+      { 
+        item: 'Infographic Video', 
+        description: 'Animated infographic videos', 
+        hours: 20, 
+        qty: 1, 
+        total: 25 
+      },
+    ],
+
+    salesperson: 'Mason Ramirez', 
+    note: 'Thank you for being such a responsive and kind client. Let’s work again soon!'
   },
   {
     id: '5025',
@@ -635,7 +1408,27 @@ export const db = [
     avatarColor: 'warning',
     invoiceStatus: 'Downloaded',
     balance: 0,
-    dueDate: `07 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `07 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      { 
+        item: 'App UI Testing', 
+        description: 'Testing app interfaces', 
+        hours: 12, 
+        qty: 1, 
+        total: 16 
+      },
+      { 
+        item: 'Corporate Branding', 
+        description: 'Full brand identity', 
+        hours: 40, 
+        qty: 1, 
+        total: 55 
+      },
+    ],
+
+    salesperson: 'Harper Gray', 
+    note: 'Your insights made this a stronger project. Thanks for the teamwork!'
   },
   {
     id: '5026',
@@ -651,7 +1444,26 @@ export const db = [
     avatar: '/images/avatars/5.png',
     invoiceStatus: 'Draft',
     balance: 0,
-    dueDate: `22 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `22 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      { 
+        item: 'Photo Session', description: 'On-site photo shooting', 
+        hours: 15, 
+        qty: 2, 
+        total: 28 
+      },
+      { 
+        item: 'Video Montage', 
+        description: 'Compiling video footage', 
+        hours: 18, 
+        qty: 1, 
+        total: 22 
+      },
+    ],
+
+    salesperson: 'Eleanor Hughes', 
+    note: 'We’re thankful for your trust and collaboration. Best of luck ahead!'
   },
   {
     id: '5027',
@@ -668,7 +1480,27 @@ export const db = [
     avatarColor: 'info',
     invoiceStatus: 'Sent',
     balance: 0,
-    dueDate: `04 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `04 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      { 
+        item: 'Product Video', 
+        description: 'Promotional product videos', 
+        hours: 20, 
+        qty: 1, 
+        total: 28 
+      },
+      { 
+        item: 'Illustration Pack', 
+        description: 'Set of themed illustrations', 
+        hours: 25,
+        qty: 1, 
+        total: 35 
+      },
+    ],
+
+    salesperson: 'Logan Wright', 
+    note: 'Working with you was motivating and fun. Let’s do it again!'
   },
   {
     id: '5028',
@@ -685,7 +1517,27 @@ export const db = [
     avatarColor: 'primary',
     invoiceStatus: 'Paid',
     balance: '$361',
-    dueDate: `02 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `02 ${currentMonth} ${now.getFullYear()}`, 
+
+    items: [
+      { 
+        item: 'Animated Banner', 
+        description: 'Banner animations', 
+        hours: 12, 
+        qty: 2, 
+        total: 20 
+      },
+      { 
+        item: 'UX Flow Design', 
+        description: 'Mapping user flows', 
+        hours: 18, 
+        qty: 1, 
+        total: 25 
+      },
+    ],
+
+    salesperson: 'Sophie Gonzalez', 
+    note: 'A great experience from our side — thank you for your confidence.'
   },
   {
     id: '5029',
@@ -702,7 +1554,27 @@ export const db = [
     avatarColor: 'secondary',
     invoiceStatus: 'Paid',
     balance: 0,
-    dueDate: `25 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `25 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      { 
+        item: 'Web Security', 
+        description: 'Securing web applications', 
+        hours: 15, 
+        qty: 1, 
+        total: 22 
+      },
+      { 
+        item: 'App Icon Design', 
+        description: 'Icons for apps', 
+        hours: 8, 
+        qty: 2, 
+        total: 14 
+      },
+    ],
+
+    salesperson: 'William Foster', 
+    note: 'We’re honored to have been part of your project. Stay awesome!'
   },
   {
     id: '5030',
@@ -719,7 +1591,27 @@ export const db = [
     avatarColor: 'success',
     invoiceStatus: 'Draft',
     balance: 0,
-    dueDate: `06 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `06 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      { 
+        item: 'Custom Typography', 
+        description: 'Unique font design', 
+        hours: 12, 
+        qty: 1, 
+        total: 16 
+      },
+      { 
+        item: 'Social Media Templates', 
+        description: 'Editable post templates',
+        hours: 15, 
+        qty: 2, 
+        total: 28 
+      },
+    ],
+
+    salesperson: 'Ella Rivera', 
+    note: 'Your energy and vision inspired us. Hope we can work together again soon.'
   },
   {
     id: '5031',
@@ -735,7 +1627,27 @@ export const db = [
     avatar: '/images/avatars/6.png',
     invoiceStatus: 'Partial Payment',
     balance: 0,
-    dueDate: `09 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `09 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      { 
+        item: 'Video Captions', 
+        description: 'Adding captions to videos', 
+        hours: 8, 
+        qty: 2, 
+        total: 14 
+      },
+      { 
+        item: 'Newsletter Campaign', 
+        description: 'Creating email campaigns', 
+        hours: 20, 
+        qty: 1, 
+        total: 25 
+      },
+    ],
+
+    salesperson: 'Alexander Hayes', 
+    note: 'We deeply appreciate your collaboration. Until our next project!'
   },
   {
     id: '5032',
@@ -752,7 +1664,27 @@ export const db = [
     avatarColor: 'error',
     invoiceStatus: 'Past Due',
     balance: 0,
-    dueDate: `22 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `22 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      { 
+        item: 'Illustration for Ads', 
+        description: 'Ad illustrations', 
+        hours: 12, 
+        qty: 2, 
+        total: 20 
+      },
+      { 
+        item: 'Web Accessibility', 
+        description: 'Improving accessibility', 
+        hours: 10, 
+        qty: 1, 
+        total: 12 
+      },
+    ],
+
+    salesperson: 'Scarlett Ward', 
+    note: 'It’s been a rewarding experience. Thank you for your trust and time.'
   },
   {
     id: '5033',
@@ -768,7 +1700,27 @@ export const db = [
     avatar: '/images/avatars/7.png',
     invoiceStatus: 'Partial Payment',
     balance: 0,
-    dueDate: `22 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `22 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      { 
+        item: 'Marketing Analytics', 
+        description: 'Tracking campaign results', 
+        hours: 15, 
+        qty: 1, 
+        total: 18 
+      },
+      { 
+        item: 'Video Compression', 
+        description: 'Optimizing video size', 
+        hours: 8, 
+        qty: 1, 
+        total: 10 
+      },
+    ],
+
+    salesperson: 'Liam Edwards', 
+    note: 'Great teamwork and communication — we’re looking forward to the next step!'
   },
   {
     id: '5034',
@@ -785,7 +1737,27 @@ export const db = [
     avatarColor: 'warning',
     invoiceStatus: 'Paid',
     balance: 0,
-    dueDate: `22 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `22 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      { 
+        item: 'Brand Video', 
+        description: 'Corporate branding video', 
+        hours: 25, 
+        qty: 1, 
+        total: 32 
+      },
+      { 
+        item: 'Illustration Set', 
+        description: 'Set of illustrations', 
+        hours: 20, 
+        qty: 1, 
+        total: 28 
+      },
+    ],
+
+    salesperson: 'Natalie Flores', 
+    note: 'Thanks for believing in us! Hope to continue creating together.'
   },
   {
     id: '5035',
@@ -802,7 +1774,27 @@ export const db = [
     avatarColor: 'info',
     invoiceStatus: 'Draft',
     balance: '$762',
-    dueDate: `12 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `12 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      { 
+        item: 'Website Migration', 
+        description: 'Moving websites to new hosting', 
+        hours: 20, 
+        qty: 1, 
+        total: 25 
+      },
+      { 
+        item: 'App Maintenance Package', 
+        description: 'Ongoing app updates', 
+        hours: 15, 
+        qty: 1, 
+        total: 18 
+      },
+    ],
+
+    salesperson: 'Owen King', 
+    note: 'It was a privilege to contribute to your success. Stay in touch!'
   },
   {
     id: '5036',
@@ -818,6 +1810,26 @@ export const db = [
     avatar: '/images/avatars/8.png',
     invoiceStatus: 'Paid',
     balance: '-$205',
-    dueDate: `25 ${currentMonth} ${now.getFullYear()}`
+    dueDate: `25 ${currentMonth} ${now.getFullYear()}`,
+
+    items: [
+      { 
+        item: 'Content Repurposing', 
+        description: 'Adapting content for multiple platforms', 
+        hours: 10, 
+        qty: 2, 
+        total: 18 
+      },
+      { 
+        item: 'UX Wireframe', 
+        description: 'Creating wireframes for apps', 
+        hours: 12, 
+        qty: 1, 
+        total: 16 
+      },
+    ],
+
+    salesperson: 'Chloe Parker', 
+    note: 'We loved every part of this collaboration. Thank you for your partnership!'
   }
 ]

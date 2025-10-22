@@ -1,5 +1,3 @@
-// Next.js dynamic user details page for /apps/user/view/[id]
-
 import dynamic from 'next/dynamic'
 import Grid from '@mui/material/Grid2'
 import UserLeftOverview from '@views/apps/user/view/user-left-overview'

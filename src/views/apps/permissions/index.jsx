@@ -53,20 +53,16 @@ const colors = {
 }
 
 const fuzzyFilter = (row, columnId, value, addMeta) => {
-  // Rank the item
   const itemRank = rankItem(row.getValue(columnId), value)
 
-  // Store the itemRank info
   addMeta({
     itemRank
   })
 
-  // Return if the item should be filtered in/out
   return itemRank.passed
 }
 
 const DebouncedInput = ({ value: initialValue, onChange, debounce = 500, ...props }) => {
-  // States
   const [value, setValue] = useState(initialValue)
 
   useEffect(() => {
@@ -78,7 +74,6 @@ const DebouncedInput = ({ value: initialValue, onChange, debounce = 500, ...prop
     }, debounce)
 
     return () => clearTimeout(timeout)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value])
 
   return <CustomTextField {...props} value={value} onChange={e => setValue(e.target.value)} />
@@ -215,8 +210,7 @@ const Permissions = ({ permissionsData }) => {
         pageSize: 9
       }
     },
-    enableRowSelection: true, //enable row selection for all rows
-    // enableRowSelection: row => row.original.age > 18, // or enable row selection conditionally per row
+    enableRowSelection: true, 
     globalFilterFn: fuzzyFilter,
     onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
@@ -236,6 +230,7 @@ const Permissions = ({ permissionsData }) => {
 
   const handleAddPermission = () => {
     setEditValue('')
+    setOpen(true)
   }
 
   return (
@@ -335,7 +330,12 @@ const Permissions = ({ permissionsData }) => {
           }}
         />
       </Card>
-      <PermissionDialog open={open} setOpen={setOpen} data={editValue} />
+      <PermissionDialog
+        open={open}
+        setOpen={setOpen}
+        data={editValue}
+        onAddPermission={newPermission => setData(prev => [...prev, newPermission])}
+      />
     </>
   )
 }

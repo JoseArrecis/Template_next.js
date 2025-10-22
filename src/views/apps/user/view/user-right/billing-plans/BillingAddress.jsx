@@ -1,3 +1,7 @@
+'use client'
+
+import { useState } from 'react'
+
 // MUI Imports
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -7,11 +11,10 @@ import Grid from '@mui/material/Grid2'
 import Typography from '@mui/material/Typography'
 
 // Component Imports
-import AddNewAddress from '@components/dialogs/add-edit-address'
+import AddEditAddress from '@components/dialogs/add-edit-address'
 import OpenDialogOnElementClick from '@components/dialogs/OpenDialogOnElementClick'
 
-// Vars
-const data = {
+const initialData = {
   firstName: 'John',
   lastName: 'Doe',
   email: 'johndoe@gmail.com',
@@ -28,155 +31,109 @@ const data = {
 }
 
 const BillingAddress = () => {
+  const [address, setAddress] = useState(initialData)
+
+  const handleUpdateAddress = updated => {
+    setAddress(updated)
+  }
+
   const buttonProps = {
     variant: 'contained',
     children: 'Edit Address',
     size: 'small',
-    startIcon: <i className='tabler-plus' />
+    startIcon: <i className='tabler-edit' />
   }
 
   return (
-    <>
-      <Card>
-        <CardHeader
-          title='Billing Address'
-          action={
-            <OpenDialogOnElementClick
-              element={Button}
-              elementProps={buttonProps}
-              dialog={AddNewAddress}
-              dialogProps={{ data }}
-            />
-          }
-        />
-        <CardContent>
-          <Grid container>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <table>
-                <tbody className='align-top'>
-                  <tr>
-                    <td className='p-1 pis-0 is-[150px]'>
-                      <Typography className='font-medium' color='text.primary'>
-                        Name:
-                      </Typography>
-                    </td>
-                    <td className='p-1'>
-                      <Typography>{`${data.firstName} ${data.lastName}`}</Typography>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className='p-1 pis-0 is-[150px]'>
-                      <Typography className='font-medium' color='text.primary'>
-                        Billing Email:
-                      </Typography>
-                    </td>
-                    <td className='p-1'>
-                      <Typography>{data.email}</Typography>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className='p-1 pis-0 is-[150px]'>
-                      <Typography className='font-medium' color='text.primary'>
-                        Tax ID:
-                      </Typography>
-                    </td>
-                    <td className='p-1'>
-                      <Typography>{data.taxId}</Typography>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className='p-1 pis-0 is-[150px]'>
-                      <Typography className='font-medium' color='text.primary'>
-                        VAT Number:
-                      </Typography>
-                    </td>
-                    <td className='p-1'>
-                      <Typography>{data.vatNumber}</Typography>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className='p-1 pis-0 is-[150px]'>
-                      <Typography className='font-medium' color='text.primary'>
-                        Billing Address:
-                      </Typography>
-                    </td>
-                    <td className='p-1'>
-                      <Typography>{`${data.address1} ${data.address2}`}</Typography>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <table>
-                <tbody className='align-top'>
-                  <tr>
-                    <td className='p-1 pis-0 is-[150px]'>
-                      <Typography className='font-medium' color='text.primary'>
-                        Contact:
-                      </Typography>
-                    </td>
-                    <td className='p-1'>
-                      <Typography>{data.contact}</Typography>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className='p-1 pis-0 is-[150px]'>
-                      <Typography className='font-medium' color='text.primary'>
-                        Landmark:
-                      </Typography>
-                    </td>
-                    <td className='p-1'>
-                      <Typography>{data.landmark}</Typography>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className='p-1 pis-0 is-[150px]'>
-                      <Typography className='font-medium' color='text.primary'>
-                        Landmark:
-                      </Typography>
-                    </td>
-                    <td className='p-1'>
-                      <Typography>{data.city}</Typography>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className='p-1 pis-0 is-[150px]'>
-                      <Typography className='font-medium' color='text.primary'>
-                        Country:
-                      </Typography>
-                    </td>
-                    <td className='p-1'>
-                      <Typography>{data.country}</Typography>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className='p-1 pis-0 is-[150px]'>
-                      <Typography className='font-medium' color='text.primary'>
-                        State:
-                      </Typography>
-                    </td>
-                    <td className='p-1'>
-                      <Typography>{data.state}</Typography>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className='p-1 pis-0 is-[150px]'>
-                      <Typography className='font-medium' color='text.primary'>
-                        Zip Code:
-                      </Typography>
-                    </td>
-                    <td className='p-1'>
-                      <Typography>{data.zipCode}</Typography>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </Grid>
+    <Card>
+      <CardHeader
+        title='Billing Address'
+        action={
+          <OpenDialogOnElementClick
+            element={Button}
+            elementProps={buttonProps}
+            dialog={AddEditAddress}
+            dialogProps={{
+              data: address,
+              onUpdate: handleUpdateAddress
+            }}
+          />
+        }
+      />
+      <CardContent>
+        <Grid container>
+          <Grid size={{ xs: 12, md: 6 }}>
+            <table>
+              <tbody>
+                <tr>
+                  <td className='p-1 pis-0 is-[150px]'>
+                    <Typography className='font-medium'>Name:</Typography>
+                  </td>
+                  <td className='p-1'>
+                    <Typography>{`${address.firstName} ${address.lastName}`}</Typography>
+                  </td>
+                </tr>
+                <tr>
+                  <td className='p-1 pis-0 is-[150px]'>
+                    <Typography className='font-medium'>Billing Email:</Typography>
+                  </td>
+                  <td className='p-1'>
+                    <Typography>{address.email}</Typography>
+                  </td>
+                </tr>
+                <tr>
+                  <td className='p-1 pis-0 is-[150px]'>
+                    <Typography className='font-medium'>Tax ID:</Typography>
+                  </td>
+                  <td className='p-1'>
+                    <Typography>{address.taxId}</Typography>
+                  </td>
+                </tr>
+                <tr>
+                  <td className='p-1 pis-0 is-[150px]'>
+                    <Typography className='font-medium'>Billing Address:</Typography>
+                  </td>
+                  <td className='p-1'>
+                    <Typography>{`${address.address1} ${address.address2}`}</Typography>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </Grid>
-        </CardContent>
-      </Card>
-    </>
+
+          <Grid size={{ xs: 12, md: 6 }}>
+            <table>
+              <tbody>
+                <tr>
+                  <td className='p-1 pis-0 is-[150px]'>
+                    <Typography className='font-medium'>City:</Typography>
+                  </td>
+                  <td className='p-1'>
+                    <Typography>{address.city}</Typography>
+                  </td>
+                </tr>
+                <tr>
+                  <td className='p-1 pis-0 is-[150px]'>
+                    <Typography className='font-medium'>State:</Typography>
+                  </td>
+                  <td className='p-1'>
+                    <Typography>{address.state}</Typography>
+                  </td>
+                </tr>
+                <tr>
+                  <td className='p-1 pis-0 is-[150px]'>
+                    <Typography className='font-medium'>Zip Code:</Typography>
+                  </td>
+                  <td className='p-1'>
+                    <Typography>{address.zipCode}</Typography>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
   )
 }
 

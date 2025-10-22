@@ -162,6 +162,7 @@ const exportCSV = (data) => {
 
 const UserListTable = ({ tableData }) => {
   // States
+  const [status, setStatus] = useState('')
   const [addUserOpen, setAddUserOpen] = useState(false)
   const [rowSelection, setRowSelection] = useState({})
   const [data, setData] = useState(...[tableData])
@@ -341,6 +342,15 @@ const UserListTable = ({ tableData }) => {
     }
   }
 
+  useEffect(() => {
+    const filteredData = data?.filter(user => {
+      if (status && user.status.toLowerCase() !== status) return false
+      return true
+    })
+
+    setFilteredData(filteredData)
+  }, [status, data, setFilteredData])
+
   return (
     <>
       <Card>
@@ -366,6 +376,21 @@ const UserListTable = ({ tableData }) => {
               placeholder='Search User'
               className='max-sm:is-full'
             />
+            <CustomTextField
+              select
+              id='select-status'
+              value={status}
+              onChange={e => setStatus(e.target.value)}
+              className='max-sm:is-full sm:is-[160px]'
+              slotProps={{
+                select: { displayEmpty: true }
+              }}
+            >
+              <MenuItem value=''>Status</MenuItem>
+              <MenuItem value='active'>Active</MenuItem>
+              <MenuItem value='pending'>Pending</MenuItem>
+              <MenuItem value='inactive'>Inactive</MenuItem>
+            </CustomTextField>
           <div className='flex items-center gap-4'>
             <Button
               variant='tonal'

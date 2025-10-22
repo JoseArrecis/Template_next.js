@@ -9,7 +9,6 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid2'
-import Typography from '@mui/material/Typography'
 
 // Custom Components
 import CustomTextField from '@core/components/mui/TextField'
@@ -20,25 +19,14 @@ const BillingCard = ({ open, setOpen, data, onUpdate }) => {
     cardNumber: '',
     expiryDate: '',
     cardCvv: '',
-    imgSrc: '',
-    imgAlt: '',
+    imgSrc: '/images/logos/visa.png',
+    imgAlt: 'New Card',
     cardStatus: '',
     badgeColor: ''
   })
 
   useEffect(() => {
-    if (data) {
-      setCardData(data)
-    } else {
-      setCardData({
-        name: '',
-        cardNumber: '',
-        expiryDate: '',
-        cardCvv: '',
-        imgSrc: '/images/logos/visa.png',
-        imgAlt: 'New Card'
-      })
-    }
+    if (data) setCardData(data)
   }, [data])
 
   const handleChange = e => {
@@ -47,7 +35,12 @@ const BillingCard = ({ open, setOpen, data, onUpdate }) => {
   }
 
   const handleSubmit = () => {
-    onUpdate(cardData)
+    if (typeof onUpdate === 'function') {
+      onUpdate(cardData)
+      setOpen(false)
+    } else {
+      console.error('onUpdate is not a function')
+    }
   }
 
   return (

@@ -63,7 +63,6 @@ const fuzzyFilter = (row, columnId, value, addMeta) => {
 }
 
 const DebouncedInput = ({ value: initialValue, onChange, debounce = 500, ...props }) => {
-  // States
   const [value, setValue] = useState(initialValue)
 
   useEffect(() => {
@@ -230,7 +229,10 @@ const InvoiceListTable = ({ invoiceData }) => {
               <i className='tabler-trash text-textSecondary' />
             </IconButton>
             <IconButton>
-              <Link href={getLocalizedUrl(`/apps/invoice/preview/${row.original.id}`, locale)} className='flex'>
+              <Link 
+                href={getLocalizedUrl(`/apps/invoice/preview/${row.original.id}`, locale)} 
+                className='flex'
+              >
                 <i className='tabler-eye text-textSecondary' />
               </Link>
             </IconButton>

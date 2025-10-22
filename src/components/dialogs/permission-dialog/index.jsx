@@ -1,3 +1,5 @@
+'use client'
+
 // MUI Imports
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
@@ -13,8 +15,26 @@ import AlertTitle from '@mui/material/AlertTitle'
 // Component Imports
 import CustomTextField from '@core/components/mui/TextField'
 import DialogCloseButton from '../DialogCloseButton'
+import { useState } from 'react'
 
-const AddContent = ({ handleClose }) => {
+const AddContent = ({ handleClose, onAddPermission }) => {
+  const [name, setName] = useState('')
+  const [isCore, setIsCore] = useState(false)
+
+  const handleCreate = () => {
+    if (!name.trim()) return 
+
+    const newPermission = {
+      id: Math.floor(Math.random() * 10000),
+      name,
+      assignedTo: isCore ? 'administrador' : 'users',
+      createdData: new Date().toLocaleDateString()
+    }
+
+    onAddPermission(newPermission)
+    handleClose()
+  }
+
   return (
     <>
       <DialogContent className='overflow-visible pbs-0 sm:pli-16'>
@@ -24,14 +44,19 @@ const AddContent = ({ handleClose }) => {
           variant='outlined'
           placeholder='Enter Permission Name'
           className='mbe-2'
+          value={name}
+          onChange={e => setName(e.target.value)}
         />
-        <FormControlLabel control={<Checkbox />} label='Set as core permission' />
+        <FormControlLabel 
+          control={<Checkbox checked={isCore} onChange={e => setIsCore(e.target.value)} />} 
+          label='Set as core permission' 
+        />
       </DialogContent>
-      <DialogActions className='flex max-sm:flex-col max-sm:items-center max-sm:gap-2 justify-center pbs-0 sm:pbe-16 sm:pli-16'>
-        <Button type='submit' variant='contained' onClick={handleClose}>
+      <DialogActions className='flex justify-center pbs-0 sm-:pbe-16 sm:pli-16'>
+        <Button type='submit' variant='contained' onClick={handleCreate}>
           Create Permission
         </Button>
-        <Button onClick={handleClose} variant='tonal' color='secondary' className='max-sm:mis-0'>
+        <Button onClick={handleClose} variant='tonal' color='secondary'>
           Discard
         </Button>
       </DialogActions>
@@ -65,28 +90,21 @@ const EditContent = ({ handleClose, data }) => {
   )
 }
 
-const PermissionDialog = ({ open, setOpen, data }) => {
-  const handleClose = () => {
-    setOpen(false)
-  }
+const PermissionDialog = ({ open, setOpen, data, onAddPermission }) => {
+  const handleClose = () => setOpen(false)
 
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      closeAfterTransition={false}
-      sx={{ '& .MuiDialog-paper': { overflow: 'visible' } }}
-    >
-      <DialogCloseButton onClick={() => setOpen(false)} disableRipple>
+    <Dialog open={open} onClose={handleClose}>
+      <DialogCloseButton onClick={handleClose}>
         <i className='tabler-x' />
       </DialogCloseButton>
-      <DialogTitle variant='h4' className='flex flex-col gap-2 text-center sm:pbs-16 sm:pbe-6 sm:pli-16'>
-        {data ? 'Edit Permission' : 'Add New Permission'}
-        <Typography component='span' className='flex flex-col text-center'>
-          {data ? 'Edit permission as per your requirements.' : 'Permissions you may use and assign to your users.'}
-        </Typography>
+      <DialogTitle>
+        {data ? 'EditPermission' : 'Add New Permission'}
       </DialogTitle>
-      {data ? <EditContent handleClose={handleClose} data={data} /> : <AddContent handleClose={handleClose} />}
+      {data
+        ? <EditContent handleClose={handleClose} data={data} />
+        : <AddContent handleClose={handleClose} onAddPermission={onAddPermission} />
+      }
     </Dialog>
   )
 }

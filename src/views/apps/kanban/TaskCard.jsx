@@ -76,6 +76,38 @@ const TaskCard = props => {
     handleDeleteTask()
   }
 
+  const handleDuplicate = () => {
+    handleClose()
+    const newTask = {
+      ...task,
+      id: Math.floor(Math.random() * 1000000),
+      title: `${task.title} (copy)`
+    }
+
+    const updateTask = [...tasksList, newTask]
+    setTasksList(updateTask)
+
+    const newColumns = columns.map(col => {
+      if (col.id === column.id) {
+        return { ...col, taskIds: [...col.taskIds, newTask.id] }
+      }
+      return col
+    })
+
+    setColumns(newColumns)
+  }
+
+  const handleCopyLink = async () => {
+    handleClose()
+    try {
+      const link = `${window.location.origin}/kanban/task/${task.id}`
+      await navigator.clipboard.writeText(link)
+      alert('Task link copied to clipboard')
+    } catch (err) {
+      console.error('Failed to copy link', err)
+    }
+  }
+
   return (
     <>
       <Card
@@ -118,8 +150,8 @@ const TaskCard = props => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Duplicate Task</MenuItem>
-              <MenuItem onClick={handleClose}>Copy Task Link</MenuItem>
+              <MenuItem onClick={handleDuplicate}>Duplicate Task</MenuItem>
+              <MenuItem onClick={handleCopyLink}>Copy Task Link</MenuItem>
               <MenuItem
                 onClick={() => {
                   handleDelete()

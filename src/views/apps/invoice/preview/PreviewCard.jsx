@@ -1,3 +1,5 @@
+'use client'
+
 // MUI Imports
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -12,46 +14,26 @@ import Logo from '@components/layout/shared/Logo'
 import tableStyles from '@core/styles/table.module.css'
 import './print.css'
 
-// Vars
-const data = [
-  {
-    Item: 'Premium Branding Package',
-    Description: 'Branding & Promotion',
-    Hours: 48,
-    Qty: 1,
-    Total: '$32'
-  },
-  {
-    Item: 'Social Media',
-    Description: 'Social media templates',
-    Hours: 42,
-    Qty: 1,
-    Total: '$28'
-  },
-  {
-    Item: 'Web Design',
-    Description: 'Web designing package',
-    Hours: 46,
-    Qty: 1,
-    Total: '$24'
-  },
-  {
-    Item: 'SEO',
-    Description: 'Search engine optimization',
-    Hours: 40,
-    Qty: 1,
-    Total: '$22'
-  }
-]
-
 const PreviewCard = ({ invoiceData, id }) => {
+  if (!invoiceData) return null
+
+  // Calcular totales
+  const subtotal =
+    invoiceData.items?.reduce((acc, item) => acc + (item.total || 0) * (item.qty || 1), 0) || 0
+  const discount = 28
+  const taxRate = 0.21
+  const tax = subtotal * taxRate
+  const total = subtotal - discount + tax
+
   return (
     <Card className='previewCard'>
       <CardContent className='sm:!p-12'>
         <Grid container spacing={6}>
+          {/* ENCABEZADO */}
           <Grid size={{ xs: 12 }}>
             <div className='p-6 bg-actionHover rounded'>
               <div className='flex justify-between gap-y-4 flex-col sm:flex-row'>
+                {/* Logo e info empresa */}
                 <div className='flex flex-col gap-6'>
                   <div className='flex items-center gap-2.5'>
                     <Logo />
@@ -62,16 +44,20 @@ const PreviewCard = ({ invoiceData, id }) => {
                     <Typography color='text.primary'>+1 (123) 456 7891, +44 (876) 543 2198</Typography>
                   </div>
                 </div>
+
+                {/* Info factura */}
                 <div className='flex flex-col gap-6'>
                   <Typography variant='h5'>{`Invoice #${id}`}</Typography>
                   <div className='flex flex-col gap-1'>
-                    <Typography color='text.primary'>{`Date Issued: ${invoiceData?.issuedDate}`}</Typography>
-                    <Typography color='text.primary'>{`Date Due: ${invoiceData?.dueDate}`}</Typography>
+                    <Typography color='text.primary'>{`Date Issued: ${invoiceData.issuedDate}`}</Typography>
+                    <Typography color='text.primary'>{`Date Due: ${invoiceData.dueDate}`}</Typography>
                   </div>
                 </div>
               </div>
             </div>
           </Grid>
+
+          {/* INFORMACIÓN CLIENTE / BANCO */}
           <Grid size={{ xs: 12 }}>
             <Grid container spacing={6}>
               <Grid size={{ xs: 12, sm: 6 }}>
@@ -80,14 +66,15 @@ const PreviewCard = ({ invoiceData, id }) => {
                     Invoice To:
                   </Typography>
                   <div>
-                    <Typography>{invoiceData?.name}</Typography>
-                    <Typography>{invoiceData?.company}</Typography>
-                    <Typography>{invoiceData?.address}</Typography>
-                    <Typography>{invoiceData?.contact}</Typography>
-                    <Typography>{invoiceData?.companyEmail}</Typography>
+                    <Typography>{invoiceData.name}</Typography>
+                    <Typography>{invoiceData.company}</Typography>
+                    <Typography>{invoiceData.address}</Typography>
+                    <Typography>{invoiceData.contact}</Typography>
+                    <Typography>{invoiceData.companyEmail}</Typography>
                   </div>
                 </div>
               </Grid>
+
               <Grid size={{ xs: 12, sm: 6 }}>
                 <div className='flex flex-col gap-4'>
                   <Typography className='font-medium' color='text.primary'>
@@ -96,7 +83,7 @@ const PreviewCard = ({ invoiceData, id }) => {
                   <div>
                     <div className='flex items-center gap-4'>
                       <Typography className='min-is-[100px]'>Total Due:</Typography>
-                      <Typography>$12,110.55</Typography>
+                      <Typography>${invoiceData.total}</Typography>
                     </div>
                     <div className='flex items-center gap-4'>
                       <Typography className='min-is-[100px]'>Bank name:</Typography>
@@ -119,6 +106,8 @@ const PreviewCard = ({ invoiceData, id }) => {
               </Grid>
             </Grid>
           </Grid>
+
+          {/* TABLA DE ÍTEMS */}
           <Grid size={{ xs: 12 }}>
             <div className='overflow-x-auto border rounded'>
               <table className={tableStyles.table}>
@@ -132,22 +121,22 @@ const PreviewCard = ({ invoiceData, id }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item, index) => (
+                  {invoiceData.items?.map((item, index) => (
                     <tr key={index}>
                       <td>
-                        <Typography color='text.primary'>{item.Item}</Typography>
+                        <Typography color='text.primary'>{item.item}</Typography>
                       </td>
                       <td>
-                        <Typography color='text.primary'>{item.Description}</Typography>
+                        <Typography color='text.primary'>{item.description}</Typography>
                       </td>
                       <td>
-                        <Typography color='text.primary'>{item.Hours}</Typography>
+                        <Typography color='text.primary'>{item.hours}</Typography>
                       </td>
                       <td>
-                        <Typography color='text.primary'>{item.Qty}</Typography>
+                        <Typography color='text.primary'>{item.qty}</Typography>
                       </td>
                       <td>
-                        <Typography color='text.primary'>{item.Total}</Typography>
+                        <Typography color='text.primary'>${item.total}</Typography>
                       </td>
                     </tr>
                   ))}
@@ -155,6 +144,8 @@ const PreviewCard = ({ invoiceData, id }) => {
               </table>
             </div>
           </Grid>
+
+          {/* SUBTOTALES Y NOTA */}
           <Grid size={{ xs: 12 }}>
             <div className='flex justify-between flex-col gap-y-4 sm:flex-row'>
               <div className='flex flex-col gap-1 order-2 sm:order-[unset]'>
@@ -162,39 +153,43 @@ const PreviewCard = ({ invoiceData, id }) => {
                   <Typography className='font-medium' color='text.primary'>
                     Salesperson:
                   </Typography>
-                  <Typography>Tommy Shelby</Typography>
+                  <Typography>{invoiceData.salesperson}</Typography>
                 </div>
                 <Typography>Thanks for your business</Typography>
               </div>
+
+              {/* Totales */}
               <div className='min-is-[200px]'>
                 <div className='flex items-center justify-between'>
                   <Typography>Subtotal:</Typography>
                   <Typography className='font-medium' color='text.primary'>
-                    $1800
+                    ${subtotal.toFixed(2)}
                   </Typography>
                 </div>
                 <div className='flex items-center justify-between'>
                   <Typography>Discount:</Typography>
                   <Typography className='font-medium' color='text.primary'>
-                    $28
+                    ${discount}
                   </Typography>
                 </div>
                 <div className='flex items-center justify-between'>
                   <Typography>Tax:</Typography>
                   <Typography className='font-medium' color='text.primary'>
-                    21%
+                    {taxRate * 100}%
                   </Typography>
                 </div>
                 <Divider className='mlb-2' />
                 <div className='flex items-center justify-between'>
                   <Typography>Total:</Typography>
                   <Typography className='font-medium' color='text.primary'>
-                    $1690
+                    ${total.toFixed(2)}
                   </Typography>
                 </div>
               </div>
             </div>
           </Grid>
+
+          {/* NOTA */}
           <Grid size={{ xs: 12 }}>
             <Divider className='border-dashed' />
           </Grid>
@@ -203,8 +198,8 @@ const PreviewCard = ({ invoiceData, id }) => {
               <Typography component='span' className='font-medium' color='text.primary'>
                 Note:
               </Typography>{' '}
-              It was a pleasure working with you and your team. We hope you will keep us in mind for future freelance
-              projects. Thank You!
+              {invoiceData.note ||
+                'It was a pleasure working with you and your team. We hope you will keep us in mind for future freelance projects. Thank You!'}
             </Typography>
           </Grid>
         </Grid>

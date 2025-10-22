@@ -1,6 +1,5 @@
 'use client'
 
-// React Imports
 import { useEffect, useState } from 'react'
 
 // MUI Imports
@@ -53,63 +52,55 @@ const customInputData = [
   }
 ]
 
-const AddEditAddress = ({ open, setOpen, data }) => {
-  // Vars
-  const initialSelected = customInputData?.find(item => item.isSelected)?.value || ''
-
-  // States
+const AddEditAddress = ({ open, setOpen, data, onUpdate }) => {
+  const initialSelected = customInputData.find(item => item.isSelected)?.value || ''
   const [selected, setSelected] = useState(initialSelected)
   const [addressData, setAddressData] = useState(initialAddressData)
 
-  const handleChange = prop => {
-    if (typeof prop === 'string') {
-      setSelected(prop)
-    } else {
-      setSelected(prop.target.value)
-    }
-  }
-
   useEffect(() => {
     setAddressData(data ?? initialAddressData)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open])
+  }, [data, open])
+
+  const handleChange = prop => {
+    if (typeof prop === 'string') setSelected(prop)
+    else setSelected(prop.target.value)
+  }
+
+  const handleSubmit = () => {
+    if (typeof onUpdate === 'function') {
+      onUpdate(addressData)
+    }
+    setOpen(false)
+  }
 
   return (
     <Dialog
       open={open}
       maxWidth='md'
       scroll='body'
-      onClose={() => {
-        setOpen(false)
-        setSelected(initialSelected)
-      }}
-      closeAfterTransition={false}
+      onClose={() => setOpen(false)}
       sx={{ '& .MuiDialog-paper': { overflow: 'visible' } }}
     >
-      <DialogTitle variant='h4' className='flex gap-2 flex-col text-center sm:pbs-16 sm:pbe-6 sm:pli-16'>
+      <DialogTitle variant='h4' className='flex flex-col text-center'>
         {data ? 'Edit Address' : 'Add New Address'}
-        <Typography component='span' className='flex flex-col text-center'>
+        <Typography component='span'>
           {data ? 'Edit Address for future billing' : 'Add address for billing address'}
         </Typography>
       </DialogTitle>
+
       <form onSubmit={e => e.preventDefault()}>
-        <DialogContent className='pbs-0 sm:pli-16'>
-          <DialogCloseButton onClick={() => setOpen(false)} disableRipple>
+        <DialogContent>
+          <DialogCloseButton onClick={() => setOpen(false)}>
             <i className='tabler-x' />
           </DialogCloseButton>
-          <Grid container spacing={6}>
+
+          <Grid container spacing={4}>
             {customInputData.map((item, index) => {
-              let asset
-
-              if (item.asset && typeof item.asset === 'string') {
-                asset = <i className={classnames(item.asset, 'text-[28px]')} />
-              }
-
+              const asset = <i className={classnames(item.asset, 'text-[28px]')} />
               return (
                 <Grid size={{ xs: 12, sm: 6 }} key={index}>
                   <CustomInputVertical
                     type='radio'
-                    key={index}
                     data={{ ...item, asset }}
                     selected={selected}
                     name='addressType'
@@ -118,130 +109,106 @@ const AddEditAddress = ({ open, setOpen, data }) => {
                 </Grid>
               )
             })}
+
             <Grid size={{ xs: 12, sm: 6 }}>
               <CustomTextField
                 fullWidth
                 label='First Name'
-                name='firstName'
-                variant='outlined'
-                placeholder='John'
-                value={addressData?.firstName}
+                value={addressData.firstName}
                 onChange={e => setAddressData({ ...addressData, firstName: e.target.value })}
               />
             </Grid>
+
             <Grid size={{ xs: 12, sm: 6 }}>
               <CustomTextField
                 fullWidth
                 label='Last Name'
-                name='lastName'
-                variant='outlined'
-                placeholder='Doe'
-                value={addressData?.lastName}
+                value={addressData.lastName}
                 onChange={e => setAddressData({ ...addressData, lastName: e.target.value })}
               />
             </Grid>
+
             <Grid size={{ xs: 12 }}>
               <CustomTextField
                 select
                 fullWidth
                 label='Country'
-                name='country'
-                variant='outlined'
-                value={addressData?.country?.toLowerCase().replace(/\s+/g, '-') || ''}
+                value={addressData.country}
                 onChange={e => setAddressData({ ...addressData, country: e.target.value })}
               >
                 {countries.map((item, index) => (
-                  <MenuItem key={index} value={index === 0 ? '' : item.toLowerCase().replace(/\s+/g, '-')}>
+                  <MenuItem key={index} value={index === 0 ? '' : item}>
                     {item}
                   </MenuItem>
                 ))}
               </CustomTextField>
             </Grid>
+
             <Grid size={{ xs: 12 }}>
               <CustomTextField
                 fullWidth
                 label='Address Line 1'
-                name='address1'
-                variant='outlined'
-                placeholder='12, Business Park'
-                value={addressData?.address1}
+                value={addressData.address1}
                 onChange={e => setAddressData({ ...addressData, address1: e.target.value })}
               />
             </Grid>
+
             <Grid size={{ xs: 12 }}>
               <CustomTextField
                 fullWidth
                 label='Address Line 2'
-                name='address1'
-                variant='outlined'
-                placeholder='Mall Road'
-                value={addressData?.address2}
+                value={addressData.address2}
                 onChange={e => setAddressData({ ...addressData, address2: e.target.value })}
               />
             </Grid>
+
             <Grid size={{ xs: 12, sm: 6 }}>
               <CustomTextField
                 fullWidth
                 label='Landmark'
-                name='landmark'
-                variant='outlined'
-                placeholder='Nr. Hard Rock Cafe'
-                value={addressData?.landmark}
+                value={addressData.landmark}
                 onChange={e => setAddressData({ ...addressData, landmark: e.target.value })}
               />
             </Grid>
+
             <Grid size={{ xs: 12, sm: 6 }}>
               <CustomTextField
                 fullWidth
                 label='City'
-                name='city'
-                variant='outlined'
-                placeholder='Los Angeles'
-                value={addressData?.city}
+                value={addressData.city}
                 onChange={e => setAddressData({ ...addressData, city: e.target.value })}
               />
             </Grid>
+
             <Grid size={{ xs: 12, sm: 6 }}>
               <CustomTextField
                 fullWidth
                 label='State'
-                name='state'
-                variant='outlined'
-                placeholder='California'
-                value={addressData?.state}
+                value={addressData.state}
                 onChange={e => setAddressData({ ...addressData, state: e.target.value })}
               />
             </Grid>
+
             <Grid size={{ xs: 12, sm: 6 }}>
               <CustomTextField
                 fullWidth
                 label='Zip Code'
-                type='number'
-                name='zipCode'
-                variant='outlined'
-                placeholder='99950'
-                value={addressData?.zipCode}
+                value={addressData.zipCode}
                 onChange={e => setAddressData({ ...addressData, zipCode: e.target.value })}
               />
             </Grid>
+
             <Grid size={{ xs: 12 }}>
               <FormControlLabel control={<Switch defaultChecked />} label='Make this default shipping address' />
             </Grid>
           </Grid>
         </DialogContent>
-        <DialogActions className='justify-center pbs-0 sm:pbe-16 sm:pli-16'>
-          <Button variant='contained' onClick={() => setOpen(false)} type='submit'>
+
+        <DialogActions className='justify-center'>
+          <Button variant='contained' onClick={handleSubmit}>
             {data ? 'Update' : 'Submit'}
           </Button>
-          <Button
-            variant='tonal'
-            color='secondary'
-            onClick={() => {
-              setOpen(false)
-              setSelected(initialSelected)
-            }}
-            type='reset'
-          >
+          <Button variant='tonal' color='secondary' onClick={() => setOpen(false)}>
             Cancel
           </Button>
         </DialogActions>
