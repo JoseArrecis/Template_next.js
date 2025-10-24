@@ -1,3 +1,5 @@
+'use client'
+
 // React Imports
 import { useState } from 'react'
 
@@ -19,7 +21,7 @@ import { getLocalizedUrl } from '@/utils/i18n'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 
-const PreviewActions = ({ id, onButtonClick }) => {
+const PreviewActions = ({ id, onButtonClick, invoiceData }) => {
   // States
   const [paymentDrawerOpen, setPaymentDrawerOpen] = useState(false)
   const [sendDrawerOpen, setSendDrawerOpen] = useState(false)
@@ -28,29 +30,34 @@ const PreviewActions = ({ id, onButtonClick }) => {
   const { lang: locale } = useParams()
 
   const handleDownloadPDF = () => {
+    if (!invoiceData || !invoiceData.items || !Array.isArray(invoiceData.items)) {
+      alert('Invoice data is not loaded yet.')
+      return
+    }
+
     const doc = new jsPDF()
 
     doc.setFontSize(20)
     doc.text('Invoice', 14, 20)
     doc.setFontSize(12)
     doc.text(`Invoice ID: ${id}`, 14, 30)
-    doc.text('Customer: Jhon Doe', 14, 38)
-    doc.text('Email: johndoe@email.com', 14, 46)
+    doc.text(`Customer: ${invoiceData.client?.name || 'Unknown Client'}`, 14, 38)
+    doc.text(`Email: ${invoiceData.client?.email || 'No email provided'}`, 14, 46)
 
     const tableColumn = ['Item', 'Description', 'Hours', 'Qty', 'Total']
     const tableRows = []
     let subtotal = 0
 
-    invoiceData.forEach(item => {
+    invoiceData.items.forEach(item => {
       const row = [
-        item.Item,
-        item.Description,
-        item.Hours.toString(),
-        item.Qty.toString(),
-        `$${item.Total}`
+        item.item || '—',
+        item.description || '—',
+        String(item.hours || 0),
+        String(item.qty || 0),
+        `$${(item.total || 0).toFixed(2)}`
       ]
       tableRows.push(row)
-      subtotal += item.Total * item.Qty
+      subtotal += (item.total || 0) * (item.qty || 0)
     })
 
     autoTable(doc, {

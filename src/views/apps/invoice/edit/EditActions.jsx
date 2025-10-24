@@ -72,7 +72,6 @@ const EditActions = ({ id }) => {
       const buffer = Buffer.from(arrayBuffer)
       const base64PDF = buffer.toString('base64')
 
-      // 3️⃣ Enviar correo desde el mismo endpoint
       const res = await fetch('/api/send-invoice', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -86,7 +85,7 @@ const EditActions = ({ id }) => {
 
       if(!res.ok) throw new Error('Error sending email')
 
-        doc.save(`invoice-${id}.pdf`)
+      doc.save(`invoice-${id}.pdf`)
 
       alert('Invoice saved and email sent successfully')
     } catch (err) {

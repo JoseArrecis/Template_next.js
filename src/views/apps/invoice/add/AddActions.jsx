@@ -26,6 +26,7 @@ import { getLocalizedUrl } from '@/utils/i18n'
 const AddActions = () => {
   const [sendDrawerOpen, setSendDrawerOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [invoiceIdSent, setInvoiceIdSent] = useState(null)
 
   const { lang: locale } = useParams()
   const router = useRouter()
@@ -34,8 +35,8 @@ const AddActions = () => {
     id: Date.now(),
     dueDate: new Date().toISOString().split('T')[0],
     client: {
-      name: 'Jhon Doe',
-      email: '',
+      name: 'John Doe',
+      email: 'cliente@example.com', 
       company: 'ABC Corporation',
       address: '123 Main St, City, Country'
     },
@@ -54,6 +55,46 @@ const AddActions = () => {
     status: 'Draft'
   }
 
+  const handleSendInvoice = async () => {
+    try {
+      const res = await fetch('/api/apps/invoice', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(invoiceData)
+      })
+
+      if (!res.ok) throw new Error('Error adding invoice')
+
+      const newInvoice = await res.json()
+      const realInvoiceId = newInvoice.id 
+
+      const sendRes = await fetch('/api/send-invoice', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          from: 'you@company.com',
+          to: invoiceData.client.email,
+          subject: `Invoice #${realInvoiceId}`,
+          message: 'Here is your invoice',
+          id: realInvoiceId,
+          invoiceData: invoiceData.items
+        })
+      })
+
+      const sendData = await sendRes.json()
+
+      if (sendData.success) {
+        alert(`Invoice sent! ID: ${realInvoiceId}`)
+        setSendDrawerOpen(false)
+      } else {
+        alert('Error sending invoice: ' + sendData.message)
+      }
+    } catch (err) {
+      console.error(err)
+      alert('Error sending invoice.')
+    }
+  }
+
   const handleAdd = async () => {
     setLoading(true)
     try {
@@ -66,7 +107,6 @@ const AddActions = () => {
       if (!res.ok) throw new Error('Error adding invoice.')
 
       const newInvoice = await res.json()
-
       router.push(getLocalizedUrl(`/apps/invoice/edit/${newInvoice.id}`, locale))
     } catch (err) {
       console.error(err)
@@ -115,7 +155,19 @@ const AddActions = () => {
           </CardContent>
         </Card>
 
-        <SendInvoiceDrawer open={sendDrawerOpen} handleClose={() => setSendDrawerOpen(false)} />
+        <SendInvoiceDrawer
+          open={sendDrawerOpen}
+          handleClose={() => setSendDrawerOpen(false)}
+          invoiceData={invoiceData}
+        >
+          <Button
+            variant='contained'
+            fullWidth
+            onClick={handleSendInvoice}
+          >
+            Send
+          </Button>
+        </SendInvoiceDrawer>
       </Grid>
 
       <Grid size={{ xs: 12 }}>
